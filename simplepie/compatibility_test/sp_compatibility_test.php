@@ -14,28 +14,35 @@ else if (isset($_GET['background']))
 	exit;
 }
 
-$php_ok = (function_exists('version_compare') && version_compare(phpversion(), '4.3.0', '>='));
-$xml_ok = extension_loaded('xml');
+$php_ok = (function_exists('version_compare') && version_compare(phpversion(), '5.0.0', '>='));
 $pcre_ok = extension_loaded('pcre');
 $curl_ok = function_exists('curl_exec');
 $zlib_ok = extension_loaded('zlib');
 $mbstring_ok = extension_loaded('mbstring');
 $iconv_ok = extension_loaded('iconv');
+if (extension_loaded('xmlreader'))
+{
+	$xml_ok = true;
+}
+elseif (extension_loaded('xml'))
+{
+	$parser_check = xml_parser_create();
+	xml_parse_into_struct($parser_check, '<foo>&amp;</foo>', $values);
+	xml_parser_free($parser_check);
+	$xml_ok = isset($values[0]['value']);
+}
+else
+{
+	$xml_ok = false;
+}
 
-//$php_ok = false;
-//$xml_ok = false;
-//$pcre_ok = false;
-//$curl_ok = false;
-//$zlib_ok = false;
-//$mbstring_ok = false;
-//$iconv_ok = false;
+header('Content-type: text/html; charset=UTF-8');
 
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+?><!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<html lang="en">
 <head>
-<title>SimplePie: Server Compatibility Test 1.1</title>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>SimplePie: Server Compatibility Test 1.2</title>
 
 <style type="text/css">
 body {
@@ -107,6 +114,10 @@ code {
 	font-size:1.1em;
 	background-color:#f3f3ff;
 	color:#000;
+}
+
+em strong {
+    text-transform: uppercase;
 }
 
 table#chart {
@@ -203,17 +214,17 @@ function fnLoadPngs() {
 				</thead>
 				<tbody>
 					<tr class="<?php echo ($php_ok) ? 'enabled' : 'disabled'; ?>">
-						<td>PHP&sup1;</td>
-						<td>4.3.0 or higher</td>
+						<td>PHP</td>
+						<td>5.0.0 or higher</td>
 						<td><?php echo phpversion(); ?></td>
 					</tr>
-					<tr class="<?php echo ($xml_ok) ? 'enabled' : 'disabled'; ?>">
+					<tr class="<?php echo ($xml_ok) ? 'enabled, and sane' : 'disabled, or broken'; ?>">
 						<td><a href="http://php.net/xml">XML</a></td>
 						<td>Enabled</td>
-						<td><?php echo ($xml_ok) ? 'Enabled' : 'Disabled'; ?></td>
+						<td><?php echo ($xml_ok) ? 'Enabled, and sane' : 'Disabled, or broken'; ?></td>
 					</tr>
 					<tr class="<?php echo ($pcre_ok) ? 'enabled' : 'disabled'; ?>">
-						<td><a href="http://php.net/pcre">PCRE</a>&sup2;</td>
+						<td><a href="http://php.net/pcre">PCRE</a>&sup1;</td>
 						<td>Enabled</td>
 						<td><?php echo ($pcre_ok) ? 'Enabled' : 'Disabled'; ?></td>
 					</tr>
@@ -250,7 +261,7 @@ function fnLoadPngs() {
 					<?php if ($php_ok): ?>
 						<li><strong>PHP:</strong> You are running a supported version of PHP.  <em>No problems here.</em></li>
 						<?php if ($xml_ok): ?>
-							<li><strong>XML:</strong> You have XML support installed.  <em>No problems here.</em></li>
+							<li><strong>XML:</strong> You have XMLReader support or a version of XML support that isn't broken installed.  <em>No problems here.</em></li>
 							<?php if ($pcre_ok): ?>
 								<li><strong>PCRE:</strong> You have PCRE support installed. <em>No problems here.</em></li>
 								<?php if ($curl_ok): ?>
@@ -272,7 +283,7 @@ function fnLoadPngs() {
 								<?php elseif ($iconv_ok): ?>
 									<li><strong>iconv:</strong> <code>iconv</code> is installed, but <code>mbstring</code> is not.  Check the <a href="http://simplepie.org/wiki/faq/supported_character_encodings">Supported Character Encodings</a> chart to see what's supported on your webhost.</li>
 								<?php else: ?>
-									<li><strong>mbstring and iconv:</strong> You do not have either of the extensions installed. SimplePie requires at least one of these in order to function properly. Most web hosts support PHP 5 these days, and PHP 5 has <code>iconv</code> support built-in. <em>SimplePie is a no-go at the moment.</em></li>
+									<li><strong>mbstring and iconv:</strong> <em>You do not have either of the extensions installed.</em> This will significantly impair your ability to read non-English feeds, as well as even some English ones.  Check the <a href="http://simplepie.org/wiki/faq/supported_character_encodings">Supported Character Encodings</a> chart to see what's supported on your webhost.</li>
 								<?php endif; ?>
 							<?php else: ?>
 								<li><strong>PCRE:</strong> Your PHP installation doesn't support Perl-Compatible Regular Expressions.  <em>SimplePie is a no-go at the moment.</em></li>
@@ -293,27 +304,21 @@ function fnLoadPngs() {
 				<p><em>Your webhost has its act together!</em></p>
 				<p>You can download the latest version of SimplePie from <a href="http://simplepie.org/downloads/">SimplePie.org</a> and install it by <a href="http://simplepie.org/wiki/setup/start">following the instructions</a>.  You can find example uses with <a href="http://simplepie.org/ideas/">SimplePie Ideas</a>.</p>
 				<p>Take the time to read <a href="http://simplepie.org/wiki/setup/start">Requirements and Getting Started</a> to make sure you're prepared to use SimplePie. No seriously, read them.</p>
-				<p class="footnote">**NOTE** Passing this test does not guarantee that SimplePie will run on your webhost &mdash; it only ensures that the basic requirements have been addressed.</p>
-			<?php } else if ($php_ok && $xml_ok && $pcre_ok && (!$mbstring_ok && !$iconv_ok)) { ?>
-				<h3>Bottom Line: We're sorry...</h3>
-				<p><em>Your webhost does not support the minimum requirements for SimplePie.</em>  It may be a good idea to contact your webhost, and ask them to install a more recent version of PHP as well as the <code>xml</code>, <code>mbstring</code>, <code>iconv</code>, <code>curl</code>, and <code>zlib</code> extensions.</p>
-				<p>Alternatively, we've been very happy with <a href="http://dreamhost.com/r.cgi?skyzyx">Dreamhost</a>. Dreamhost has a lot of great stuff for a pretty low price, including everything needed to run SimplePie. Use the <code>SIMPLEPIE</code> promo code and get $20 USD off your first year of hosting!</p>
-			<?php } else if ($php_ok && $xml_ok && $pcre_ok && (!$mbstring_ok || !$iconv_ok)) { ?>
+				<p class="footnote"><em><strong>Note</strong></em>: Passing this test does not guarantee that SimplePie will run on your webhost &mdash; it only ensures that the basic requirements have been addressed.</p>
+			<?php } else if ($php_ok && $xml_ok && $pcre_ok) { ?>
 				<h3>Bottom Line: Yes, you can!</h3>
-				<p><em>For most feeds, it'll run with no problems.</em>  There are certain languages that you'll have a hard time with though.</p>
+				<p><em>For most feeds, it'll run with no problems.</em>  There are <a href="http://simplepie.org/wiki/faq/supported_character_encodings">certain languages</a> that you might have a hard time with though.</p>
 				<p>You can download the latest version of SimplePie from <a href="http://simplepie.org/downloads/">SimplePie.org</a> and install it by <a href="http://simplepie.org/wiki/setup/start">following the instructions</a>.  You can find example uses with <a href="http://simplepie.org/ideas/">SimplePie Ideas</a>.</p>
 				<p>Take the time to read <a href="http://simplepie.org/wiki/setup/start">Requirements and Getting Started</a> to make sure you're prepared to use SimplePie. No seriously, read them.</p>
-				<p class="footnote">**NOTE** Passing this test does not guarantee that SimplePie will run on your webhost &mdash; it only ensures that the basic requirements have been addressed.</p>
+				<p class="footnote"><em><strong>Note</strong></em>: Passing this test does not guarantee that SimplePie will run on your webhost &mdash; it only ensures that the basic requirements have been addressed.</p>
 			<?php } else { ?>
-				<h3>Bottom Line: We're sorry...</h3>
-				<p><em>Your webhost does not support the minimum requirements for SimplePie.</em>  It may be a good idea to contact your webhost, and ask them to install a more recent version of PHP as well as the <code>xml</code>, <code>mbstring</code>, <code>iconv</code>, <code>curl</code>, and <code>zlib</code> extensions.</p>
-				<p>Alternatively, we've been very happy with <a href="http://dreamhost.com/r.cgi?skyzyx">Dreamhost</a>. Dreamhost has a lot of great stuff for a pretty low price, including everything needed to run SimplePie. Use the <code>SIMPLEPIE</code> promo code and get $20 USD off your first year of hosting!</p>
+				<h3>Bottom Line: We're sorry…</h3>
+				<p><em>Your webhost does not support the minimum requirements for SimplePie.</em>  It may be a good idea to contact your webhost, and ask them to install a more recent version of PHP as well as the <code>xmlreader</code>, <code>xml</code>, <code>mbstring</code>, <code>iconv</code>, <code>curl</code>, and <code>zlib</code> extensions.</p>
 			<?php } ?>
 		</div>
 
 		<div class="chunk">
-			<p class="footnote">&sup1; &mdash; SimplePie 1.1 will be the last version to support PHP 4.x. All versions released after January 1, 2008 will be PHP 5-only because the core PHP team is giving PHP 4.x an end-of-life status and discontinuing patches and support. <a href="http://simplepie.org/blog/2007/07/13/simplepie-is-going-php5-only/">Read the announcement.</a></p>
-			<p class="footnote">&sup2; &mdash; Some recent versions of the PCRE (PERL-Compatible Regular Expression) engine compiled into PHP have been buggy, and are the source of PHP segmentation faults (e.g. crashes) which cause random things like blank, white screens. Check the <a href="http://simplepie.org/support/">Support Forums</a> for the latest information on patches and ongoing fixes.</p>
+			<p class="footnote">&sup1; &mdash; Some recent versions of the PCRE (PERL-Compatible Regular Expression) engine compiled into PHP have been buggy, and are the source of PHP segmentation faults (e.g. crashes) which cause random things like blank, white screens. Check the <a href="http://simplepie.org/support/">Support Forums</a> for the latest information on patches and ongoing fixes.</p>
 		</div>
 
 	</div>
