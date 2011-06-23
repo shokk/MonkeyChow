@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="70"
+   name=""
+   committed-date="2006-07-06T03:04:47.176594Z"
+   url="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow/locale/es_ES"
+   last-author="shokk"
+   kind="dir"
+   uuid="1d8a3bd2-9211-0410-b7dc-490975d6ac14"
+   repos="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow"
+   revision="224"/>
+<entry
+   name="LC_MESSAGES"
+   kind="dir"/>
+</wc-entries>

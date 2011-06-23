@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="70"
+   name=""
+   committed-date="2006-07-06T03:04:47.176594Z"
+   url="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow/locale/es_ES/LC_MESSAGES"
+   last-author="shokk"
+   kind="dir"
+   uuid="1d8a3bd2-9211-0410-b7dc-490975d6ac14"
+   repos="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow"
+   revision="224"/>
+<entry
+   committed-rev="70"
+   name="messages.mo"
+   text-time="2007-08-09T03:45:30.000000Z"
+   committed-date="2006-07-06T03:04:47.176594Z"
+   checksum="69301a257847d85419bd0a6e2854725b"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:30.000000Z"/>
+<entry
+   committed-rev="70"
+   name="messages.po"
+   text-time="2007-08-09T03:45:30.000000Z"
+   committed-date="2006-07-06T03:04:47.176594Z"
+   checksum="f6a8489f262cfc37fc26c58f2f9bc64e"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:30.000000Z"/>
+</wc-entries>

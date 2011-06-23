@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="205"
+   name=""
+   committed-date="2008-03-16T19:53:12.261648Z"
+   url="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow/simplepie/demo/for_the_demo/favicons"
+   last-author="shokk"
+   kind="dir"
+   repos="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow"
+   revision="224"/>
+<entry
+   committed-rev="205"
+   name="newsvine.png"
+   text-time="2008-03-16T19:50:41.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="75326e5a5c12d24512b434ab025a4dbc"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="alternate.png"
+   text-time="2008-03-16T19:50:41.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="b065d2f1774376cbd4be4e19d53be6c3"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="delicious.png"
+   text-time="2008-03-16T19:50:41.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="566f75c784732ce3864263658d763409"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="technorati.png"
+   text-time="2008-03-16T19:50:41.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="8e751559f114140b8921f108b4294092"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="blogmarks.png"
+   text-time="2008-03-16T19:50:41.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="7ebfe6954d3882d25b0445ba8c868493"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="simpy.png"
+   text-time="2008-03-16T19:50:41.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="cbc719f029d0f04d5cc111820e038a60"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="myweb2.png"
+   text-time="2008-03-16T19:50:41.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="bef18bbf823125312806f7aaf29ee313"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="spurl.png"
+   text-time="2008-03-16T19:50:41.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="76cb65c500fc0f848cda274c085d9fed"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="magnolia.png"
+   text-time="2008-03-16T19:50:41.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="e79b8238060f6beea4a378ee0054c367"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="segnalo.png"
+   text-time="2008-03-16T19:50:41.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="a724f6e9a908b3a50dc5bc6cea208bca"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="wists.png"
+   text-time="2008-03-16T19:50:41.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="3c8dc1dce4678e64f4e0a33742986561"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="digg.png"
+   text-time="2008-03-16T19:50:41.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="dd4d811e93a53ef0f47f041dbd971b25"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="blinklist.png"
+   text-time="2008-03-16T19:50:41.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="bc81a1628f783d26b61a730c36bea60a"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="reddit.png"
+   text-time="2008-03-16T19:50:41.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="e6e61f88011bfe4985c78e9a6e63cdbf"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+</wc-entries>

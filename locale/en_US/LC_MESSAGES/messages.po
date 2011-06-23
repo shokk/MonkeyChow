@@ -1,0 +1,424 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#: add.php:74 add.php:87 aggregator.php:63 init.php:46 init.php:50
+#: init.php:181 init.php:185 init.php:217 init.php:248 init.php:253
+#: init.php:290 init.php:292 init.php:573 init.php:577 init.php:758
+#: init.php:772 init.php:778 init.php:798 view.php:132 frames/add.php:70
+#: frames/add.php:83 frames/view.php:133
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-06-02 13:14-0400\n"
+"PO-Revision-Date: 2006-06-02 12:00-0400\n"
+"Last-Translator: ERNIE OPORTO <ernieoporto@yahoo.com>\n"
+"Language-Team: EN_US <ernieoporto@yahoo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: add.php:83 frames/add.php:79
+msgid "Cannot open"
+msgstr ""
+
+#: add.php:83 frames/add.php:79
+msgid "Cannot open uploaded file"
+msgstr ""
+
+msgid "Add feeds from OPML file on the Internet"
+msgstr ""
+
+msgid "Upload an OPML file"
+msgstr ""
+
+msgid "subscribe"
+msgstr ""
+
+msgid "This bookmarklet will attempt to subscribe to whatever page you are on."
+msgstr ""
+
+msgid "Drag it to your toolbar and then click on it when you are at a weblog you like."
+msgstr ""
+
+msgid "Add a feed"
+msgstr ""
+
+msgid "RSS or weblog URL"
+msgstr ""
+
+msgid "OPML filename"
+msgstr ""
+
+msgid "OPML URL"
+msgstr ""
+
+msgid "Return to new items"
+msgstr ""
+
+#: aggregator.php:33
+msgid "My Aggregated Feeds by"
+msgstr ""
+
+#: aggregator.php:131 view.php:143 frames/view.php:200
+msgid "No items found"
+msgstr ""
+
+msgid "control panel"
+msgstr ""
+
+#: index.php:81
+msgid "new"
+msgstr ""
+
+msgid "Mysql says"
+msgstr ""
+
+#: init.php:34
+msgid "Cannot connect to database.  Check your configuration."
+msgstr ""
+
+#: init.php:37
+msgid "Cannot select database.  Check your configuration."
+msgstr ""
+
+#: init.php:42
+msgid "Cache directory is not writable or does not exist."
+msgstr ""
+
+#: init.php:50
+msgid "All tags"
+msgstr ""
+
+#: init.php:50 init.php:54
+msgid "No tags"
+msgstr ""
+
+#: init.php:197
+msgid "published items"
+msgstr ""
+
+#: init.php:201
+msgid "custom search"
+msgstr ""
+
+#: init.php:205
+msgid "new items"
+msgstr ""
+
+#: init.php:209
+msgid "all items"
+msgstr ""
+
+#: init.php:356
+msgid "Cannot query database."
+msgstr ""
+
+msgid "Have you run"
+msgstr ""
+
+#: init.php:483
+msgid "You are already subscribed to "
+msgstr ""
+
+#: init.php:491
+msgid "URL is not RSS or is invalid."
+msgstr ""
+
+msgid "The validator may give more information."
+msgstr ""
+
+#: init.php:492 init.php:520
+msgid "error was"
+msgstr ""
+
+msgid "try to validate it?"
+msgstr ""
+
+#: init.php:495
+msgid "Attempting autodiscovery"
+msgstr ""
+
+msgid "Attempting to subscribe to"
+msgstr ""
+
+msgid "Autodiscovery found"
+msgstr ""
+
+#: init.php:519
+msgid "URL is not RSS, giving up."
+msgstr ""
+
+#: init.php:527
+msgid "Subscribed"
+msgstr ""
+
+#: init.php:532
+msgid "Autodiscovery failed.  Giving up."
+msgstr ""
+
+#: init.php:537
+msgid "Can't load URL.  Giving up."
+msgstr ""
+
+#: init.php:684
+msgid "no title"
+msgstr ""
+
+#: install.php:58 install.php:81
+msgid "Can't create table."
+msgstr ""
+
+#: install.php:92 install.php:97
+msgid "Can't create index."
+msgstr ""
+
+msgid "It is recommended that you configure PHP adding --with-gettext."
+msgstr ""
+
+msgid "Tables exist."
+msgstr ""
+
+msgid "Creating tables"
+msgstr ""
+
+msgid "Creating indexes"
+msgstr ""
+
+msgid "Indexes exist."
+msgstr ""
+
+msgid "Checking cache directory"
+msgstr ""
+
+#: install.php:111
+msgid "Can't create directory"
+msgstr ""
+
+#: install.php:111
+msgid "You will need to create it yourself, and make it writable by your PHP process."
+msgstr ""
+
+msgid "Then, reload this page."
+msgstr ""
+
+#: install.php:118
+msgid "The directory"
+msgstr ""
+
+#: install.php:118
+msgid "exists, but is not writable."
+msgstr ""
+
+msgid "You will need to make it writeable by your PHP process."
+msgstr ""
+
+msgid "Cache directory exists and is writable."
+msgstr ""
+
+msgid "Encodings will be translated by:"
+msgstr ""
+
+#: install.php:130
+msgid "We're going to try to use the XML parser itself to handle encodings"
+msgstr ""
+
+#: install.php:135
+msgid "You have PHP4, and the "
+msgstr ""
+
+msgid "You have "
+msgstr ""
+
+msgid "You don't have "
+msgstr ""
+
+msgid "module"
+msgstr ""
+
+msgid "installed"
+msgstr ""
+
+#: install.php:143
+msgid "You have PHP4, but neither iconv nor mbstring is intalled.  Only UTF-8, ISO-8859-1, and US-ASCII feeds are going to work.  Ask your host to install iconv for best results."
+msgstr ""
+
+msgid "Setup complete!"
+msgstr ""
+
+msgid "Go to the control panel and start subscribing."
+msgstr ""
+
+#: uninstall.php:53
+msgid "Done.  Now just delete this entire directory and we'll forget this ever happened."
+msgstr ""
+
+#: uninstall.php:59
+msgid "Do you really want to uninstall MonkeyChow?"
+msgstr ""
+
+
+#: update.php:60 frames/update.php:59
+msgid "done. "
+msgstr ""
+
+msgid "update"
+msgstr ""
+
+msgid "Updating"
+msgstr ""
+
+msgid "Update complete."
+msgstr ""
+
+#: frames/feeds.php:73
+msgid "sort by last update time"
+msgstr ""
+
+#: frames/feeds.php:74
+msgid "sort by number of unread items"
+msgstr ""
+
+#: frames/feeds.php:75
+msgid "sort by feed title"
+msgstr ""
+
+msgid "What-- Are you SURE?"
+msgstr ""
+
+#: frames/menu.php
+msgid "view new"
+msgstr ""
+
+msgid "view all paged"
+msgstr ""
+
+msgid "view today's items"
+msgstr ""
+
+msgid "starred"
+msgstr ""
+
+msgid "published"
+msgstr ""
+
+msgid "opml list"
+msgstr ""
+
+msgid "flag all"
+msgstr ""
+
+msgid "flag all up to this item"
+msgstr ""
+
+msgid "unflag all"
+msgstr ""
+
+msgid "Recycle"
+msgstr ""
+
+msgid "update all"
+msgstr ""
+
+msgid "Find"
+msgstr ""
+
+msgid "mark as read"
+msgstr ""
+
+msgid "mark as unread"
+msgstr ""
+
+msgid "mark all read"
+msgstr ""
+
+msgid "panel"
+msgstr ""
+
+msgid "dinosaurs"
+msgstr ""
+
+msgid "dinosaur feeds"
+msgstr ""
+
+msgid "add feeds"
+msgstr ""
+
+msgid "refresh view"
+msgstr ""
+
+msgid "about"
+msgstr ""
+
+#: frames/view.php:65
+msgid "new to old"
+msgstr ""
+
+#: frames/view.php:71
+msgid "old to new"
+msgstr ""
+
+msgid "at"
+msgstr ""
+
+msgid "by"
+msgstr ""
+
+msgid "on"
+msgstr ""
+
+msgid "cached at"
+msgstr ""
+
+#: frames/view.php:147
+msgid "Check this out at "
+msgstr ""
+
+#: frames/view.php:154
+msgid ""
+"\n"
+"---\n"
+"This email brought to you by the Monkeychow web-based RSS reader with search "
+"and social networking addons.\n"
+"http://www.monkeychow.org"
+msgstr ""
+
+#: frames/view.php:168
+msgid "Email To"
+msgstr ""
+
+msgid "Star Me"
+msgstr ""
+
+msgid "BlogThis"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Digg This"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Last Updated"
+msgstr ""
+
+msgid "delete"
+msgstr ""
+
+msgid "Are you sure?"
+msgstr ""
+
+msgid "The following feeds have not been updated in 30 days.  Consider deleting them from your feed list to save update time."
+msgstr ""
+
+msgid "installation"
+msgstr ""
+
+msgid "uninstallation"
+msgstr ""

@@ -1,0 +1,90 @@
+0.1.9
+ Features:
+  Updated to MagpieRSS 0.7.1
+  Enhancements to Snoopy: https and Digest authentication
+  Installer now creates indexes on items table
+
+0.1.8
+ Features:
+  Updated to MagpieRSS 0.7
+  Can sort items by date, forwards and backwards
+  Can sort feed list (in frames mode)
+  Can add, delete, update feeds in frames mode
+  Installer gives you some feedback on your system, and which encodings might work
+  fof_get_feeds() and fof_get_items() APIs enhanced: can now sort items, and return
+   arrays instead of result set
+ Bugs fixed:
+  Added "Content-Type: text/html; charset=utf-8" header to all pages
+  Fixed CSS problems that caused images to bleed from one item to next
+  Can now subscribe to HTTPS feeds, assuming you have 'curl' installed
+   (see Snoopy.class.inc)
+
+0.1.7
+Features:
+ Magpie now attempts to use iconv or mbstring to convert feeds from just about any
+ charset to UTF-8.  If your system has iconv, but you find feeds that still don't
+ display properly, please let me know.
+Bugs fixed:
+ Repaired screwed up forward and back navigation links
+
+0.1.6
+Bugs fixed:
+ Delete feed now works again
+ Installer works again
+ Validation - index.php, view.php and all of frames mode are now valid
+ Thanks to all who pointed out these bugs and the other problems with 0.1.4 so quickly!
+
+0.1.5
+Bugs fixed:
+ Work around strange bug in IE6: <script /> doesn't work!
+
+0.1.4
+Bugs fixed:
+ Like, set the DOCTYPE and Content-Type, dude.  Why did I never do that before?
+ Try to be a bit smarter about encodings.  New policy: UTF-8 Everywhere!
+ Smarter location of 'cache' directory
+ All globals prefixed with FOF_ or fof_ for includability
+Features:
+ Limited CSSification, XHTMLized as well
+ Refactoring: slimmed down index.php and view.php, moved guts to init.php
+ Posts that are a) read, 2) fallen off their feeds and iii) older than N days will be purged
+ "Experimental" frames mode
+ Beginnings of a PHP "API" - check out fof_get_feeds and fof_get_items
+
+0.1.3
+Features:
+ Upgrade to MagpieRSS 0.61 (thanks for reminding me, Geof Morris!)
+ Single click mark all read
+ You can now flag all the items up to the current one in one click
+Bugs fixed:
+ Fix case of xmlUrl in OPML export (thanks David Chess!)
+ ' in feed URL no longer breaks the update!  (thanks Peter Horadan!)
+ Include trailing / on redirects (thanks Rafe Colburn!)
+ Include copy of GPL, and license note on all files (thanks for reminding me, Carthik Sharma!)
+ Much faster on Safari
+
+0.1.2
+Features:
+ Upgrade to MagpieRSS 0.5.2 + experimental Atom support
+
+0.1.1
+Bugs fixed:
+ Upgrade to MagpieRSS 0.5.1 to solve silent failure if zlib is not available
+ Now compatible with PHP 4.3.2
+
+0.1
+Features:
+ Upgrade to MagpieRSS 0.5 - better error handling, gzip encoding.
+ RSS autodiscovery.
+ Subscription bookmarklet.
+ OPML import and export.  Works with NetNewsWire, should work with others.
+ Checkboxes by items on view.php.  Check the ones you want, then mark them read en masse.
+ Uninstaller! (just DROPs the DB tables)
+ Better <title>s on view.php.
+Bugs fixed:
+ Escape dangerous metacharacters in dc:subject and dc:creator
+ Escape HTML metacharacters in feed descriptions so HTML doesn't break
+ Use Magpie's parse_w3cdtf function instead of my own (I love erasing code)
+
+0.0
+initial version

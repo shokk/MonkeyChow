@@ -1,0 +1,429 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#: add.php:74 add.php:87 aggregator.php:63 init.php:46 init.php:50
+#: init.php:181 init.php:185 init.php:217 init.php:248 init.php:253
+#: init.php:290 init.php:292 init.php:573 init.php:577 init.php:758
+#: init.php:772 init.php:778 init.php:798 view.php:132 frames/add.php:70
+#: frames/add.php:83 frames/view.php:133
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-06-02 13:14-0400\n"
+"PO-Revision-Date: 2006-06-02 12:00-0400\n"
+"Last-Translator: ERNIE OPORTO <ernieoporto@yahoo.com>\n"
+"Language-Team: ES_ES <ernieoporto@yahoo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: add.php:83 frames/add.php:79
+msgid "Cannot open"
+msgstr "No puedo abrir"
+
+#: add.php:83 frames/add.php:79
+msgid "Cannot open uploaded file"
+msgstr "No puedo abrir el fichero OPML"
+
+msgid "Add feeds from OPML file on the Internet"
+msgstr "Agregue feeds del fichero OPML del Internet"
+
+msgid "Upload an OPML file"
+msgstr "Upload un fichero OPML"
+
+msgid "subscribe"
+msgstr "suscripci&oacute;n"
+
+msgid "This bookmarklet will attempt to subscribe to whatever page you are on."
+msgstr "Este bookmarklet procurar&aacute; suscribir a en cualquier p&aacute;gina usted est&aacute; viendo."
+
+msgid "Drag it to your toolbar and then click on it when you are at a weblog you like."
+msgstr "Arr&aacute;strelo a su toolbar y despu&eacute;s lo chascas cuando usted est&aacute; en un weblog que usted te gusta."
+
+msgid "Add a feed"
+msgstr "Agregue un feed"
+
+msgid "RSS or weblog URL"
+msgstr "URL de RSS o weblog"
+
+msgid "OPML filename"
+msgstr "Fichero local del OPML"
+
+msgid "OPML URL"
+msgstr "URL del OPML"
+
+msgid "Return to new items"
+msgstr "Vuelva a los nuevos artculos"
+
+#: aggregator.php:33
+msgid "My Aggregated Feeds by"
+msgstr "Mis Feeds Agregadas por "
+
+#: aggregator.php:131 view.php:143 frames/view.php:200
+msgid "No items found"
+msgstr "Ningunos artculos encontrados"
+
+msgid "control panel"
+msgstr "panel de control"
+
+#: index.php:81
+msgid "new"
+msgstr "nuevo"
+
+msgid "Mysql says"
+msgstr "Mysql dice"
+
+#: init.php:34
+msgid "Cannot connect to database.  Check your configuration."
+msgstr "No puedo conectar con la base de datos. Compruebe su configuraci&oacute;n."
+
+#: init.php:37
+msgid "Cannot select database.  Check your configuration."
+msgstr "No puede seleccionar la base de datos.  Compruebe su configuraci&oacute;n."
+
+#: init.php:42
+msgid "Cache directory is not writable or does not exist."
+msgstr "El directorio \"cache\" no es escribible o no existe."
+
+#: init.php:50
+msgid "All tags"
+msgstr "Todas etiquetas"
+
+#: init.php:50 init.php:54
+msgid "No tags"
+msgstr "Ningunas etiquetas"
+
+#: init.php:197
+msgid "published items"
+msgstr "art&iacute;culos publicados"
+
+#: init.php:201
+msgid "custom search"
+msgstr "b&uacute;squeda modificado"
+
+#: init.php:205
+msgid "new items"
+msgstr "art&iacute;culos nuevos"
+
+#: init.php:209
+msgid "all items"
+msgstr "todos art&iacute;culos"
+
+#: init.php:356
+msgid "Cannot query database."
+msgstr "No puede preguntar la base de datos."
+
+msgid "Have you run"
+msgstr "&iquest;Usted ha funcionado"
+
+#: init.php:483
+msgid "You are already subscribed to "
+msgstr "Usted est&aacute; ya a suscrito a "
+
+#: init.php:491
+msgid "URL is not RSS or is invalid."
+msgstr "El URL no es RSS no es v&aacute;lido."
+
+msgid "The validator may give more information."
+msgstr "El Validator puede dar m&aacute;s informaci&oacute;n."
+
+#: init.php:492 init.php:520
+msgid "error was"
+msgstr "error era"
+
+msgid "try to validate it?"
+msgstr "&iquest;deseas validarlo?"
+
+#: init.php:495
+msgid "Attempting autodiscovery"
+msgstr "Procurando autodiscovery"
+
+msgid "Attempting to subscribe to"
+msgstr "Procurando suscribir a esto"
+
+msgid "Autodiscovery found"
+msgstr "Autodiscovery encontrado"
+
+#: init.php:519
+msgid "URL is not RSS, giving up."
+msgstr "El URL no es RSS, parando."
+
+#: init.php:527
+msgid "Subscribed"
+msgstr "Suscrito"
+
+#: init.php:532
+msgid "Autodiscovery failed.  Giving up."
+msgstr "Autodiscovery fall&oacute;. Parando."
+
+#: init.php:537
+msgid "Can't load URL.  Giving up."
+msgstr "No puede encontrar el URL.  Parando"
+
+#: init.php:684
+msgid "no title"
+msgstr "ning&uacute;n t&iacute;tulo"
+
+#: install.php:58 install.php:81
+msgid "Can't create table."
+msgstr "No puede crear la tabla."
+
+#: install.php:92 install.php:97
+msgid "Can't create index."
+msgstr "No puede crear el &iacute;ndice."
+
+msgid "It is recommended that you configure PHP adding --with-gettext."
+msgstr "Se recomienda que usted configura PHP con --with-gettext."
+
+msgid "Tables exist."
+msgstr "Las tablas existen."
+
+msgid "Creating tables"
+msgstr "Creando tablas"
+
+msgid "Creating indexes"
+msgstr "Creando &iacute;ndices"
+
+msgid "Indexes exist."
+msgstr "Los &iacute;ndices existen."
+
+msgid "Checking cache directory"
+msgstr "Estoy comprobando el directorio \"cache\""
+
+#: install.php:111
+msgid "Can't create directory"
+msgstr "No puede crear el directorio"
+
+#: install.php:111
+msgid "You will need to create it yourself, and make it writable by your PHP process."
+msgstr "Necesitar&aacute;s crearlo usted mismo y H&aacute;galo escribible por el proceso PHP."
+
+msgid "Then, reload this page."
+msgstr "Luego, recargue esta p&aacute;gina."
+
+#: install.php:118
+msgid "The directory"
+msgstr "El directorio"
+
+#: install.php:118
+msgid "exists, but is not writable."
+msgstr "existe, pero no es escribible"
+
+msgid "You will need to make it writeable by your PHP process."
+msgstr "Necesitar&aacute;s hacerlo escribible por el proceso PHP."
+
+msgid "Cache directory exists and is writable."
+msgstr "El directorio \"cache\" existe, y es escribible."
+
+msgid "Encodings will be translated by:"
+msgstr "Los encodings sern traducidos por:"
+
+#: install.php:130
+msgid "We're going to try to use the XML parser itself to handle encodings"
+msgstr "Vamos a intentar utilizar el programa de an&aacute;lisis XML para dirigir encodings"
+
+#: install.php:135
+msgid "You have PHP4, and the "
+msgstr "Tienes php4, y el "
+
+msgid "You have "
+msgstr "Tienes "
+
+msgid "You don't have "
+msgstr "No tienes "
+
+msgid "module"
+msgstr "m&oacute;dulo"
+
+msgid "installed"
+msgstr "instalado"
+
+#: install.php:143
+msgid "You have PHP4, but neither iconv nor mbstring is intalled.  Only UTF-8, ISO-8859-1, and US-ASCII feeds are going to work.  Ask your host to install iconv for best results."
+msgstr "Tienes php4, pero ni el iconv ni el mbstring esta instalado.  Solamente los feeds de UTF-8, de ISO-8859-1, y de US-ASCII van a trabajar.  Pida que su anfitri&oacute;n instale el iconv para los mejores resultados."
+
+msgid "Setup complete!"
+msgstr "&iexcl;Disposici&oacute;n completa!"
+
+msgid "Go to the control panel and start subscribing."
+msgstr "Vaya al panel de control y comience a suscribir."
+
+#: uninstall.php:53
+msgid "Done.  Now just delete this entire directory and we'll forget this ever happened."
+msgstr "Acabado.  Ahora suprima el directorio entero y nos olvidaremos que esto sucedi&oacute;."
+
+#: uninstall.php:59
+msgid "Do you really want to uninstall MonkeyChow?"
+msgstr "&iquest;Usted realmente desea al uninstall MonkeyChow?"
+
+
+#: update.php:60 frames/update.php:59
+msgid "done. "
+msgstr "acabado. "
+
+msgid "update"
+msgstr "actualiza"
+
+msgid "Updating"
+msgstr "Actualizando"
+
+msgid "Update complete."
+msgstr "Actualizado."
+
+#: frames/feeds.php:73
+msgid "sort by last update time"
+msgstr "clase por ultimo actualizaci&oacute;n"
+
+#: frames/feeds.php:74
+msgid "sort by number of unread items"
+msgstr "clase por el n&uacute;mero de artculos no le&iacute;do"
+
+#: frames/feeds.php:75
+msgid "sort by feed title"
+msgstr "clase por t&iacute;tulo del feed"
+
+msgid "What-- Are you SURE?"
+msgstr "&iquest;Qu&eacute;?-- &iquest;Estas SEGURO?"
+
+#: frames/menu.php
+msgid "view new"
+msgstr "vea los nuevos"
+
+msgid "view all paged"
+msgstr "vea todas paginadas"
+
+msgid "view today's items"
+msgstr "vea todas de hoy"
+
+msgid "starred"
+msgstr "estrellados"
+
+msgid "published"
+msgstr "publicados"
+
+msgid "opml list"
+msgstr "lista de opml"
+
+msgid "flag all"
+msgstr "marca todo"
+
+msgid "flag all up to this item"
+msgstr "marca todo hasta este art&iacute;culo"
+
+msgid "unflag all"
+msgstr "quite marca de todo"
+
+msgid "Recycle"
+msgstr "Recicle"
+
+msgid "update all"
+msgstr "actualiza todos"
+
+msgid "Find"
+msgstr "B&uacute;sque"
+
+msgid "mark as read"
+msgstr "marca le&iacute;do"
+
+msgid "mark as unread"
+msgstr "marca no le&iacute;do"
+
+msgid "mark all read"
+msgstr "marca todos le&iacute;do"
+
+msgid "panel"
+msgstr "panel"
+
+msgid "dinosaurs"
+msgstr "dinosaurios"
+
+msgid "dinosaur feeds"
+msgstr "feeds del dinosaurio"
+
+msgid "add feeds"
+msgstr "agregue feeds"
+
+msgid "refresh view"
+msgstr "refresque la vista"
+
+msgid "about"
+msgstr "sobre"
+
+#: frames/view.php:65
+msgid "new to old"
+msgstr "nuevo a viejo"
+
+#: frames/view.php:71
+msgid "old to new"
+msgstr "viejo a nuevo"
+
+msgid "at"
+msgstr "en"
+
+msgid "by"
+msgstr "por"
+
+msgid "on"
+msgstr "sobre"
+
+msgid "cached at"
+msgstr "depositado en"
+
+#: frames/view.php:147
+msgid "Check this out at "
+msgstr "Compruebe esto en "
+
+#: frames/view.php:154
+msgid ""
+"\n"
+"---\n"
+"This email brought to you by the Monkeychow web-based RSS reader with search "
+"and social networking addons.\n"
+"http://www.monkeychow.org"
+msgstr ""
+"\n"
+"---\n"
+"Este email fue trado por el Monkeychow web-based RSS reader con search "
+"y social networking suplemento.\n"
+"http://www.monkeychow.org"
+
+#: frames/view.php:168
+msgid "Email To"
+msgstr "Email A"
+
+msgid "Star Me"
+msgstr "Estrella Me"
+
+msgid "BlogThis"
+msgstr "BlogEsto"
+
+msgid "Search"
+msgstr "B&uacute;sque sobre"
+
+msgid "Digg This"
+msgstr "Digg Esto"
+
+msgid "Title"
+msgstr "Titulo"
+
+msgid "Last Updated"
+msgstr "Fecha de actualizaci&oacute;n"
+
+msgid "delete"
+msgstr "quite"
+
+msgid "Are you sure?"
+msgstr "&iquest;Estas seguro?"
+
+msgid "The following feeds have not been updated in 30 days.  Consider deleting them from your feed list to save update time."
+msgstr "Los feeds siguientes no se han actualizado en 30 das. Considere suprimir los de su lista de feeds para ahorrar tiempo de la actualizaci&oacute;n."
+
+msgid "installation"
+msgstr "instalaci&oacute;n"
+
+msgid "uninstallation"
+msgstr ""

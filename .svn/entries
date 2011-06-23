@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="224"
+   name=""
+   committed-date="2008-08-25T01:43:11.538163Z"
+   url="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow"
+   last-author="shokk"
+   kind="dir"
+   uuid="1d8a3bd2-9211-0410-b7dc-490975d6ac14"
+   repos="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow"
+   revision="224"/>
+<entry
+   committed-rev="116"
+   name="newsvine.png"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-11-12T14:53:18.486048Z"
+   checksum="df661458f89ec401a3d0435b37a4c564"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="207"
+   name="ipodarrowright.jpg"
+   text-time="2008-05-16T00:31:07.000000Z"
+   committed-date="2008-05-16T00:32:20.423732Z"
+   checksum="30798c6d6d9d6b22b08279742b34a796"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-05-16T00:31:24.000000Z"/>
+<entry
+   committed-rev="197"
+   name="config-example.php"
+   text-time="2008-02-02T02:54:45.000000Z"
+   committed-date="2007-10-27T19:13:23.896928Z"
+   checksum="c1df4d3be008a7ef735e702a3098d564"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="217"
+   name="fof.js"
+   text-time="2008-08-24T01:39:02.000000Z"
+   committed-date="2008-08-24T01:42:01.731580Z"
+   checksum="2c76cc8da4940af4eab58b82d5b85aeb"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="223"
+   name="twitter.png"
+   text-time="2008-08-24T01:50:15.000000Z"
+   committed-date="2008-08-24T02:01:50.513113Z"
+   checksum="26c11c82c7655bc539ec3c94c08bf841"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-08-24T02:00:45.000000Z"/>
+<entry
+   committed-rev="1"
+   name="mailto.gif"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-04-16T21:18:31.608361Z"
+   checksum="81592268bf88b730ba6c5160e0c114ab"
+   last-author="root"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="185"
+   name="mark-read.php"
+   text-time="2007-09-09T15:06:18.000000Z"
+   committed-date="2007-09-09T15:38:42.224451Z"
+   checksum="bba301b1b922b927a3819f4af0ea041d"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="226"
+   name="update-quiet.php"
+   text-time="2008-11-09T20:33:43.000000Z"
+   committed-date="2008-11-09T20:34:54.742060Z"
+   checksum="90a111fd12af450b7db958ada8e3fa68"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"
+   revision="226"/>
+<entry
+   committed-rev="226"
+   name="framesview.php"
+   text-time="2008-11-09T20:33:49.000000Z"
+   committed-date="2008-11-09T20:34:54.742060Z"
+   checksum="32be1950e1bf2339e49bcdcbd6ec95b9"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-09-01T17:30:39.000000Z"
+   revision="226"/>
+<entry
+   committed-rev="213"
+   name="uninstall.php"
+   text-time="2008-06-17T02:00:55.000000Z"
+   committed-date="2008-06-17T02:02:46.799616Z"
+   checksum="f95a69975be4e048a5bbd272d38c373b"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-09-30T14:04:48.000000Z"/>
+<entry
+   committed-rev="209"
+   name="view.php"
+   text-time="2008-05-25T02:00:02.000000Z"
+   committed-date="2008-05-25T02:03:22.819638Z"
+   checksum="47cf4332a32e2dc87947dd1625ec5389"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-09-30T14:04:48.000000Z"/>
+<entry
+   committed-rev="116"
+   name="plus.jpg"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-11-12T14:53:18.486048Z"
+   checksum="2acc92878991b25250151f4ce052cb63"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   name="cache"
+   kind="dir"/>
+<entry
+   committed-rev="209"
+   name="panel-menu.html"
+   text-time="2008-05-25T02:00:08.000000Z"
+   committed-date="2008-05-25T02:03:22.819638Z"
+   checksum="2fea46e1eb9219cb149f35736cbc5606"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-02-02T04:14:47.000000Z"/>
+<entry
+   committed-rev="209"
+   name="published.php"
+   text-time="2008-05-25T02:00:16.000000Z"
+   committed-date="2008-05-25T02:03:22.819638Z"
+   checksum="7a848c6cd4e1ca42ebc03a7b8f20b7df"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-09-30T14:04:48.000000Z"/>
+<entry
+   committed-rev="226"
+   name="prefs.php"
+   text-time="2008-11-09T20:33:54.000000Z"
+   committed-date="2008-11-09T20:34:54.742060Z"
+   checksum="485f75b3417608406a91f23803985f45"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"
+   revision="226"/>
+<entry
+   committed-rev="226"
+   name="behindthescenes.js"
+   text-time="2008-11-09T20:34:00.000000Z"
+   committed-date="2008-11-09T20:34:54.742060Z"
+   checksum="0e27b6667ca3d94388a2cac473bcddf5"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"
+   revision="226"/>
+<entry
+   committed-rev="213"
+   name="update.php"
+   text-time="2008-06-17T02:01:12.000000Z"
+   committed-date="2008-06-17T02:02:46.799616Z"
+   checksum="75d739c68cd67de80517a43a1114570e"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-09-30T14:04:48.000000Z"/>
+<entry
+   committed-rev="68"
+   name="accept-to-gettext.inc"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-07-06T02:28:14.996617Z"
+   checksum="173e21f63f34cbf71318daff002d1f0a"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="116"
+   name="star_on.gif"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-11-12T14:53:18.486048Z"
+   checksum="a56ffc60c246ad8f60fa93ebb0d15394"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="215"
+   name="add.php"
+   text-time="2008-07-13T17:08:54.000000Z"
+   committed-date="2008-07-13T17:10:06.538093Z"
+   checksum="c70e6fada36c1852e26e56ba7a68ffc0"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-09-30T14:04:48.000000Z"/>
+<entry
+   committed-rev="213"
+   name="header.php"
+   text-time="2008-06-17T02:01:16.000000Z"
+   committed-date="2008-06-17T02:02:46.799616Z"
+   checksum="e6505fe8cdcfaf2f2cf07159bb2ab0f4"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-09-30T14:04:48.000000Z"/>
+<entry
+   committed-rev="142"
+   name="view-menu.html"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-11-12T18:13:33.490566Z"
+   checksum="06c32967fa54c0e009467817111ff345"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="199"
+   name="rss2.php"
+   text-time="2008-02-02T02:55:37.000000Z"
+   committed-date="2008-02-02T02:56:35.011834Z"
+   checksum="5257a0bc6184af041bcaa3844cf9e29b"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   name="plugins"
+   kind="dir"/>
+<entry
+   committed-rev="167"
+   name="fof-db.php"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2007-03-23T21:53:51.546215Z"
+   checksum="1caab9e123f8e1ca8b79f7b632be4114"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="115"
+   name="opml.php"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-11-09T02:49:00.989889Z"
+   checksum="0838d9b92abf7ba6b94cc62cabf027d7"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="116"
+   name="digg.png"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-11-12T14:53:18.486048Z"
+   checksum="1878c5e12acd64f47ccc243b32107ea7"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="161"
+   name="flagup.jpg"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2007-02-12T02:01:03.444712Z"
+   checksum="05bc978e32ee4dcd5593375b77fc0825"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="217"
+   name="index.php"
+   text-time="2008-08-24T01:39:53.000000Z"
+   committed-date="2008-08-24T01:42:01.731580Z"
+   checksum="e7e7a92f24ef3af250fbcde3e2d338f2"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-02-02T04:14:47.000000Z"/>
+<entry
+   committed-rev="1"
+   name="blogit.png"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-04-16T21:18:31.608361Z"
+   checksum="6ecd3449d2afd547aaf0f2915c48baf3"
+   last-author="root"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="215"
+   name="frames.php"
+   text-time="2008-07-13T17:09:01.000000Z"
+   committed-date="2008-07-13T17:10:06.538093Z"
+   checksum="a0bfcc69b206d5f51b0602f453dc54f2"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="116"
+   name="star_off.gif"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-11-12T14:53:18.486048Z"
+   checksum="45bb187be393fee0e22d8065cf24eb74"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="209"
+   name="README.txt"
+   text-time="2008-05-25T02:00:29.000000Z"
+   committed-date="2008-05-25T02:03:22.819638Z"
+   checksum="d7fee1dc679f7f9be8c632d27d0abd80"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="116"
+   name="rss.gif"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-11-12T14:53:18.486048Z"
+   checksum="30b17dd8159116f274dcd89f1dd56df0"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="207"
+   name="ipodarrowdown.jpg"
+   text-time="2008-05-16T00:31:11.000000Z"
+   committed-date="2008-05-16T00:32:20.423732Z"
+   checksum="2c6a0159711a6ad8670e2e2a6eb2008a"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-05-16T00:31:24.000000Z"/>
+<entry
+   committed-rev="223"
+   name="friendfeed.png"
+   text-time="2008-07-08T03:06:15.000000Z"
+   committed-date="2008-08-24T02:01:50.513113Z"
+   checksum="e471e9afdf04ae568dcbddb5584fc6c0"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-08-24T02:01:33.000000Z"/>
+<entry
+   committed-rev="223"
+   name="createtinyurl.php"
+   text-time="2008-08-24T01:52:25.000000Z"
+   committed-date="2008-08-24T02:01:50.513113Z"
+   checksum="31932ca3b0dcb7b8357a5897c28f1dd5"
+   last-author="shokk"
+   kind="file"/>
+<entry
+   committed-rev="226"
+   name="fof-main.php"
+   text-time="2008-11-09T20:34:06.000000Z"
+   committed-date="2008-11-09T20:34:54.742060Z"
+   checksum="c33611fc8a0ea3673ae8f48bb02a01ff"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"
+   revision="226"/>
+<entry
+   committed-rev="173"
+   name="footer.php"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2007-05-12T01:37:20.085017Z"
+   checksum="7bb7a0f1104e2a889baeb151a5a9524c"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="213"
+   name="panel.php"
+   text-time="2008-06-17T02:01:27.000000Z"
+   committed-date="2008-06-17T02:02:46.799616Z"
+   checksum="a9bed8198d0a2148a6cde7e44cc7bcba"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   name="themes"
+   kind="dir"/>
+<entry
+   committed-rev="1"
+   name="CHANGELOG"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-04-16T21:18:31.608361Z"
+   checksum="2aad622e90580b257c2a25c1cdec59c7"
+   last-author="root"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="224"
+   name="framesmenu.php"
+   text-time="2008-08-25T01:42:50.000000Z"
+   committed-date="2008-08-25T01:43:11.538163Z"
+   checksum="c63efe10e8434a8acf8d275f632ad068"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-09-01T17:30:39.000000Z"/>
+<entry
+   committed-rev="213"
+   name="menu.php"
+   text-time="2008-06-17T02:01:36.000000Z"
+   committed-date="2008-06-17T02:02:46.799616Z"
+   checksum="964afcc46da2233b6fc8da860cdc0470"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="226"
+   name="apple-touch-icon.png"
+   text-time="2008-11-09T20:34:13.000000Z"
+   committed-date="2008-11-09T20:34:54.742060Z"
+   checksum="0730201aa7ce9a98a8ef2b4753cc61cb"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-07-13T17:35:22.000000Z"
+   revision="226"/>
+<entry
+   committed-rev="210"
+   name="login.php"
+   text-time="2008-06-02T03:16:35.000000Z"
+   committed-date="2008-05-26T02:17:48.868874Z"
+   checksum="3178c969d8b37b31cfaa1cd094eb8840"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="1"
+   name="delicious_favicon.ico"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-04-16T21:18:31.608361Z"
+   checksum="c238f2bac227ca0585880e1eec86393a"
+   last-author="root"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   name="locale"
+   kind="dir"/>
+<entry
+   committed-rev="167"
+   name="logout.php"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2007-03-23T21:53:51.546215Z"
+   checksum="5634bd746c5fd0727ffaa52abf56aa0a"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:29.000000Z"/>
+<entry
+   committed-rev="226"
+   name="createtweet.php"
+   text-time="2008-11-09T20:29:11.000000Z"
+   committed-date="2008-11-09T20:34:54.742060Z"
+   checksum="27f7dd70e5d1b28e353494b93b1d1cd5"
+   last-author="shokk"
+   kind="file"
+   revision="226"/>
+<entry
+   committed-rev="226"
+   name="mc-iphone.css"
+   text-time="2008-11-09T20:30:24.000000Z"
+   committed-date="2008-11-09T20:34:54.742060Z"
+   checksum="2bfdc097cf2544ac3c54820e84df2843"
+   last-author="shokk"
+   kind="file"
+   revision="226"/>
+<entry
+   committed-rev="164"
+   name="view-action.php"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2007-02-12T17:41:41.691262Z"
+   checksum="016cb3219e4b3257d9d99a1543e6a2dd"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:30.000000Z"/>
+<entry
+   committed-rev="208"
+   name="edit.php"
+   text-time="2008-05-25T02:00:48.000000Z"
+   committed-date="2008-05-16T01:51:57.299271Z"
+   checksum="80dfe010f27b7c0d42eb5d1f8f66b89e"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-09-30T14:04:48.000000Z"/>
+<entry
+   committed-rev="217"
+   name="feeds.php"
+   text-time="2008-08-24T01:40:02.000000Z"
+   committed-date="2008-08-24T01:42:01.731580Z"
+   checksum="d1bf4f573183a9dd871a642fb32effda"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-02-02T04:14:47.000000Z"/>
+<entry
+   committed-rev="213"
+   name="dino.php"
+   text-time="2008-06-17T02:01:48.000000Z"
+   committed-date="2008-06-17T02:02:46.799616Z"
+   checksum="77e8eaf0560185a278c4971bfd64c269"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-09-30T14:04:48.000000Z"/>
+<entry
+   committed-rev="1"
+   name="rss.inc"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-04-16T21:18:31.608361Z"
+   checksum="974fa266e20f786df10e4afc6b0bc4c7"
+   last-author="root"
+   kind="file"
+   prop-time="2007-08-09T03:45:30.000000Z"/>
+<entry
+   committed-rev="14"
+   name="rss10.inc"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-05-15T00:14:51.740417Z"
+   checksum="c205fd4dcaa7d343d91070ca60719b11"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:30.000000Z"/>
+<entry
+   committed-rev="1"
+   name="icn-talkbubble.gif"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-04-16T21:18:31.608361Z"
+   checksum="8553c703c7aea9a3e22263459c3b83bf"
+   last-author="root"
+   kind="file"
+   prop-time="2007-08-09T03:45:30.000000Z"/>
+<entry
+   committed-rev="1"
+   name="LICENSE"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-04-16T21:18:31.608361Z"
+   checksum="393a5ca445f6965873eca0259a17f833"
+   last-author="root"
+   kind="file"
+   prop-time="2007-08-09T03:45:30.000000Z"/>
+<entry
+   name="simplepie"
+   kind="dir"/>
+<entry
+   committed-rev="217"
+   name="fof-common.css"
+   text-time="2008-08-24T01:40:14.000000Z"
+   committed-date="2008-08-24T01:42:01.731580Z"
+   checksum="b2162cff7c6e71618392009d172e3ab1"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-09-30T14:04:48.000000Z"/>
+<entry
+   committed-rev="213"
+   name="delete.php"
+   text-time="2008-06-17T02:01:53.000000Z"
+   committed-date="2008-06-17T02:02:46.799616Z"
+   checksum="71a543f9faef931d4fbc876b117909e5"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-02-02T04:14:47.000000Z"/>
+<entry
+   committed-rev="217"
+   name="init.php"
+   text-time="2008-08-24T01:40:22.000000Z"
+   committed-date="2008-08-24T01:42:01.731580Z"
+   checksum="4292fd67e052a288ac25c74bd6e8d917"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:32.000000Z"/>
+<entry
+   committed-rev="213"
+   name="install.php"
+   text-time="2008-06-17T02:02:02.000000Z"
+   committed-date="2008-06-17T02:02:46.799616Z"
+   checksum="4094630ea666c5e86f03bc43c9f0dfdf"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-09-30T14:04:48.000000Z"/>
+<entry
+   committed-rev="226"
+   name="wordpress.gif"
+   text-time="2008-11-09T20:29:05.000000Z"
+   committed-date="2008-11-09T20:34:54.742060Z"
+   checksum="76fc27803b3bfef1a093b39b3cd00b81"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-11-09T20:32:57.000000Z"
+   revision="226"/>
+<entry
+   committed-rev="199"
+   name="rss.php"
+   text-time="2008-02-02T02:54:11.000000Z"
+   committed-date="2008-02-02T02:56:35.011834Z"
+   checksum="fecb6155decacfd67bf4c06b074774b0"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:32.000000Z"/>
+<entry
+   committed-rev="1"
+   name="bubble.gif"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2006-04-16T21:18:31.608361Z"
+   checksum="9e2420275e0e16345e5267d30bb694bc"
+   last-author="root"
+   kind="file"
+   prop-time="2007-08-09T03:45:32.000000Z"/>
+<entry
+   committed-rev="223"
+   name="pingfm.jpg"
+   text-time="2008-08-24T01:55:06.000000Z"
+   committed-date="2008-08-24T02:01:50.513113Z"
+   checksum="cfea82a401aeaed61f5a5d7f25d760b0"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-08-24T02:01:26.000000Z"/>
+<entry
+   committed-rev="225"
+   name="aggregator.php"
+   text-time="2008-09-01T17:27:53.000000Z"
+   committed-date="2008-09-01T17:30:58.061291Z"
+   checksum="49e4c605a90b735ef38fb5a9d181628e"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-09-30T14:04:48.000000Z"
+   revision="225"/>
+<entry
+   committed-rev="173"
+   name="feed-icon.png"
+   text-time="2007-08-09T03:45:32.000000Z"
+   committed-date="2007-05-12T01:37:20.085017Z"
+   checksum="89d8882565c4b2f66af3574da16cee6d"
+   last-author="shokk"
+   kind="file"
+   prop-time="2007-08-09T03:45:32.000000Z"/>
+</wc-entries>

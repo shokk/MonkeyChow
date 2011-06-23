@@ -1,0 +1,58 @@
+/* mc-iphone.css
+ * Style sheet for both iphone view.
+ *
+ */
+li.mobilestyle
+{
+	font-size: 3em;
+}
+
+img.g120 {
+	width: 5em;
+	height: 5em;
+}
+
+a.mobilestyle
+{
+	font-size: 3em;
+	text-decoration: none;
+	padding: 2em 0.5em 2em 0.5em;
+}
+
+p.mobilecontent
+{
+	font-size: 3em;
+}
+
+.mobilecontent
+{
+	font-size: 3em;
+}
+
+input.bigcheck {
+	height: 75px;
+	width: 75px;
+}
+
+.mobiletext2 
+{
+	font-size: 2em;
+	text-decoration: none;
+}
+
+.mobiletext3 
+{
+	font-size: 3em;
+	text-decoration: none;
+}
+
+.mobilenav 
+{
+	font-size: 3em;
+	text-decoration: none;
+}
+
+select
+{
+		font-size: 3em;
+}

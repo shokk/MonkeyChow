@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="205"
+   name=""
+   committed-date="2008-03-16T19:53:12.261648Z"
+   url="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow/simplepie/compatibility_test"
+   last-author="shokk"
+   kind="dir"
+   repos="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow"
+   revision="224"/>
+<entry
+   committed-rev="205"
+   name="sp_compatibility_test.php"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="060ba42b08a833fca3ecf0dc3a1385c6"
+   last-author="shokk"
+   kind="file"/>
+<entry
+   committed-rev="205"
+   name="COMPATIBILITY README.txt"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="10bc7ff10d6f684a633c2bd4b1bdf136"
+   last-author="shokk"
+   kind="file"/>
+</wc-entries>

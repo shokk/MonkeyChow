@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="205"
+   name=""
+   committed-date="2008-03-16T19:53:12.261648Z"
+   url="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow/simplepie/demo/for_the_demo"
+   last-author="shokk"
+   kind="dir"
+   repos="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow"
+   revision="224"/>
+<entry
+   committed-rev="205"
+   name="background_menuitem_off.gif"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="7e0ce11ae1cfaf5146ad7d0d0a7f4e4e"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="sifr-config.js"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="a74f504dc3847c72df742eeac7386be8"
+   last-author="shokk"
+   kind="file"/>
+<entry
+   committed-rev="205"
+   name="top_gradient.gif"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="bfa4d85e5d8589e8ee2201417bfa5eca"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="sIFR-print.css"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="4186bc08cbf3da65d79996aa7195e632"
+   last-author="shokk"
+   kind="file"/>
+<entry
+   committed-rev="205"
+   name="feed.png"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="e0f49dfe455daed9c9a5eab6b0027f29"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="yanone-kaffeesatz-bold.swf"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="6237034159e95f991e7f33a9fa3cf76a"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="background_menuitem.gif"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="1571e821e8739a81012b57e35b6a46cf"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="place_audio.png"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="37cd78d745285802c875534848697003"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="mediaplayer.swf"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="c9878ccc19b6e27f1b097b31487e695c"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="background_blockquote.png"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="1674614ba00ce732df005760f5bb0871"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="background_menuitem_shadow.gif"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="3c64caf3c58c3bfc9644923d05783679"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="mini_podcast.png"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="da97b8b3ec58cb8b50fd33f2ddaa6611"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="place_video.png"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="38967cd24ebbcdb43579fcc7b226f8a4"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="logo_simplepie_demo.png"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="213bb3ca105d8fb6c2d64e4d112eeb41"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="mediaplayer_readme.htm"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="670325f5eaafd97d569f4d4c31f1a0e0"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="sIFR-screen.css"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="b07ca91e56ec9915836f34a7829ed071"
+   last-author="shokk"
+   kind="file"/>
+<entry
+   committed-rev="205"
+   name="alternate_favicon.png"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="b065d2f1774376cbd4be4e19d53be6c3"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   name="favicons"
+   kind="dir"/>
+<entry
+   committed-rev="205"
+   name="sleight.js"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="ae6163f19a8585da9537c27ee3fd2273"
+   last-author="shokk"
+   kind="file"/>
+<entry
+   committed-rev="205"
+   name="lucida-grande-bold.swf"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="d189f86bca79882bbfe3cd221190de01"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="sifr.js"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="711717c265c74b5d4d86ce939cb8babc"
+   last-author="shokk"
+   kind="file"/>
+<entry
+   committed-rev="205"
+   name="verdana.swf"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="75f915b7da770a2fb05199daf53ca9d6"
+   last-author="shokk"
+   kind="file"
+   prop-time="2008-03-16T19:52:43.000000Z"/>
+<entry
+   committed-rev="205"
+   name="simplepie.css"
+   text-time="2008-03-16T19:50:42.000000Z"
+   committed-date="2008-03-16T19:53:12.261648Z"
+   checksum="fea8b65ecc78d4aece743c5d563ba10a"
+   last-author="shokk"
+   kind="file"/>
+</wc-entries>

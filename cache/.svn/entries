@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1"
+   name=""
+   committed-date="2006-04-16T21:18:31.608361Z"
+   url="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow/cache"
+   last-author="root"
+   kind="dir"
+   uuid="1d8a3bd2-9211-0410-b7dc-490975d6ac14"
+   repos="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow"
+   revision="224"/>
+</wc-entries>
