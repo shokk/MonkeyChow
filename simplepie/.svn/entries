@@ -1,46 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?>
-<wc-entries
-   xmlns="svn:">
-<entry
-   committed-rev="205"
-   name=""
-   committed-date="2008-03-16T19:53:12.261648Z"
-   url="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow/simplepie"
-   last-author="shokk"
-   kind="dir"
-   repos="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow"
-   revision="224"/>
-<entry
-   committed-rev="205"
-   name="simplepie.inc"
-   text-time="2008-03-16T19:50:42.000000Z"
-   committed-date="2008-03-16T19:53:12.261648Z"
-   checksum="7ee858f52615e2d3a4dc0ba279fe8517"
-   last-author="shokk"
-   kind="file"/>
-<entry
-   committed-rev="205"
-   name="LICENSE.txt"
-   text-time="2008-03-16T19:50:42.000000Z"
-   committed-date="2008-03-16T19:53:12.261648Z"
-   checksum="2377070dba7169692470a162614b8b29"
-   last-author="shokk"
-   kind="file"/>
-<entry
-   name="demo"
-   kind="dir"/>
-<entry
-   name="compatibility_test"
-   kind="dir"/>
-<entry
-   name="idn"
-   kind="dir"/>
-<entry
-   committed-rev="205"
-   name="README.txt"
-   text-time="2008-03-16T19:50:42.000000Z"
-   committed-date="2008-03-16T19:53:12.261648Z"
-   checksum="2f056eb773e99136023a9c4df80710d8"
-   last-author="shokk"
-   kind="file"/>
-</wc-entries>
+10
+
+dir
+226
+https://monkeychow.svn.sourceforge.net/svnroot/monkeychow/simplepie
+https://monkeychow.svn.sourceforge.net/svnroot/monkeychow
+
+
+
+2008-03-16T19:53:12.261648Z
+205
+shokk
+
+simplepie.inc
+file
+
+
+
+
+2008-03-16T19:50:42.000000Z
+7ee858f52615e2d3a4dc0ba279fe8517
+2008-03-16T19:53:12.261648Z
+205
+shokk
+
+LICENSE.txt
+file
+
+
+
+
+2008-03-16T19:50:42.000000Z
+2377070dba7169692470a162614b8b29
+2008-03-16T19:53:12.261648Z
+205
+shokk
+
+demo
+dir
+
+compatibility_test
+dir
+
+idn
+dir
+
+README.txt
+file
+
+
+
+
+2008-03-16T19:50:42.000000Z
+2f056eb773e99136023a9c4df80710d8
+2008-03-16T19:53:12.261648Z
+205
+shokk
+

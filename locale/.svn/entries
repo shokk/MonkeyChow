@@ -1,20 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
-<wc-entries
-   xmlns="svn:">
-<entry
-   committed-rev="70"
-   name=""
-   committed-date="2006-07-06T03:04:47.176594Z"
-   url="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow/locale"
-   last-author="shokk"
-   kind="dir"
-   uuid="1d8a3bd2-9211-0410-b7dc-490975d6ac14"
-   repos="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow"
-   revision="224"/>
-<entry
-   name="en_US"
-   kind="dir"/>
-<entry
-   name="es_ES"
-   kind="dir"/>
-</wc-entries>
+10
+
+dir
+226
+https://monkeychow.svn.sourceforge.net/svnroot/monkeychow/locale
+https://monkeychow.svn.sourceforge.net/svnroot/monkeychow
+
+
+
+2006-07-06T03:04:47.176594Z
+70
+shokk
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1d8a3bd2-9211-0410-b7dc-490975d6ac14
+
+en_US
+dir
+
+es_ES
+dir
+

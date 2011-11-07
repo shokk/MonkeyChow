@@ -1,68 +1,92 @@
-<?xml version="1.0" encoding="utf-8"?>
-<wc-entries
-   xmlns="svn:">
-<entry
-   committed-rev="205"
-   name=""
-   committed-date="2008-03-16T19:53:12.261648Z"
-   url="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow/simplepie/demo"
-   last-author="shokk"
-   kind="dir"
-   repos="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow"
-   revision="224"/>
-<entry
-   name="cache"
-   kind="dir"/>
-<entry
-   committed-rev="205"
-   name="handler_image.php"
-   text-time="2008-03-16T19:50:42.000000Z"
-   committed-date="2008-03-16T19:53:12.261648Z"
-   checksum="69ee55898fe98f79e5d215315c619de1"
-   last-author="shokk"
-   kind="file"/>
-<entry
-   committed-rev="205"
-   name="test.php"
-   text-time="2008-03-16T19:50:42.000000Z"
-   committed-date="2008-03-16T19:53:12.261648Z"
-   checksum="492039b25b952b78cb8995b134b1750c"
-   last-author="shokk"
-   kind="file"/>
-<entry
-   committed-rev="205"
-   name="multifeeds.php"
-   text-time="2008-03-16T19:50:42.000000Z"
-   committed-date="2008-03-16T19:53:12.261648Z"
-   checksum="a5aede0c20125e98c4354cd85fdf38f2"
-   last-author="shokk"
-   kind="file"/>
-<entry
-   committed-rev="205"
-   name="minimalistic.php"
-   text-time="2008-03-16T19:50:42.000000Z"
-   committed-date="2008-03-16T19:53:12.261648Z"
-   checksum="9958b88743a1977cf6b35c0a6d3d7b89"
-   last-author="shokk"
-   kind="file"/>
-<entry
-   name="for_the_demo"
-   kind="dir"/>
-<entry
-   committed-rev="205"
-   name="cli_test.php"
-   text-time="2008-03-16T19:50:42.000000Z"
-   committed-date="2008-03-16T19:53:12.261648Z"
-   checksum="e9e7122d5f801494bed30fb134bbd024"
-   last-author="shokk"
-   kind="file"
-   prop-time="2008-03-16T19:52:43.000000Z"/>
-<entry
-   committed-rev="205"
-   name="index.php"
-   text-time="2008-03-16T19:50:42.000000Z"
-   committed-date="2008-03-16T19:53:12.261648Z"
-   checksum="d7cca8ed94e188e07941d2d9a434e937"
-   last-author="shokk"
-   kind="file"/>
-</wc-entries>
+10
+
+dir
+226
+https://monkeychow.svn.sourceforge.net/svnroot/monkeychow/simplepie/demo
+https://monkeychow.svn.sourceforge.net/svnroot/monkeychow
+
+
+
+2008-03-16T19:53:12.261648Z
+205
+shokk
+
+cache
+dir
+
+handler_image.php
+file
+
+
+
+
+2008-03-16T19:50:42.000000Z
+69ee55898fe98f79e5d215315c619de1
+2008-03-16T19:53:12.261648Z
+205
+shokk
+
+test.php
+file
+
+
+
+
+2008-03-16T19:50:42.000000Z
+492039b25b952b78cb8995b134b1750c
+2008-03-16T19:53:12.261648Z
+205
+shokk
+
+multifeeds.php
+file
+
+
+
+
+2008-03-16T19:50:42.000000Z
+a5aede0c20125e98c4354cd85fdf38f2
+2008-03-16T19:53:12.261648Z
+205
+shokk
+
+minimalistic.php
+file
+
+
+
+
+2008-03-16T19:50:42.000000Z
+9958b88743a1977cf6b35c0a6d3d7b89
+2008-03-16T19:53:12.261648Z
+205
+shokk
+
+for_the_demo
+dir
+
+cli_test.php
+file
+
+
+
+
+2008-03-16T19:50:42.000000Z
+e9e7122d5f801494bed30fb134bbd024
+2008-03-16T19:53:12.261648Z
+205
+shokk
+has-props
+
+index.php
+file
+
+
+
+
+2008-03-16T19:50:42.000000Z
+d7cca8ed94e188e07941d2d9a434e937
+2008-03-16T19:53:12.261648Z
+205
+shokk
+

@@ -1,45 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?>
-<wc-entries
-   xmlns="svn:">
-<entry
-   committed-rev="205"
-   name=""
-   committed-date="2008-03-16T19:53:12.261648Z"
-   url="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow/simplepie/idn"
-   last-author="shokk"
-   kind="dir"
-   repos="https://monkeychow.svn.sourceforge.net/svnroot/monkeychow"
-   revision="224"/>
-<entry
-   committed-rev="205"
-   name="npdata.ser"
-   text-time="2008-03-16T19:50:42.000000Z"
-   committed-date="2008-03-16T19:53:12.261648Z"
-   checksum="e844d12e1c72013c1d6bcfd559c69fde"
-   last-author="shokk"
-   kind="file"/>
-<entry
-   committed-rev="205"
-   name="LICENCE"
-   text-time="2008-03-16T19:50:42.000000Z"
-   committed-date="2008-03-16T19:53:12.261648Z"
-   checksum="8d671154906637c7c72632822ee9f730"
-   last-author="shokk"
-   kind="file"/>
-<entry
-   committed-rev="205"
-   name="idna_convert.class.php"
-   text-time="2008-03-16T19:50:42.000000Z"
-   committed-date="2008-03-16T19:53:12.261648Z"
-   checksum="138eb836916be69b77c9bf2afd7f68d9"
-   last-author="shokk"
-   kind="file"/>
-<entry
-   committed-rev="205"
-   name="ReadMe.txt"
-   text-time="2008-03-16T19:50:42.000000Z"
-   committed-date="2008-03-16T19:53:12.261648Z"
-   checksum="026b4ea20aacc2b801c3bf85099e2c23"
-   last-author="shokk"
-   kind="file"/>
-</wc-entries>
+10
+
+dir
+226
+https://monkeychow.svn.sourceforge.net/svnroot/monkeychow/simplepie/idn
+https://monkeychow.svn.sourceforge.net/svnroot/monkeychow
+
+
+
+2008-03-16T19:53:12.261648Z
+205
+shokk
+
+npdata.ser
+file
+
+
+
+
+2008-03-16T19:50:42.000000Z
+e844d12e1c72013c1d6bcfd559c69fde
+2008-03-16T19:53:12.261648Z
+205
+shokk
+
+LICENCE
+file
+
+
+
+
+2008-03-16T19:50:42.000000Z
+8d671154906637c7c72632822ee9f730
+2008-03-16T19:53:12.261648Z
+205
+shokk
+
+idna_convert.class.php
+file
+
+
+
+
+2008-03-16T19:50:42.000000Z
+138eb836916be69b77c9bf2afd7f68d9
+2008-03-16T19:53:12.261648Z
+205
+shokk
+
+ReadMe.txt
+file
+
+
+
+
+2008-03-16T19:50:42.000000Z
+026b4ea20aacc2b801c3bf85099e2c23
+2008-03-16T19:53:12.261648Z
+205
+shokk
+
