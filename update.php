@@ -51,19 +51,26 @@ $handle = fopen("panel-menu.html", "r");
 </script>
 <BR>
 <?php
-prune_feeds();
+//prune_feeds();
 
 $feed = $_REQUEST['feed'];
+$tags = $_REQUEST['tags'];
 
-$sql = "select url, id, title from feeds";
+$sql = "select DISTINCT " . $FOF_FEED_TABLE . ".url, " . $FOF_FEED_TABLE . ".id, " . $FOF_FEED_TABLE . ".title from " . $FOF_FEED_TABLE . ", " . $FOF_SUBSCRIPTION_TABLE . " where " . $FOF_FEED_TABLE . ".id = " . $FOF_SUBSCRIPTION_TABLE . ".feed_id and " . $FOF_SUBSCRIPTION_TABLE . ".user_id = " . current_user();
 
 if($feed)
 {
-  $sql .= " where id = $feed";
+  $sql .= " and " . $FOF_FEED_TABLE . ".id = $feed";
+}
+
+if($tags)
+{
+  $sql .= " and " . $FOF_SUBSCRIPTION_TABLE . ".tags like '%" . $tags . "%'";
 }
 
 $sql .= " order by title";
 
+#echo "$sql<br />";
 $result = fof_do_query($sql);
 
 while($row = mysql_fetch_array($result))
@@ -73,7 +80,7 @@ while($row = mysql_fetch_array($result))
 	print _("Updating") . " <b>" . $row['title'] . "</b>...";
         flush();
 
-        fof_prune_feed($row['id']);
+        //fof_prune_feed($row['id']);
 	$count = fof_update_feed($row['url']);
 
 	print "<font color=\"green\">" . _("done. ") . "</font>";

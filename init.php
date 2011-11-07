@@ -21,10 +21,10 @@ define('FOF_MAX_INT', 2147483647);
 
 $FOF_FEED_TABLE = FOF_FEED_TABLE;
 $FOF_ITEM_TABLE = FOF_ITEM_TABLE;
-$FOF_ITEM_TAG_TABLE = FOF_ITEM_TAG_TABLE;
 $FOF_SUBSCRIPTION_TABLE = FOF_SUBSCRIPTION_TABLE;
-$FOF_TAG_TABLE = FOF_TAG_TABLE;
+$FOF_FLAG_TABLE = FOF_FLAG_TABLE;
 $FOF_USER_TABLE = FOF_USER_TABLE;
+$FOF_USERITEM_TABLE = FOF_USERITEM_TABLE;
 
 
 // Suppress magpie's warnings. We'll handle those ourselves
@@ -65,14 +65,14 @@ if(!$installing)
 
 function fof_prune_feed($id)
 {
-    $sql = "select aging from feeds where id='$id'";
+    $sql = "select aging from" . $FOF_FEED_TABLE . "where id='$id'";
     #$result=fof_do_query($sql);
     $row = mysql_fetch_array(fof_do_query($sql));
     $keep_days = $row['aging'];
 
     if($keep_days > 0)
     {
-        $sql = "delete from items where `feed_id`=$id and `star`!=1 and `read`=1 and to_days(CURDATE()) - to_days(`timestamp`)  > $keep_days";
+        $sql = "delete from " . $FOF_ITEM_TABLE . " where `feed_id`=$id AND `star`!=1 AND `read`=1 AND to_days(CURDATE()) - to_days(`timestamp`)  > $keep_days";
         #print "<br />" . $sql . "<br />";
         fof_do_query($sql);
     }
@@ -80,14 +80,15 @@ function fof_prune_feed($id)
 
 function prune_feeds()
 {
-		$sql="SELECT id FROM `feeds` ORDER BY `feeds`.`id` ASC;";
+	global $FOF_FEED_TABLE;
+		$sql="SELECT id FROM `" . $FOF_FEED_TABLE . "` ORDER BY `" . $FOF_FEED_TABLE . "`.`id` ASC;";
 		$result=fof_do_query($sql);
 		while($row = mysql_fetch_array($result))
 		{
 				$feedsidarray[]=$row['id'];	
 		}
 		
-		$sql="SELECT DISTINCT feed_id FROM `items` ORDER BY `items`.`feed_id` ASC;";
+		$sql="SELECT DISTINCT feed_id FROM `" . $FOF_ITEM_TABLE . "` ORDER BY `" . $FOF_ITEM_TABLE . "`.`feed_id` ASC;";
 		$result=fof_do_query($sql);
 		while($row = mysql_fetch_array($result))
 		{
@@ -95,18 +96,18 @@ function prune_feeds()
 		}
 		
 		$result = array_diff($feedsitemsarray, $feedsidarray);
-		#$sql="delete FROM `items` ";
+		#$sql="delete FROM `" . $FOF_ITEM_TABLE . "` ";
 		$sql="";
 		foreach ($result as $resultthing)
 		{
 				#print "::" . $resultthing . "::<br />\n";
 				if ($sql == "")
 				{
-						$sql = "delete FROM `items` WHERE `items`.`feed_id` LIKE $resultthing ";
+						$sql = "delete FROM `" . $FOF_ITEM_TABLE . "` WHERE `" . $FOF_ITEM_TABLE . "`.`feed_id` LIKE $resultthing ";
 				}
 				else
 				{
-						$sql .= "OR `items`.`feed_id` LIKE $resultthing ";
+						$sql .= "OR `" . $FOF_ITEM_TABLE . "`.`feed_id` LIKE $resultthing ";
 				}
 		}
 		#print_r($result);
@@ -115,23 +116,84 @@ function prune_feeds()
 		flush();
 }
 
-function fof_get_feeds($order = 'title', $direction = 'asc', $tags = '')
+function fof_get_subscribed_feeds_list($tags = NULL)
 {
-   fof_prune_expir_feeds();
-   $sql = "select id, url, title, link, image, description from feeds";
-   if ($tags != '' && $tags != _("All tags") && $tags != _("No tags"))
-   {
-       $sql .= " where tags LIKE '%$tags%'";
-   }
-   if ($tags == _("No tags"))
-   {
-       $sql .= " where tags IS NULL or tags LIKE ''";
-   }
-   $sql .= " order by title";
-   $result = fof_do_query($sql);
+	# Returns a comma separated list of subscribed feeds
+	# with optional tag support.
+	# Suitable for input into SQL queries
+
+	global $FOF_FEED_TABLE, $FOF_SUBSCRIPTION_TABLE;
+	$sql = "select $FOF_FEED_TABLE.id from $FOF_FEED_TABLE, $FOF_SUBSCRIPTION_TABLE where $FOF_SUBSCRIPTION_TABLE.user_id = " . current_user() . " and $FOF_FEED_TABLE.id = $FOF_SUBSCRIPTION_TABLE.feed_id ";
+
+	if ($tags != '' && $tags != _("All tags") && $tags != _("No tags"))
+	{
+		$sql .= " AND $FOF_SUBSCRIPTION_TABLE.tags LIKE '%$tags%'";
+	}
+	if ($tags == _("No tags"))
+	{
+		$sql .= " AND ($FOF_SUBSCRIPTION_TABLE.tags IS NULL or $FOF_SUBSCRIPTION_TABLE.tags LIKE '')";
+	}
+
+#echo $sql . "<br />\n";
+	$result = fof_do_query($sql);
+
+	$i = 0;
+	while($row = mysql_fetch_array($result))
+	{
+		if ($i == 0)
+		{
+			$list = $row['id'];
+		}
+		else
+		{
+			$list .= ", " . $row['id'];
+		}
+		$i++;
+	}
+	return $list;
+}
+
+function fof_get_feeds($order = 'title', $direction = 'asc', $tags = NULL)
+{
+	global $FOF_FEED_TABLE, $FOF_ITEM_TABLE, $FOF_SUBSCRIPTION_TABLE;
+	#fof_prune_expir_feeds();
+	# subscriptions query returns results
+	# need to provide tag so that list can be filtered
+	#fof_db_get_subscriptions(current_user(), $order, $direction, $tags);	
+	#$sql = "SELECT id, url, title, link, image, description FROM " . $FOF_FEED_TABLE;
+
+	if(fof_is_admin())
+	{
+		$sql2 = "select distinct ";
+	}
+	else
+	{
+		$sql2 = "select ";
+	}
+	$sql2 .= "$FOF_FEED_TABLE.id, $FOF_FEED_TABLE.url, $FOF_FEED_TABLE.title, $FOF_FEED_TABLE.link, $FOF_FEED_TABLE.image, $FOF_FEED_TABLE.description from $FOF_FEED_TABLE, $FOF_SUBSCRIPTION_TABLE where $FOF_FEED_TABLE.id = $FOF_SUBSCRIPTION_TABLE.feed_id";
+
+	if(!fof_is_admin())
+	{
+		$sql2 .= " and $FOF_SUBSCRIPTION_TABLE.user_id = " . current_user();
+	}
+
+	$feedlist=fof_get_subscribed_feeds_list($tags);
+	
+	if ($feedlist != "")
+	{
+		if (!fof_is_admin())
+		{
+			$sql2 .= " AND $FOF_FEED_TABLE.id in ($feedlist)";
+		}
+		echo $sql2 . "<br />\n";
+		$result = fof_do_query($sql2);
+	}
+	else
+	{
+		$result = "";
+	}
 
    $i = 0;
-
    while($row = mysql_fetch_array($result))
    {
       #$id = $row['id'];
@@ -201,7 +263,12 @@ function fof_get_feeds($order = 'title', $direction = 'asc', $tags = '')
 
    }
 
-   $result = fof_do_query("select count( feed_id ) as count, feed_id as id from feeds, items where feeds.id = items.feed_id and `read` is null group by feed_id order by feeds.title");
+	# unread articles count	
+	$sql = "SELECT count( feed_id ) AS count, feed_id AS id FROM " . $FOF_FEED_TABLE . ", " . $FOF_ITEM_TABLE . " WHERE " . $FOF_FEED_TABLE . ".id = " . $FOF_ITEM_TABLE . ".feed_id ";
+   $sql .= " AND " . $FOF_ITEM_TABLE . ".id NOT IN ( SELECT item_id FROM user_items WHERE user_id=" . current_user() . " AND flag_id=1) ";
+   $sql .= " AND " . $FOF_FEED_TABLE . ".id IN (SELECT  `feed_id` FROM  `" . $FOF_SUBSCRIPTION_TABLE . "` WHERE user_id =" . current_user() . ")";
+   $sql .= "group by feed_id order by " . $FOF_FEED_TABLE . ".title";
+   $result = fof_do_query($sql);
 
    while($row = mysql_fetch_array($result))
    {
@@ -214,7 +281,8 @@ function fof_get_feeds($order = 'title', $direction = 'asc', $tags = '')
      }
    }
 
-   $result = fof_do_query("select count( feed_id ) as count, feed_id as id from feeds, items where feeds.id = items.feed_id group by feed_id order by feeds.title");
+	#total articles count
+   $result = fof_do_query("SELECT count( feed_id ) as count, feed_id as id from " . $FOF_FEED_TABLE . ", " . $FOF_ITEM_TABLE . " where " . $FOF_FEED_TABLE . ".id = " . $FOF_ITEM_TABLE . ".feed_id group by feed_id order by " . $FOF_FEED_TABLE . ".title");
 
    while($row = mysql_fetch_array($result))
    {
@@ -234,24 +302,37 @@ function fof_get_feeds($order = 'title', $direction = 'asc', $tags = '')
 
 function fof_prune_expir_feeds()
 {
-#from feeds, items where feeds.id = items.feed_id and `read` is null group by feed_id order by feeds.title
-    $sql = "select id from feeds where expir != 0 AND ((to_days( CURDATE(  )  )  - to_days( date_added )) > expir)";
+		global $FOF_FEED_TABLE;
+#from feeds, " . $FOF_ITEM_TABLE . " where feeds.id = " . $FOF_ITEM_TABLE . ".feed_id AND `read` is null group by feed_id order by " . $FOF_FEED_TABLE . ".title
+    $sql = "select id from " . $FOF_FEED_TABLE . " where expir != 0 AND ((to_days( CURDATE(  )  )  - to_days( date_added )) > expir)";
     $result = fof_do_query($sql);
     while($row = mysql_fetch_array($result))
     {
 	 $feed_id = $row['id'];
-         $result = fof_do_query("delete from feeds where id = $feed_id");
-         $result = fof_do_query("delete from items where feed_id = $feed_id");
+         $result = fof_do_query("delete from " . $FOF_FEED_TABLE . " where id = $feed_id");
+         $result = fof_do_query("delete from " . $FOF_ITEM_TABLE . " where feed_id = $feed_id");
     }
 
+}
+
+function get_user_name()
+{
+		global $FOF_USER_TABLE;
+		$sql = "SELECT user_name from $FOF_USER_TABLE where user_id =" . current_user();
+		#$pieces = explode("::", $_COOKIE["mc_info"]);
+		#$user_name = $pieces[0];
+		$result = fof_do_query($sql);
+		$row= mysql_fetch_array($result);
+		$user_name = $row['user_name'];
+		return $user_name;
 }
 
 function fof_view_title($feed=NULL, $what="new", $when=NULL, $start=NULL, $limit=NULL)
 {
 		$title = "";
-		$pieces = explode("::", $_COOKIE["mc_info"]);
-		$user_name = $pieces[0];
-		$title = "<i>[" . $user_name . ":" . current_user() ."]</i> - ";
+		#$pieces = explode("::", $_COOKIE["mc_info"]);
+		#$user_name = $pieces[0];
+		$title = "<i>[" . get_user_name() . ":" . current_user() ."]</i> - ";
 	    $title .= "MonkeyChow";
 
    if(!is_null($when) && $when != "")
@@ -290,6 +371,10 @@ function fof_view_title($feed=NULL, $what="new", $when=NULL, $start=NULL, $limit
 
 function fof_get_items($feed=NULL, $what="new", $when=NULL, $start=NULL, $limit=NULL, $order="desc", $tags=NULL, $search)
 {
+	global $FOF_FEED_TABLE;
+	global $FOF_ITEM_TABLE;
+	global $FOF_USERITEM_TABLE;
+	global $FOF_SUBSCRIPTION_TABLE;
    if(!is_null($when) && $when != "")
    {
      if($when == "today")
@@ -319,53 +404,94 @@ function fof_get_items($feed=NULL, $what="new", $when=NULL, $start=NULL, $limit=
       $limit_clause = " limit $start, $limit ";
    }
 
-   $query = "select feeds.tags as feed_tags, items.read as item_read, feeds.image as feed_image, feeds.title as feed_title, feeds.link as feed_link, feeds.description as feed_description, items.id as item_id, items.link as item_link, items.title as item_title, UNIX_TIMESTAMP(items.timestamp) as timestamp, items.content as item_content, items.dcdate as dcdate, items.dccreator as dccreator, items.dcsubject as dcsubject, items.publish as item_publish, items.star as item_star from feeds, items where items.feed_id=feeds.id";
+   $query = "select " . $FOF_FEED_TABLE . ".tags as feed_tags, " . $FOF_FEED_TABLE . ".image as feed_image, " . $FOF_FEED_TABLE . ".title as feed_title, " . $FOF_FEED_TABLE . ".link as feed_link, " . $FOF_FEED_TABLE . ".description as feed_description, " . $FOF_ITEM_TABLE . ".id as item_id, " . $FOF_ITEM_TABLE . ".link as item_link, " . $FOF_ITEM_TABLE . ".title as item_title, UNIX_TIMESTAMP(" . $FOF_ITEM_TABLE . ".timestamp) as timestamp, " . $FOF_ITEM_TABLE . ".content as item_content, " . $FOF_ITEM_TABLE . ".dcdate as dcdate, " . $FOF_ITEM_TABLE . ".dccreator as dccreator, " . $FOF_ITEM_TABLE . ".dcsubject as dcsubject ";
+  $query .= " from " . $FOF_FEED_TABLE . ", " . $FOF_ITEM_TABLE . ", " . $FOF_SUBSCRIPTION_TABLE;
+
+	if (($what == "published")||($what == "starred")||($what == "private"))
+	{
+		$query .= ", " . $FOF_USERITEM_TABLE;
+	}
+
+	$feedlist = fof_get_subscribed_feeds_list($tags);
+	#$query .= " where " . $FOF_ITEM_TABLE . ".feed_id=" . $FOF_FEED_TABLE . ".id  and " . $FOF_SUBSCRIPTION_TABLE . ".feed_id = " . $FOF_FEED_TABLE . ".id and " . $FOF_FEED_TABLE . ".id in ($feedlist)";
+	$query .= " WHERE " . $FOF_ITEM_TABLE . ".feed_id=" . $FOF_FEED_TABLE . ".id  and " . $FOF_SUBSCRIPTION_TABLE . ".feed_id = " . $FOF_FEED_TABLE . ".id ";
+	if (($what == "published")||($what == "starred")||($what == "private"))
+	{
+		$query .= " and " . $FOF_USERITEM_TABLE . ".item_id = " . $FOF_ITEM_TABLE . ".id ";
+	}
+
 
    if(!is_null($feed) && $feed != "")
    {
-     $query .= " and feeds.id = $feed";
+     $query .= " AND " . $FOF_FEED_TABLE . ".id = $feed";
    }
 
    if(!is_null($when) && $when != "")
    {
-     $query .= " and UNIX_TIMESTAMP(items.timestamp) > $begin and UNIX_TIMESTAMP(items.timestamp) < $end";
+     $query .= " AND UNIX_TIMESTAMP(" . $FOF_ITEM_TABLE . ".timestamp) > $begin AND UNIX_TIMESTAMP(" . $FOF_ITEM_TABLE . ".timestamp) < $end";
    }
 
    if(!is_null($tags) && $tags!="" && $tags!="All tags")
    {
 	   if ($tags=="No tags")
 	   {
-           $query .= " and feeds.tags IS NULL";# or tags LIKE ''";
+           $query .= " AND " . $FOF_SUBSCRIPTION_TABLE . ".tags IS NULL";# or tags LIKE ''";
 	   }
 	   else
 	   {
-           $query .= " and feeds.tags LIKE \"%" . $tags . "%\"";
+           $query .= " AND " . $FOF_SUBSCRIPTION_TABLE . ".tags LIKE \"%" . $tags . "%\"";
 	   }
    }
 
-   if ($what == "published")
-   {
-     $query .= " and items.publish=1";
-   }
-   else if($what == "public")
-   {
-     $query .= " and feeds.private=0";
-   }
-   else if ($what == "starred")
-   {
-     $query .= " and items.star=1";
-   }
-   else if($what == "search")
-   {
-      $query .= " and items.title LIKE \"%" . $search . "%\"";
-   }
-   else if($what != "all")
-   {
-     $query .= " and items.read is null";
-   }
+	$query .= " AND " . $FOF_SUBSCRIPTION_TABLE . ".user_id = " . current_user();
+	if (($what == "published")||($what == "starred")||($what == "private"))
+	{
+		$query .= " AND " . $FOF_SUBSCRIPTION_TABLE . ".user_id=" . $FOF_USERITEM_TABLE . ".user_id ";
+	}
 
-   $query .= " order by timestamp desc $limit_clause";
-   $result = fof_do_query($query);
+	if ($what == "published")
+	{
+		#$query .= " AND " . $FOF_ITEM_TABLE . ".publish=1";
+		#$query .= " AND " . $FOF_ITEM_TABLE . ".id IN ( SELECT  `item_id` FROM `" . $FOF_USERITEM_TABLE . "` WHERE `user_id`=" . current_user() . " AND  `flag_id`=3) ";
+		$query .= " AND " . $FOF_USERITEM_TABLE . ".flag_id=3 ";
+	}
+	else if($what == "public")
+	{
+		#$query .= " AND " . $FOF_FEED_TABLE . ".private=0";
+		$query .= " AND " . $FOF_ITEM_TABLE . ".id NOT IN ( SELECT  `item_id` FROM `" . $FOF_USERITEM_TABLE . "` WHERE `user_id`=" . current_user() . " AND  `flag_id`=4) ";
+	}
+	else if ($what == "starred")
+	{
+		#$query .= " AND " . $FOF_ITEM_TABLE . ".star=1";
+		#$query .= " AND " . $FOF_ITEM_TABLE . ".id IN ( SELECT  `item_id` FROM `" . $FOF_USERITEM_TABLE . "` WHERE `user_id`=" . current_user() . " AND  `flag_id`=2) ";
+		$query .= " AND " . $FOF_USERITEM_TABLE . ".flag_id=2 ";
+	}
+	else if($what == "search")
+	{
+		$query .= " AND " . $FOF_ITEM_TABLE . ".title LIKE \"%" . $search . "%\"";
+	}
+	else if($what != "all")
+	{
+		#$query .= " AND " . $FOF_ITEM_TABLE . ".read is null";
+		$query .= " AND " . $FOF_ITEM_TABLE . ".id NOT IN ( SELECT item_id FROM " . $FOF_USERITEM_TABLE . " WHERE user_id =" . current_user() . " AND  flag_id=1) ";
+	}
+
+    $query .= " order by timestamp desc $limit_clause";	
+/*
+	if(($what == "starred")||($what == "published"))
+	{
+		echo $query . "<br />";
+		exit;
+	}
+*/
+    if ($feedlist != "")
+    {
+		$result = fof_do_query($query);
+	}
+	else
+	{
+		$result="";
+	}
 
    while($row = mysql_fetch_array($result))
    {
@@ -627,52 +753,130 @@ function fof_opml_to_array($opml)
   return $r;
 }
 
+function subscribe_user($id)
+{
+	global $FOF_SUBSCRIPTION_TABLE;
+	$sql = "INSERT INTO `" . $FOF_SUBSCRIPTION_TABLE . "` (`feed_id`,`user_id`)  VALUES (" . $id . ", " . current_user() . ")";
+	fof_do_query($sql);
+
+	echo "<font color=\"green\"><b>" . _("User Subscribed") . ".</b></font><br />";
+
+	return true;
+}
+
+function user_is_subscribed($id)
+{
+	// checks to see if a user is subscribed to a particular feed
+	global $FOF_SUBSCRIPTION_TABLE;
+	#$id = $row['id'];
+	$sql = "select * from $FOF_SUBSCRIPTION_TABLE WHERE feed_id=$id AND user_id=" . current_user();
+	if(mysql_fetch_array($result = fof_do_query($sql)))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+/*
+function add_feed_link($name, $url)
+{
+    echo "<a href=\"";
+    echo "http://" . $_SERVER["HTTP_HOST"] . dirname($_SERVER["SCRIPT_NAME"]) . "monkeychow/add.php?rss_url=" . urlencode($url);
+    echo "\">$name</a><br />";
+}
+*/
+
+function user_is_new()
+{
+	global $FOF_SUBSCRIPTION_TABLE;
+	$sql = "select feed_id from $FOF_SUBSCRIPTION_TABLE WHERE user_id=" . current_user() . " LIMIT 1";
+	if(mysql_fetch_array($result = fof_do_query($sql)) )
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
+
+
+function get_feedid_by_url($url)
+{
+	global $FOF_FEED_TABLE;
+
+	$result = fof_do_query("select id,title from " . $FOF_FEED_TABLE . " where url='" . mysql_escape_string( $url ) . "'");
+	while($row = mysql_fetch_array($result))
+	{
+		if ($row['title'] != "")
+		{
+			return $row['id'];
+			break;
+		}
+	}
+}
+
+
 function fof_add_feed($url)
 {
-   if(!$url) return;
-   $url = trim($url);
+	global $FOF_FEED_TABLE;
+	if(!$url) return;
+	$url = trim($url);
 
-   if(substr($url, 0, 7) != 'http://' && substr($url, 0, 8) != 'https://')
-   {
-     $url = 'http://' . $url;
-   }
+	if(substr($url, 0, 7) != 'http://' && substr($url, 0, 8) != 'https://')
+	{
+		$url = 'http://' . $url;
+	}
 
-   echo _("Attempting to subscribe to ") . "<a href=\"$url\">$url</a>...<br />";
+	echo _("Attempting to subscribe to ") ."<a href=\"$url\">$url</a>...<br />";
+	if($row = fof_is_subscribed($url))
+	{
+		print "<font color='red'><u>" . _("Site is already subscribed to ") . fof_render_feed_link($row) . "</u></font><br /><br />";
 
-   if($row = fof_is_subscribed($url))
-   {
-      print "<font color='red'><u>" . _("You are already subscribed to ") . fof_render_feed_link($row) . "</u></font><br /><br />";
-      return true;
-   }
+	}
+	else
+	{
+		$piefeed = new SimplePie();
+		$piefeed->set_image_handler();
+		//$piefeed->strip_ads(true);
+		$piefeed->set_feed_url($url);
+		$piefeed->set_cache_location(FOF_CACHE_DIR);
+		$piefeed->init();
+		$piefeed->handle_content_type();
 
-   $piefeed = new SimplePie();
-   $piefeed->set_image_handler();
-   //$piefeed->strip_ads(true);
-   $piefeed->set_feed_url($url);
-   $piefeed->set_cache_location(FOF_CACHE_DIR);
-   $piefeed->init();
-   $piefeed->handle_content_type();
+		if (!$piefeed->data)
+		{
+			echo "&nbsp;&nbsp;<font color=\"red\">" . _("URL is not RSS or is invalid.") . "</font><br />";
+			echo "&nbsp;&nbsp;(<font color=\"red\">" . _("error was") . "</font>: <B>" . $piefeed->error . "</b>)<br />";
+			echo "&nbsp;&nbsp;<a href=\"http://feedvalidator.org/check?url=$url\">" . _("The FEED validator may give more information.") . "</a><br />";
+			echo "&nbsp;&nbsp;<a href=\"http://validator.w3.org/check?uri=$url\">" . _("The XHTML validator may give more information.") . "</a><br />";
 
-   if (!$piefeed->data)
-   {
-      echo "&nbsp;&nbsp;<font color=\"red\">" . _("URL is not RSS or is invalid.") . "</font><br />";
-      echo "&nbsp;&nbsp;(<font color=\"red\">" . _("error was") . "</font>: <B>" . $piefeed->error . "</b>)<br />";
-      echo "&nbsp;&nbsp;<a href=\"http://feedvalidator.org/check?url=$url\">" . _("The FEED validator may give more information.") . "</a><br />";
-      echo "&nbsp;&nbsp;<a href=\"http://validator.w3.org/check?uri=$url\">" . _("The XHTML validator may give more information.") . "</a><br />";
+			echo "<font color=\"red\"><b>" . _("Can't load URL.  Giving up.") . "</b></font><br />";
+			echo "<font color=\"red\"><b>" . _("Autodiscovery failed.  Giving up.") . "</b></font><br />";
+				return false;
+		}
+		else
+		{
+			echo _("Adding feed...") . "<br />";
+			fof_actually_add_feed($url, $piefeed);
+			echo "<font color=\"green\"><b>" . _("Site Subscribed") . ".</b></font><br />";
+		}
+	}
 
-      echo "<font color=\"red\"><b>" . _("Can't load URL.  Giving up.") . "</b></font><br />";
-      echo "<font color=\"red\"><b>" . _("Autodiscovery failed.  Giving up.") . "</b></font><br />";
-   }
-   else
-   {
-      echo _("Adding feed...") . "<br />";
-      fof_actually_add_feed($url, $piefeed);
-      echo "<font color=\"green\"><b>" . _("Subscribed") . ".</b></font><br />";
-   }
-	$safeurl = mysql_escape_string( $url );
-	$result = fof_do_query("select id from feeds where url='$safeurl'");
-	$row = mysql_fetch_array($result);
-	$feed_id = $row['id'];
+	$feed_id=get_feedid_by_url($url);
+	if (user_is_subscribed($feed_id))
+	{
+		print "<font color='red'><u>" . _("You are already subscribed to ") . fof_render_feed_link($row) . "</u></font><br /><br />";
+		//return true;
+	}
+	else
+	{
+		subscribe_user($feed_id);
+	}	
 
 ?>
 <script type="text/javascript">
@@ -693,6 +897,7 @@ else document.writeln('<?php
 
 function fof_actually_add_feed($url, $piefeed)
 {
+	global $FOF_FEED_TABLE;
    $title = $piefeed->get_title();
    $title = str_replace('"', '', $title);
    $title = str_replace("'", '', $title);
@@ -701,19 +906,12 @@ function fof_actually_add_feed($url, $piefeed)
    $link = $piefeed->get_link();
    $link = str_replace('"', '', $link);
    $link = str_replace("'", '', $link);
-   #$link = htmlspecialchars($link, ENT_QUOTES);
-   #$link = htmlspecialchars($link);
    $description = $piefeed->get_description();
    $description = str_replace('"', '', $description);
    $description = str_replace("'", '', $description);
    $description = htmlspecialchars($description, ENT_QUOTES);
-   #$description = htmlspecialchars($description);
-   #$description = htmlspecialchars_decode($description);
-   #$description = htmlspecialchars_decode($description);
+   $sql = "insert into " . $FOF_FEED_TABLE . " (url,title,link,description) values ('$url','$title','$link','$description')";
 
-   $sql = "insert into feeds (url,title,link,description) values ('$url','$title','$link','$description')";
-   //echo "$url $title $link $description<br />";
-   //echo "$sql<br />";
    fof_do_query($sql);
 
    fof_update_feed($url);
@@ -721,7 +919,7 @@ function fof_actually_add_feed($url, $piefeed)
 
 function fof_edit_feed($id, $url, $title, $link, $description, $date_added, $tags, $aging, $expir, $private, $image)
 {
-	global $FOF_FEED_TABLE;
+	global $FOF_FEED_TABLE,$FOF_SUBSCRIPTION_TABLE;
    $id = mysql_escape_string($id);
    $url = mysql_escape_string($url);
    $title = mysql_escape_string($title);
@@ -742,31 +940,40 @@ function fof_edit_feed($id, $url, $title, $link, $description, $date_added, $tag
       $private="1";
    }
 
-   $sql = "update " . $FOF_FEED_TABLE . " SET `url` = '$url', `title` = '$title', `link` = '$link', `description` = '$description', `date_added` = '$date_added', `tags` = '$tags', `private` = '$private'";
+if(fof_is_admin())
+{
+   $sql = "update $FOF_FEED_TABLE,$FOF_SUBSCRIPTION_TABLE SET " . $FOF_FEED_TABLE . ".url = '$url', " . $FOF_FEED_TABLE . ".title = '$title', " . $FOF_FEED_TABLE . ".link = '$link', " . $FOF_FEED_TABLE . ".description = '$description', " . $FOF_FEED_TABLE . ".date_added = '$date_added', " . $FOF_SUBSCRIPTION_TABLE . ".tags = '$tags', " . $FOF_FEED_TABLE . ".private = '$private'";
+
    if ($aging != '')
    {
-       $sql .= ", `aging` = '$aging' ";
+       $sql .= ", " . $FOF_FEED_TABLE . ".aging = '$aging' ";
    }
    if ($expir != '')
    {
-       $sql .= ", `expir` = '$expir' ";
+       $sql .= ", " . $FOF_FEED_TABLE . ".expir = '$expir' ";
    }
-   #if ($image != '')
-   #{
-       $sql .= ", `image` = '$image' ";
-   #}
+	$sql .= ", " . $FOF_FEED_TABLE . ".image = '$image' ";
 
+   $sql .= " WHERE $FOF_FEED_TABLE.id = $FOF_SUBSCRIPTION_TABLE.feed_id and $FOF_SUBSCRIPTION_TABLE.feed_id = '" . $id . "'";
+		# and $FOF_SUBSCRIPTION_TABLE.user_id=" . current_user();
+}
+else
+{
+	$sql = "update $FOF_SUBSCRIPTION_TABLE SET $FOF_SUBSCRIPTION_TABLE.tags = '" . $tags . "'";
+	$sql .= " WHERE $FOF_SUBSCRIPTION_TABLE.feed_id = '" . $id . "' and $FOF_SUBSCRIPTION_TABLE.user_id=" . current_user();
+}
 
-   $sql .= " WHERE `id` = '$id'";
-   //print ":SQL: " . $sql;
+   echo ":SQL: " . $sql . "<br />\n";
    fof_do_query($sql);
 }
 
 function fof_is_subscribed($url)
 {
+	// returns an array for the resulting subscribed feed
+	global $FOF_FEED_TABLE;
    $safe_url = mysql_escape_string($url);
 
-   $result = fof_do_query("select url, title, link, id from feeds where url = '$safe_url'");
+   $result = fof_do_query("select url, title, link, id from " . $FOF_FEED_TABLE . " where url = '$safe_url'");
 
    if(mysql_num_rows($result) == 0)
    {
@@ -781,7 +988,8 @@ function fof_is_subscribed($url)
 
 function fof_feed_row($id)
 {
-   $result = fof_do_query("select url, title, link, id from feeds where id = '$id'");
+		global $FOF_FEED_TABLE;
+   $result = fof_do_query("select url, title, link, id from " . $FOF_FEED_TABLE . " where id = '$id'");
 
    if(mysql_num_rows($result) == 0)
    {
@@ -796,7 +1004,8 @@ function fof_feed_row($id)
 
 function fof_search_word($word)
 {
-   $result = fof_do_query("select url, title, link, id from feeds where title LIKE '$word'");
+		global $FOF_FEED_TABLE;
+   $result = fof_do_query("select url, title, link, id from " . $FOF_FEED_TABLE . " where title LIKE '$word'");
    if(mysql_num_rows($result) == 0)
    {
       return false;
@@ -811,6 +1020,7 @@ function fof_search_word($word)
 function fof_update_feed($url)
 {
 		global $FOF_FEED_TABLE;
+		global $FOF_ITEM_TABLE;
    #
    # Get feed data.
    #
@@ -841,7 +1051,7 @@ function fof_update_feed($url)
    $description = $piefeed->get_description();
 
    $safeurl = mysql_escape_string( $url );
-   $result = fof_do_query("select id, url, aging from feeds where url='$safeurl'");
+   $result = fof_do_query("select id, url, aging from " . $FOF_FEED_TABLE . " where url='$safeurl'");
 
    $row = mysql_fetch_array($result);
    $feed_id = $row['id'];
@@ -851,7 +1061,7 @@ function fof_update_feed($url)
        $keep_days = 60;
    }
 
-	$result2 = fof_do_query("select image from feeds where `id`='$feed_id'");
+	$result2 = fof_do_query("select image from " . $FOF_FEED_TABLE . " where `id`='$feed_id'");
 	$row2 = mysql_fetch_array($result2);
 	$image2 = $row2['image'];
 
@@ -952,7 +1162,7 @@ function fof_update_feed($url)
       #
       # Now manage the article data
       #
-      $sql = "select id from items where feed_id='$feed_id' and link='$link'";
+      $sql = "select id from " . $FOF_ITEM_TABLE . " where feed_id='$feed_id' AND link='$link'";
       #print "<br />" . $sql . "<br />";
       $result = fof_do_query($sql);
       $row = mysql_fetch_array($result);
@@ -964,6 +1174,7 @@ function fof_update_feed($url)
          # dcdate   : August 2, 2006, 1:30 am
          # timestamp: 2006-09-16 15:51:53
          # add it only if it's not older than keep_days
+         #$dcdatetime = date("Y-m-d H:i:s",strtotime($dcdate));
          $dcdatetime = strtotime($dcdate);
 		 # We set ageflag == 1 if its OK to add the item to the database
          if ($dcdatetime < 1)
@@ -981,7 +1192,7 @@ function fof_update_feed($url)
          if ($ageflag)
          {
              $n++;
-             $sql = "insert into items (feed_id,link,title,content,dcdate,dccreator,dcsubject) values ('$feed_id','$link','$title','$content','$dcdatetime','$dccreator','$dcsubject')";
+             $sql = "insert into " . $FOF_ITEM_TABLE . " (feed_id,link,title,content,dcdate,dccreator,dcsubject) values ('$feed_id','$link','$title','$content','$dcdatetime','$dccreator','$dcsubject')";
              #print "<br />" . $sql . "<br />";
              $result = fof_do_query($sql);
              $ids[] = $id; #keep track of it so we don't delete it below
@@ -1004,9 +1215,9 @@ function fof_update_feed($url)
    #if($keep_days > 0)
    #{
    #   # keep_days should come from the feeds.aging column
-   #   $sql = "delete from items where `star`!=1 and feed_id = $feed_id ";
-   #   $sql .= " and `read`=1 ";
-   #   $sql .= " and to_days( CURDATE(  )  )  - to_days( timestamp )  > $keep_days";
+   #   $sql = "delete from items where `star`!=1 AND feed_id = $feed_id ";
+   #   $sql .= " AND `read`=1 ";
+   #   $sql .= " AND to_days( CURDATE(  )  )  - to_days( timestamp )  > $keep_days";
    #   #print "<br />" . $sql . "<br />";
    #      fof_do_query($sql);
    #}

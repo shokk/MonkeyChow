@@ -37,14 +37,38 @@ header("Content-Type: text/html; charset=utf-8");
 
 $feed = $_REQUEST['feed'];
 $framed = $_REQUEST['framed'];
+$FOF_FEED_TABLE = FOF_FEED_TABLE;
+$FOF_ITEM_TABLE = FOF_ITEM_TABLE;
+$FOF_USERITEM_TABLE = FOF_USERITEM_TABLE;
 
-$result = fof_do_query("delete from feeds where id = $feed");
-$result = fof_do_query("delete from items where feed_id = $feed");
+if(fof_is_admin())
+{
+	// should remove all items from a feed from user_items list!!	
+	// but only if there are no starred items
+	// if there are starred items, dump out
+
+	// remove feed from system and everyone's subscriptions list
+	fof_do_query("delete from " . $FOF_FEED_TABLE . " where id = $feed");
+	fof_do_query("delete from " . $FOF_ITEM_TABLE . " where feed_id = $feed");
+	$sql = "delete from " . $FOF_SUBSCRIPTION_TABLE . " where feed_id = $feed; ";
+
+	$result_text= _("Deleted.");
+}
+else
+{
+	// remove from my subscription list
+	$sql = "delete from " . $FOF_SUBSCRIPTION_TABLE . " where feed_id = " . $feed . " AND user_id=" . current_user();
+	$result_text= _("Unsubscribed.");
+}
+
+#echo $sql;
+
+$result = fof_do_query($sql);
 
 
 if (eregi("feeds.php",$_SERVER['HTTP_REFERER']))
 {
-    echo "Deleted.  <a href=\"";
+    echo $result_text . "  <a href=\"";
     echo ($framed) ? "framesview.php" : "index.php";
     echo ($framed) ? "?framed=yes" : "";
     echo "\">" . _("Return to new items") . "</a>";
@@ -52,7 +76,7 @@ if (eregi("feeds.php",$_SERVER['HTTP_REFERER']))
 else
 {
    echo $_REQUEST['ref'] . ":";
-   echo "Deleted.  <a href=\"index.php\">Return to new items.</a>";
+   echo $result_text . "  <a href=\"index.php\">Return to new items.</a>";
 }
 ?>
 

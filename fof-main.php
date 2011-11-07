@@ -50,7 +50,7 @@ function require_user()
 
 function fof_authenticate($user_name, $user_password_hash)
 {
-    global $fof_user_name;
+    global $mc_user_name;
         
     if(fof_db_authenticate($user_name, $user_password_hash))
     {
@@ -66,16 +66,16 @@ function fof_logout()
 
 function current_user()
 {
-    global $fof_user_id;
+    global $mc_user_id;
     
-    return $fof_user_id;
+    return $mc_user_id;
 }
 
 function fof_username()
 {
-    global $fof_user_name;
+    global $mc_user_name;
     
-    return $fof_user_name;
+    return $mc_user_name;
 }
 
 function fof_prefs()

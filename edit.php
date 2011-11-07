@@ -45,8 +45,12 @@ $tags_list = "\"" . $tags_list . "\"";
     $feed = $_REQUEST['feed'];
     if ($edit_flag == 0)
     {
-        $sql = "select url, image, title, link, description, date_added, tags, aging, expir, private from feeds where id = " . $feed;
-        // print ":SQL: " . $sql;
+        $sql = "select $FOF_FEED_TABLE.url, $FOF_FEED_TABLE.image, $FOF_FEED_TABLE.title, $FOF_FEED_TABLE.link, $FOF_FEED_TABLE.description, $FOF_FEED_TABLE.date_added, $FOF_SUBSCRIPTION_TABLE.tags, $FOF_FEED_TABLE.aging, $FOF_FEED_TABLE.expir, $FOF_FEED_TABLE.private from $FOF_FEED_TABLE,$FOF_SUBSCRIPTION_TABLE where $FOF_FEED_TABLE.id = $FOF_SUBSCRIPTION_TABLE.feed_id and $FOF_FEED_TABLE.id = " . $feed;
+
+		if(!fof_is_admin())
+		{
+			$sql .= " and $FOF_SUBSCRIPTION_TABLE.user_id=" . current_user();
+		}
         $result = fof_do_query($sql);
         $row = mysql_fetch_array($result);
         $title = $row['title'];
@@ -59,6 +63,7 @@ $tags_list = "\"" . $tags_list . "\"";
         $expir = $row['expir'];
         $feed_icon = $row['image'];
         $private = $row['private'];
+        #echo ":SQL: " . $sql . "<br />\n";
 ?>
 
 <BR><br>
@@ -70,23 +75,111 @@ $tags_list = "\"" . $tags_list . "\"";
 
 <table>
 <tr>
-<td>URL:</td><td><input type="text" name="rss_url" size="40" value="<?php echo $url ?>"></td>
+<td>URL:</td><td>
+<?php
+if(fof_is_admin())
+{
+		echo "<input type=\"text\" name=\"rss_url\" size=\"40\" value=\"" . $url . "\">";
+}
+else
+{
+		echo $url;
+}
+?>
+</td>
 </tr><tr>
-<td>TITLE:</td><td><input type="text" name="rss_title" size="40" value="<?php echo $title ?>"></td>
+<td>TITLE:</td><td>
+<?php
+if(fof_is_admin())
+{
+		echo "<input type=\"text\" name=\"rss_title\" size=\"40\" value=\"" . $title . "\">";
+}
+else
+{
+		echo $title;
+}
+?>
+</td>
 </tr><tr>
-<td>LINK:</td><td><input type="text" name="rss_link" size="40" value="<?php echo $link ?>"></td>
+<td>LINK:</td><td>
+<?php
+if(fof_is_admin())
+{
+		echo "<input type=\"text\" name=\"rss_link\" size=\"40\" value=\"". $link . "\">";
+}
+else
+{
+		echo $link;
+}
+?>
+</td>
 </tr><tr>
-<td>DESCR:</td><td><input type="text" name="rss_description" size="40" value="<?php echo $description ?>"></td>
+<td>DESCR:</td><td>
+<?php
+if(fof_is_admin())
+{
+		echo "<input type=\"text\" name=\"rss_description\" size=\"40\" value=\"" . $description . "\">";
+}
+else
+{
+		echo $description;
+}
+?>
+</td>
 </tr><tr>
-<td>DATE SUBSCRIBED:</td><td><input type="text" name="rss_date_added" size="40" value="<?php echo $date_added ?>"></td>
+<td>DATE SUBSCRIBED:</td><td>
+<?php
+if(fof_is_admin())
+{
+		echo "<input type=\"text\" name=\"rss_date_added\" size=\"40\" value=\"" . $date_added . "\">";
+}
+else
+{
+		echo $date_added;
+}
+?>
+</td>
 </tr><tr>
 <td>TAGS:</td><td><input type="text" name="rss_tags" size="40" value="<?php echo $tags ?>"> (space separated)</td>
 </tr><tr>
-<td>ARTICLE AGING:</td><td><input type="text" name="rss_aging" size="40" value="<?php echo $aging ?>"> days. (zero == no expiration)</td>
+<td>ARTICLE AGING:</td><td>
+<?php
+if(fof_is_admin())
+{
+		echo "<input type=\"text\" name=\"rss_aging\" size=\"40\" value=\"" . $aging . "\"> days. (zero == no expiration)";
+}
+else
+{
+		echo $aging;
+}
+?>
+</td>
 </tr><tr>
-<td>FEED EXPIRATION:</td><td><input type="text" name="rss_expir" size="40" value="<?php echo $expir ?>"> days. (zero == no expiration)</td>
+<td>FEED EXPIRATION:</td><td>
+<?php
+if(fof_is_admin())
+{
+		echo "<input type=\"text\" name=\"rss_expir\" size=\"40\" value=\"" . $expir  . "\"> days. (zero == no expiration)";
+}
+else
+{
+		echo $expir;
+}
+?>
+</td>
 </tr><tr>
-<td>FEED ICON:</td><td><input type="text" name="rss_icon" size="40" value="<?php echo $feed_icon ?>"></td>
+<td>FEED ICON:</td><td>
+<?php
+if(fof_is_admin())
+{
+		echo "<input type=\"text\" name=\"rss_icon\" size=\"40\" value=\"" . $feed_icon  . "\">";
+}
+else
+{
+		echo $feed_icon;
+}
+?>
+</td>
 </tr><tr>
 <td>PRIVATE:</td><td><input type="checkbox" name="rss_private" size="40" <?php  
 if ($private == 1)
@@ -133,9 +226,11 @@ if ($private == 1)
      if (eregi("feeds.php",$_REQUEST['ref']))
      {
         echo "Entry saved.";
-			 echo "<a href=\"framesview.php?how=paged";
-			 	 echo ($_REQUEST['framed']) ? "&framed=yes" : "";
-			 echo "\">Return to new items.</a>";
+			echo "<a href=\"";
+			echo "index.php";
+			#echo "framesview.php?how=paged";
+			#echo ($_REQUEST['framed']) ? "&framed=yes" : "";
+			echo "\">Return to new items.</a>";
      }
      else
      {

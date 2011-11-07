@@ -49,10 +49,9 @@ if($_GET['password'])
 	}
 else
 {
-?>
 
-<?php echo _("Creating tables"); ?>...<br />
-<?php
+  echo _("Creating tables");
+  echo "...<br />";
 
 $tables[] = <<<EOQ
 CREATE TABLE IF NOT EXISTS `$FOF_FEED_TABLE` (
@@ -69,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `$FOF_FEED_TABLE` (
   `image` text NOT NULL,
   PRIMARY KEY  (`id`)
 
-) ENGINE=MyISAM CHARACTER SET utf8;
+) ENGINE=MyISAM CHARSET=latin1;
 EOQ;
 
 $tables[] = <<<EOQ
@@ -87,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `$FOF_ITEM_TABLE` (
   `publish` bool default '0',
   `star` bool default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM CHARACTER SET utf8;
+) ENGINE=MyISAM CHARSET=latin1;
 EOQ;
 
 $tables[] = <<<EOQ
@@ -103,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `$FOF_USER_TABLE` (
   `isactive` int(11) NOT NULL default '0',
   `isadmin` int(11) NOT NULL default '0',
   PRIMARY KEY  (`user_id`)
-) ENGINE=MyISAM CHARACTER SET utf8;
+) ENGINE=MyISAM CHARSET=latin1;
 EOQ;
 
 
@@ -111,9 +110,26 @@ $tables[] = <<<EOQ
 CREATE TABLE IF NOT EXISTS `$FOF_SUBSCRIPTION_TABLE` (
   `feed_id` int(11) NOT NULL default '0',
   `user_id` int(11) NOT NULL default '0',
-  `subscription_prefs` text,
+  `tags` text,
   PRIMARY KEY  (`feed_id`,`user_id`)
-) ENGINE=MyISAM CHARACTER SET utf8;
+) ENGINE=MyISAM CHARSET=latin1;
+EOQ;
+
+$tables[] = <<<EOQ
+CREATE TABLE IF NOT EXISTS `$FOF_FLAG_TABLE` (
+  `flag_id` int(11) NOT NULL auto_increment,
+  `flag_name` varchar(100) NOT NULL,
+  PRIMARY KEY  (`flag_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+EOQ;
+
+$tables[] = <<<EOQ
+CREATE TABLE IF NOT EXISTS `$FOF_USERITEM_TABLE` (
+  `user_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `flag_id` int(11) NOT NULL,
+  PRIMARY KEY  (`user_id`,`item_id`,`flag_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 EOQ;
 
 foreach($tables as $table)
@@ -124,29 +140,42 @@ foreach($tables as $table)
     }
 }
 
-echo _("Tables exist.");
-?><br /><br />
+  echo _("Tables exist.");
+  echo "<br /><br />";
 
-<?php 
   echo _("Creating indexes");
-?>...<br />
+  echo "...<br />";
 
-<?php
-if(!fof_do_query("ALTER TABLE `items` ADD INDEX `feed_id_idx` ( `feed_id` )", 1) && mysql_errno() != 1061)
+if(!fof_do_query("ALTER TABLE `$FOF_ITEM_TABLE` ADD INDEX `feed_id_idx` ( `feed_id` )", 1) && mysql_errno() != 1061)
 {
 	exit (_("Can't create index.") . "  " . _("Mysql says") . ": <b>" . mysql_error() . "</b><br />");
 }
 
-if(!fof_do_query("ALTER TABLE `items` ADD INDEX `read_idx` ( `read` )", 1) && mysql_errno() != 1061)
+if(!fof_do_query("ALTER TABLE `$FOF_ITEM_TABLE` ADD INDEX `read_idx` ( `read` )", 1) && mysql_errno() != 1061)
 {
 	exit (_("Can't create index.") . "  " . _("Mysql says") . ": <b>" . mysql_error() . "</b><br />");
 }
 
-echo _("Indexes exist.");
-?><br /><br />
+  echo _("Indexes exist.");
+  echo "<br /><br />";
 
-<?php echo _("Checking cache directory"); ?>...<br />
-<?php
+  echo _("Checking flag values");
+  echo "...<br />";
+
+if(mysql_num_rows(fof_do_query("select * from " . $FOF_FLAG_TABLE . " ORDER BY flag_id ASC LIMIT 1")) == 0)
+{
+	if(!fof_do_query("INSERT INTO `" . $FOF_FLAG_TABLE . "` (`flag_id`, `flag_name`) VALUES (1,'read'), (2,'star'), (3,'publish'), (4,'private'), (5,''), (6,''), (7,''), (8,''), (9,''), (10,'');",1) && mysql_errno() != 1061)
+	{
+		exit (_("Can't create flags table.") . "  " . _("Mysql says") . ": <b>" . mysql_error() . "</b><br />");
+	}
+
+}
+
+
+  echo _("Flags table exists.");
+
+  echo _("Checking cache directory");
+  echo "...<br />";
 
 if ( ! file_exists( "cache" ) )
 {
@@ -165,11 +194,10 @@ if(!is_writable( "cache" ))
 		exit;
 }
 
-echo _("Cache directory exists and is writable.") ?><br /><br />
+  echo _("Cache directory exists and is writable.");
+  echo "<br /><br />";
 
-<?php
-
-echo _("Encodings will be translated by:");
+  echo _("Encodings will be translated by:");
 
 if ( substr(phpversion(),0,1) == 5)
 {
@@ -212,7 +240,7 @@ Password: <form><input type=string name=password><input type=submit></form>
 
 'admin' account already exists.<br><br>
 <?php
-echo _("Setup complete!") ?><br><a href=".">Login as admin</a>, to <?php echo _("Go to the control pan    el and start subscribing.") ?>
+echo _("Setup complete!") ?><br><a href=".">Login as admin</a>, to <?php echo _("Go to the control panel and start subscribing.") ?>
 
 <?php } } ?>
 

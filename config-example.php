@@ -32,10 +32,10 @@ define('FOF_DB_DBNAME', "feeds");
 define('FOF_DB_PREFIX', "");
 define('FOF_FEED_TABLE', FOF_DB_PREFIX . "feeds");
 define('FOF_ITEM_TABLE', FOF_DB_PREFIX . "items");
-define('FOF_ITEM_TAG_TABLE', FOF_DB_PREFIX . "item_tags");
 define('FOF_SUBSCRIPTION_TABLE', FOF_DB_PREFIX . "subscriptions");
-define('FOF_TAG_TABLE', FOF_DB_PREFIX . "tags");
+define('FOF_FLAG_TABLE', FOF_DB_PREFIX . "flags");
 define('FOF_USER_TABLE', FOF_DB_PREFIX . "users");
+define('FOF_USERITEM_TABLE', FOF_DB_PREFIX . "user_items");
 
 ######################################################################
 # PREFS

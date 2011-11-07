@@ -40,7 +40,7 @@ header("Content-Type: text/html; charset=utf-8");
 <?php
 $rightnow=time();
 
-$sql = "select link, url, id, title from feeds order by title";
+$sql = "select link, url, id, title from " . $FOF_FEED_TABLE . " order by title";
 $result = fof_do_query($sql);
 
 while($row = mysql_fetch_array($result))

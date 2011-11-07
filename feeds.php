@@ -83,7 +83,7 @@ function saveLayout()
 if ($_REQUEST['framed'] == "yes") {
 ?>  
         <form><select name="tags" fontsize="8" onchange="javascript:parent.menu.location.href='feeds.php?<?php echo ($_REQUEST['framed'] == "yes") ? "framed=yes&" : "" ;  ?>tags='+this.value;parent.items.location.href='framesview.php?<?php echo ($_REQUEST['framed'] == "yes") ? "framed=yes&how=paged&" : "" ;  ?>tags='+this.value"><?php
-    $sql = "SELECT tags FROM `feeds` WHERE tags != '' group by tags";
+    $sql = "SELECT $FOF_SUBSCRIPTION_TABLE.tags FROM `" . $FOF_FEED_TABLE . "` WHERE $FOF_SUBSCRIPTION_TABLE.tags != '' group by tags";
 $result = fof_do_query($sql);
 print "<OPTION VALUE=\"" . _("All tags") . "\">" . _("All tags") . "\n";
 print "<OPTION VALUE=\"" . _("No tags") . "\">" . _("No tags") . "\n";
@@ -138,8 +138,21 @@ if(!isset($direction))
 	$direction = "asc";
 }
 
-$feeds = fof_get_feeds($order, $direction, $tags);
+if (user_is_new())
+{
+	echo "<table bgcolor=\"#aaffaa\">";
+	echo "<tr><td>";
+	echo "<div id=\"newuserbox\">";
+	echo "Hi, you seem to be a new user.  Click below for recommended starter feeds, or visit your favorite site for more RSS feeds.<br />\n";
+	include ("samplefeeds.php");
+	echo "</div>";
+	echo "</td></tr>";
+	echo "</table>";
+}
+else
+{
 
+$feeds = fof_get_feeds($order, $direction, $tags);
 foreach($feeds as $row)
 {
     $n++;
@@ -346,6 +359,7 @@ foreach($feeds as $row)
 
 	echo "</tr>\n";
 	}
+} // foreach feeds
 }
 
 

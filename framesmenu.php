@@ -45,6 +45,17 @@ function saveLayout()
 
 	document.cookie = "fof_layout=" + c + "; expires=" + expires.toGMTString();
 }
+function changetagslink(tagz)
+{
+	if (tagz=='All tags')
+	{
+		document.getElementById('updatetagslink').innerHTML = '<a href="update.php">update all</a>';
+	}
+	else
+	{
+		document.getElementById('updatetagslink').innerHTML = '<a href="update.php?tags='+tagz+'">update tag</a>';
+	}
+}
 		</script>
 
 		<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
@@ -55,8 +66,7 @@ function saveLayout()
 <?php 
 		} // end of frames check 
 ?>
-
-<div class="menu">
+<div class="menu" id="menu">
 <ul>
 <li><a href="framesview.php?how=paged<?php echo ($_REQUEST['framed']) ? "&framed=yes" : "" ; ?>"><?php echo _("unread") ?></a></li>
 <li><a href="framesview.php?what=all&amp;how=paged<?php echo ($_REQUEST['framed']) ? "&framed=yes" : "" ; ?>"><?php echo _("all") ?></a><a href="rss2.php"><img class="valign" border="0" src="rss.gif"></a></li>
@@ -69,7 +79,7 @@ function saveLayout()
 <li><a href="prefs.php<?php echo ($_REQUEST['framed']) ? "?framed=yes" : "" ; ?>">prefs</a></li>
 <li><a href="javascript:<?php echo ($_REQUEST['framed']) ? "parent.items." : ""; ?>toggle_expand_all()"><?php echo _("toggle collapse") ?></a></li>
 <li><a href="javascript:<?php echo ($_REQUEST['framed']) ? "parent.items." : ""; ?>toggle_flags_all()"><?php echo _("toggle flags") ?></a></li>
-<li><a href="update.php"><?php echo _("update all") ?></a></li>
+<li><span id="updatetagslink"><a href="update.php<?php echo (($_REQUEST['tags']) && ($_REQUEST['tags'] != _("All tags") )) ? "?tags=" . $_REQUEST['tags'] : "" ?>"><?php echo (($_REQUEST['tags']) && ($_REQUEST['tags'] != _("All tags") )) ? _("update tag") : _("update all") ?></a></span></li>
 </ul>
 <ul>
 <form id="SearchForm" method="get" action="framesview.php">
@@ -91,7 +101,9 @@ if ($_REQUEST['framed']) {
 	$onchangerequest .="parent.items.location.href='framesview.php?";
 	$onchangerequest .=($_REQUEST['framed']) ? "framed=yes&how=paged&" : "";
 	$onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
-	$onchangerequest .="parent.controls.location.reload();";
+	//$onchangerequest .="parent.controls.location.reload();";
+	$onchangerequest .="changetagslink(document.getElementById('TagsForm').tags.value);";
+	//$onchangerequest .="parent.controls.location.href='framesmenu.php?newonly=yes&framed=yes&tags='+document.getElementById('TagsForm').tags.value;";
     $onchangerequest .= "}else if(!document.getElementById('TagsForm').NewTags.checked){";
     $onchangerequest .="parent.menu.location.href='feeds.php?";
     $onchangerequest .=($_REQUEST['framed']) ? "framed=yes&" : "";
@@ -99,17 +111,22 @@ if ($_REQUEST['framed']) {
 	$onchangerequest .="parent.items.location.href='framesview.php?";
 	$onchangerequest .=($_REQUEST['framed']) ? "framed=yes&how=paged&" : "";
 	$onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
-	$onchangerequest .="parent.controls.location.reload();";
+	$onchangerequest .="changetagslink(document.getElementById('TagsForm').tags.value);";
+	//$onchangerequest .="parent.controls.location.reload();";
+	//$onchangerequest .="parent.controls.location.href='framesmenu.php?framed=yes&tags='+document.getElementById('TagsForm').tags.value;";
     $onchangerequest .= "};";
 ?>
 
 	<form id="TagsForm">
 New Feeds
 <input name="NewTags" type="checkbox" id="NewTags" onCheck="parent.menu.location = parent.menu.location + '&newonly=yes';" onUnCheck="parent.menu.location = parent.menu.location + '&newonly='" onclick="if(NewTags.checked){eval(NewTags.getAttribute('onCheck'));}else if(!NewTags.checked){eval(NewTags.getAttribute('onUnCheck'));};" >
+<?php
+	$sql = "SELECT distinct $FOF_SUBSCRIPTION_TABLE.tags FROM `$FOF_FEED_TABLE`,`$FOF_SUBSCRIPTION_TABLE` WHERE user_id=" . current_user() . " and $FOF_SUBSCRIPTION_TABLE.tags != '' group by tags";
+	#echo ":SQL: " . $sql . "<br />\n";
+	$result = fof_do_query($sql);
+?>
 <select name="tags" fontsize="8" onchange="<?php echo $onchangerequest ?>">
 <?php
-	$sql = "SELECT tags FROM `feeds` WHERE tags != '' group by tags";
-	$result = fof_do_query($sql);
 	print "<OPTION VALUE=\"" . _("All tags") . "\">" . _("All tags") . "\n";
 	print "<OPTION VALUE=\"" . _("No tags") . "\">" . _("No tags") . "\n";
 	while($row = mysql_fetch_array($result))

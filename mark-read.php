@@ -26,17 +26,56 @@ $tags = $_REQUEST['tags'];
 $order = $_REQUEST['order'];
 $direction = $_REQUEST['direction'];
 
-$sql = "update items set `read` = 1, timestamp=timestamp ";
+# building this query
+#$sql = "insert user_items set flag_id=1,user_id=" . current_user(); //, timestamp=timestamp ";
 
 if($feed)
 {
-	$sql .= 'where `feed_id` = ' . $feed;
+	$sql = "insert into user_items (user_id,flag_id,item_id) VALUES "; //, timestamp=timestamp ";
+	$id_list="";
+	$sql1 = "select id as item_id from " . $FOF_ITEM_TABLE . " WHERE feed_id=" . $feed . " and NOT (id IN (SELECT item_id FROM user_items WHERE user_id=" . current_user() . " AND flag_id=1))";
+
+	$result1=fof_do_query($sql1);
+    while($row = mysql_fetch_array($result1))
+	{
+		if ($id_list=="")
+		{
+				$id_list = $row['item_id'];
+		}
+		else
+		{
+				$id_list .= "," . $row['item_id'];
+		}
+	}
+
+	$value_list="";
+	$sql2 = "SELECT id item_id from items WHERE feed_id=" . $feed . " and NOT (id IN (" . $id_list . "))";
+	$result2=fof_do_query($sql1);
+    while($row = mysql_fetch_array($result2))
+	{
+		if ($value_list=="")
+		{
+			$value_list = "(" . current_user() . ",1," . $row['item_id'] . ")";
+		}
+		else
+		{
+			$value_list .= ",(" . current_user() . ",1," . $row['item_id'] . ")";
+		}
+	}
+
+	$sql .= $value_list;
+	//$sql .= ", item_id=(SELECT id from items WHERE feed_id=" . $feed . " and NOT (id IN (" . $id_list . ")))";
+
+	//$sql .= " WHERE item_id IN (SELECT id FROM " . $FOF_ITEM_TABLE . " WHERE feed_id=" . $feed . ") AND user_id=" . current_user() . " AND flag_id!=1";
+	//$sql .= " AND item_id NOT IN (SELECT item_id FROM user_items WHERE user_id=" . current_user() . " AND flag_id=1)";
 }
 else if($item)
 {
-	$sql .= 'where `id` = ' . $item;
+	$sql = "insert user_items set flag_id=1,user_id=" . current_user(); //, timestamp=timestamp ";
+	$sql .= " where `item_id` = " . $item;
 }
 
+//echo $sql;
 $result = fof_do_query($sql);
 
 if($item)

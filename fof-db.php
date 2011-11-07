@@ -18,7 +18,7 @@ $FOF_FEED_TABLE = FOF_FEED_TABLE;
 $FOF_ITEM_TABLE = FOF_ITEM_TABLE;
 $FOF_ITEM_TAG_TABLE = FOF_ITEM_TAG_TABLE;
 $FOF_SUBSCRIPTION_TABLE = FOF_SUBSCRIPTION_TABLE;
-$FOF_TAG_TABLE = FOF_TAG_TABLE;
+$FOF_FLAG_TABLE = FOF_FLAG_TABLE;
 $FOF_USER_TABLE = FOF_USER_TABLE;
 
 function fof_db_get_row($result)
@@ -28,7 +28,7 @@ function fof_db_get_row($result)
 
 function db_save_prefs($user_id, $prefs)
 {
-   global $FOF_USER_TABLE, $fof_connection, $fof_user_id, $fof_user_name, $fof_user_level, $fof_user_prefs;
+   global $FOF_USER_TABLE, $fof_connection, $mc_user_id, $mc_user_name, $fof_user_level, $fof_user_prefs;
    
    $prefs = mysql_escape_string(serialize($prefs));
    
@@ -39,7 +39,7 @@ function db_save_prefs($user_id, $prefs)
 
 function fof_db_authenticate($user_name, $user_password_hash)
 {
-   global $FOF_USER_TABLE, $FOF_ITEM_TABLE, $FOF_ITEM_TAG_TABLE, $fof_connection, $fof_user_id, $fof_user_name, $fof_user_level, $fof_user_prefs;
+   global $FOF_USER_TABLE, $FOF_ITEM_TABLE, $FOF_ITEM_TAG_TABLE, $fof_connection, $mc_user_id, $mc_user_name, $fof_user_level, $fof_user_prefs;
 
    $sql = "select * from $FOF_USER_TABLE where user_name = '$user_name' and md5(user_password) = '" . mysql_escape_string($user_password_hash) . "'";
 
@@ -52,8 +52,8 @@ function fof_db_authenticate($user_name, $user_password_hash)
 
     $row = mysql_fetch_array($result);
 
-    $fof_user_name = $row['user_name'];
-    $fof_user_id = $row['user_id'];
+    $mc_user_name = $row['user_name'];
+    $mc_user_id = $row['user_id'];
     $fof_user_level = $row['user_level'];
     $fof_user_prefs = unserialize($row['user_prefs']);
 
@@ -69,7 +69,7 @@ function fof_db_get_subscriptions($user_id)
 {
    global $FOF_FEED_TABLE, $FOF_ITEM_TABLE, $FOF_SUBSCRIPTION_TABLE, $FOF_ITEM_TAG_TABLE;
 
-   return(fof_do_query("select * from $FOF_FEED_TABLE, $FOF_SUBSCRIPTION_TABLE where $FOF_SUBSCRIPTION_TABLE.user_id = $user_id and $FOF_FEED_TABLE.feed_id = $FOF_SUBSCRIPTION_TABLE.feed_id order by feed_title"));
+   return(fof_do_query("select * from $FOF_FEED_TABLE, $FOF_SUBSCRIPTION_TABLE where $FOF_SUBSCRIPTION_TABLE.user_id = $user_id and $FOF_FEED_TABLE.id = $FOF_SUBSCRIPTION_TABLE.feed_id order by $FOF_FEED_TABLE.title"));
 }
 
 function fof_db_add_subscription($user_id, $feed_id)
@@ -102,7 +102,7 @@ function fof_db_is_subscribed($user_id, $feed_url)
     global $FOF_FEED_TABLE, $FOF_ITEM_TABLE, $FOF_SUBSCRIPTION_TABLE, $FOF_ITEM_TAG_TABLE;
 
     $safeurl = mysql_escape_string( $feed_url );
-    $result = fof_do_query("select $FOF_SUBSCRIPTION_TABLE.feed_id from $FOF_FEED_TABLE, $FOF_SUBSCRIPTION_TABLE where feed_url='$safeurl' and $FOF_SUBSCRIPTION_TABLE.feed_id = $FOF_FEED_TABLE.feed_id and $FOF_SUBSCRIPTION_TABLE.user_id = $user_id");
+    $result = fof_do_query("select $FOF_SUBSCRIPTION_TABLE.feed_id from $FOF_FEED_TABLE, $FOF_SUBSCRIPTION_TABLE where $FOF_FEED_TABLE.feed_url='$safeurl' and $FOF_SUBSCRIPTION_TABLE.feed_id = $FOF_FEED_TABLE.feed_id and $FOF_SUBSCRIPTION_TABLE.user_id = $user_id");
 
     if(mysql_num_rows($result) == 0)
     {

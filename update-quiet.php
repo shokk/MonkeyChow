@@ -21,7 +21,15 @@ if (!$debug) ob_start();
 include_once("fof-main.php");
 include_once("init.php");
 
-$count = mysql_fetch_array(mysql_query("select count(*) from feeds"));
+if (isset ($_REQUEST['age']))
+{
+		$sql_query = "select count(*) from " . $FOF_FEED_TABLE  ." where ";
+}
+else
+{
+		$sql_query = "select count(*) from " . $FOF_FEED_TABLE ;
+}
+$count = mysql_fetch_array(mysql_query("$sql_query"));
 $feedsnum = $count[0];
 $feedsfrom=1;
 $feedsto=$feedsnum;
@@ -44,7 +52,8 @@ if ($debug) print "updating feeds $feedsfrom thru $feedsto<br />";
 
 $numcount = 0;
 if ($debug) exit(0);
-$sql_query="select url, id, title from feeds"; #" order by title";
+$sql_query="select distinct " . $FOF_FEED_TABLE . ".url, " . $FOF_FEED_TABLE . ".id, " . $FOF_FEED_TABLE . ".title from " . $FOF_FEED_TABLE . ", " . $FOF_SUBSCRIPTION_TABLE . " where " . $FOF_FEED_TABLE . ".id = " . $FOF_SUBSCRIPTION_TABLE . ".feed_id ";
+$sql .= " order by title";
 if ($debug) print "$sql_query<br />";
 $result = fof_do_query($sql_query);
 while($row = mysql_fetch_array($result))
@@ -53,13 +62,13 @@ while($row = mysql_fetch_array($result))
     {
 	    $title = $row['title'];
 	    $id = $row['id'];
-        fof_prune_feed($row['id']);
+        //fof_prune_feed($row['id']);
 	    fof_update_feed($row['url']);
 		if ($debug) print "updating feed " . $numcount . ": " . $title . "<br />\n";
     }
     $numcount++;
 }
-$result = fof_do_query("optimize table feeds,items");
+$result = fof_do_query("optimize table " . $FOF_FEED_TABLE . "," . $FOF_ITEM_TABLE);
 $result = fof_do_query("flush tables;");
 flush();
 

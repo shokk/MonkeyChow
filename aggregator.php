@@ -150,23 +150,43 @@ foreach($result as $row)
 	$item_id = $row['item_id'];
 	$item_link = $row['item_link'];
 	$item_title = $row['item_title'];
-        $item_title = strip_tags(htmlspecialchars_decode($item_title));
+    $item_title = strip_tags(htmlspecialchars_decode($item_title));
 	$item_content = urldecode($row['item_content']);
-	$item_read = $row['item_read'];
-	$item_publish = $row['item_publish'];
-	$item_star = $row['item_star'];
-        if ( $item_publish ) {
-            $checked = "checked=\"checked\"";
-        }
-         else {
-            $checked = "";
-        }
-        if ( $item_star ) {
-            $starred = "star_on.gif";
-        }
-        else {
-            $starred = "star_off.gif";
-        }
+
+
+	$result2 = fof_do_query("SELECT * FROM `user_items` WHERE `item_id`=" . $item_id . " AND `user_id`=" . current_user());
+	foreach ($result2 as $row2)
+	{
+		$flag_val = $row2['flag_id'];
+		switch ($flag_val) {
+		case 1:
+			$item_read = "1";
+			break;
+		case 2:
+			$item_publish = "1";
+			break;
+		case 3:
+			$item_star = "1";
+			break;
+		}
+	}
+	#$item_read = $row['item_read'];
+	#$item_publish = $row['item_publish'];
+	#$item_star = $row['item_star'];
+    if ( $item_publish ) {
+        $checked = "checked=\"checked\"";
+    }
+    else {
+        $checked = "";
+    }
+    if ( $item_star ) {
+        $starred = "star_on.gif";
+    }
+    else {
+        $starred = "star_off.gif";
+    }
+
+
 	    $favicon_link = "<a href=\"$feed_link\" title=\"feed\"><img class=\"g120\" src='" . urldecode($row['feed_image']) . "' width='16' height='16' border='0' /></a>";
 
 

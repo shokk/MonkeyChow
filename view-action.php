@@ -24,26 +24,32 @@ header("Content-Type: text/html; charset=utf-8");
 switch ($_REQUEST['action'])
 {
     case 'read':
-	$to_set = '`read`=1';
-	break;
-    case 'unread':
-	$to_set = '`read`=NULL';
-	break;
+		$to_set = '1';
+		$who_set = '';
+		break;
     case 'publish':
-	$to_set = '`publish`=1';
-	break;
-    case 'unpublish':
-	$to_set = '`publish`=0';
-	break;
+		$to_set = '3';
+		$who_set = '';
+		break;
     case 'star':
-	$to_set = '`star`=1';
-	break;
+		$to_set = '2';
+		$who_set = '';
+		break;
+    case 'unread':
+		$who_set = '1';
+		$to_set = '0';
+		break;
+    case 'unpublish':
+		$who_set = '3';
+		$to_set = '0';
+		break;
     case 'unstar':
-	$to_set = '`star`=0';
-	break;
+		$who_set = '2';
+		$to_set = '0';
+		break;
     default:
-	/* XXX - Probably ought to complain */
-	break;
+		/* XXX - Probably ought to complain */
+		break;
 }
 
 /* Build lists of all of the checked and starred items we need to
@@ -68,16 +74,43 @@ while (list($key, $val) = each ($_REQUEST))
 }
 
 /* Now apply the action to all of the items. */
-$id_list = implode(",", $ids);
+#$id_list = implode(",", $ids);
 
-$sql = <<<EOT
-UPDATE	items
-SET	$to_set,
-	timestamp = timestamp
-WHERE	id in ($id_list)
-EOT;
+# foreach through the ids to build the correct query
+#INSERT INTO `user_items` (`user_id`, `item_id`, `flag_id`) VALUES ('2', '843132', '1'), ('2', '843131', '1');
+
+switch ($_REQUEST['action'])
+{
+    case 'read':
+    case 'star':
+    case 'publish':
+		$sql = "INSERT INTO `user_items` (`user_id`, `item_id`, `flag_id`) VALUES ";
+		$sqlvalues="";
+		foreach ($ids as $id)
+		{
+			if ($sqlvalues == "")
+			{
+				$sqlvalues = "('" . current_user() . "', '" . $id . "', '" . $to_set . "')";
+			}
+			else
+			{
+				$sqlvalues .= ", ('" . current_user() . "', '" . $id . "', '" . $to_set . "')";
+			}
+		}
+		$sql .= $sqlvalues;
+		break;
+    case 'unread':
+    case 'unstar':
+    case 'unpublish':
+		foreach ($ids as $id)
+		{
+			$sql .= "DELETE FROM `user_items` WHERE `user_id`=" . current_user() . " AND `item_id`=" . $id . " AND `flag_id`=" . $who_set . "; ";
+		}
+		break;
+}
 
 #echo $sql;
+
 fof_do_query($sql);
 header("Location: " . urldecode($_REQUEST['return']));
 

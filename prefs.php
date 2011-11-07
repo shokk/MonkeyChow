@@ -1,12 +1,9 @@
 <?php
 /*
- * This file is part of FEED ON FEEDS - http://feedonfeeds.com/
+ * This file is part of MonkeyChow http://www.monkeychow.org
  *
  * prefs.php - display and change preferences
  *
- *
- * Copyright (C) 2004-2007 Stephen Minutillo
- * steve@minutillo.com - http://minutillo.com/steve/
  *
  * Distributed under the GPL - see LICENSE
  *
@@ -102,13 +99,14 @@ include("header.php");
 <br><font color="red"><?php echo $message ?></font><br>
 <a href="
 <?php
+	dirname($_SERVER["SCRIPT_NAME"]);
     echo ($_REQUEST['framed']) ? "framesview.php?how=paged&framed=yes" : "feeds.php" ;
 ?>
 "><?php echo _("Return") ?></a><br />
 
 <?php } ?>
 
-<br><h1>Feed on Feeds - Preferences</h1>
+<br><h1>Preferences</h1>
 <form method="post" action="prefs.php" style="border: 1px solid black; margin: 10px; padding: 10px;">
 Display custom feed favicons? <input type="checkbox" name="favicons" <?php echo ($fof_user_prefs['favicons']) ? "checked=true" : "" ;?> ><br />
 Feed icon size?
@@ -175,7 +173,7 @@ Username: <input type=string name=username> Password: <input type=string name=pa
 </select> <input type=submit name=deleteuser value="Delete user"><br>
 </form>
 
-<br><h1>Feed on Feeds - Admin Options</h1>
+<br><h1>Admin Options</h1>
 <form method="post" action="prefs.php" style="border: 1px solid black; margin: 10px; padding: 10px;">
 No Admin options yet!<br><br>
 <input type=submit name=options value="Save Options">

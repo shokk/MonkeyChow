@@ -196,6 +196,18 @@ if ($mobiletruex) {
 <?php
 	}
 
+if (user_is_new())
+{
+    echo "<table bgcolor=\"#aaffaa\">";
+    echo "<tr><td>";
+    echo "<div id=\"newuserbox\">";
+    echo "Hi, you seem to be a new user.  Click <a href=\"samplefeeds.php\" target=\"items\">here</a> for recommended starter feeds, or visit your favorite site for more details";
+    echo "</div>";
+    echo "</td></tr>";
+    echo "</table>";
+		exit(0);
+}
+
 
 $result = fof_get_items($feed, $what, $when, $which, $howmany, $order, $tags, $search);
 
@@ -203,7 +215,9 @@ $count = 0;
 foreach($result as $row)
 {
 	$items = true;
-
+    $starred = "star_off.gif";
+    $checked = "";
+	$item_read = "0";
 	$timestamp =  date("F j, Y, g:i a", $row['timestamp'] - (FOF_TIME_OFFSET * 60 * 60));
 	$feed_link = $row['feed_link'];
 	$feed_image = $row['feed_image'];
@@ -212,39 +226,50 @@ foreach($result as $row)
 	$item_id = $row['item_id'];
 	$item_link = $row['item_link'];
 	$item_title = $row['item_title'];
-        $item_title = strip_tags(htmlspecialchars_decode($item_title));
+    $item_title = strip_tags(htmlspecialchars_decode($item_title));
 	$item_content = urldecode($row['item_content']);
-	$item_read = $row['item_read'];
-	$item_publish = $row['item_publish'];
-	$item_star = $row['item_star'];
-        if ( $item_publish ) {
-            $checked = "checked=\"checked\"";
-        }
-         else {
-            $checked = "";
-        }
-        if ( $item_star ) {
-            $starred = "star_on.gif";
-        }
-        else {
-            $starred = "star_off.gif";
-        }
-		if($row['feed_image'] && $fof_user_prefs['favicons'])
-		{
-		    $favicon_link = "<a href=\"$feed_link\" title=\"feed\"><img class=\"g120\" src='" . urldecode($row['feed_image']) . "' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
-	    }
-	    else
-	    {
-	        $favicon_link="";
-	    }
 
+    $flag_sql = "SELECT `flag_id` FROM `" . $FOF_USERITEM_TABLE . "` WHERE `item_id`=" . $item_id . " AND `user_id`=" . current_user();
+
+	#echo "$flag_sql <br />\n";
+	$result2 = fof_do_query($flag_sql);
+#	$result2=mysql_fetch_array(fof_do_query($flag_sql));
+#print_r($result2);
+#reset($result2);
+    #foreach ($result2 as $row2)
+	while($row2 = mysql_fetch_array($result2))
+    {
+        $flag_val = $row2['flag_id'];
+		#echo "$item_id : $flag_val <br />\n";
+        switch ($flag_val) {
+        case 1:
+            $item_read = "1";
+            break;
+        case 2:
+			$starred = "star_on.gif";
+            break;
+        case 3:
+			$checked = "checked=\"checked\"";
+            break;
+        }
+    }
+	unset($result2);
+
+	if($row['feed_image'] && $fof_user_prefs['favicons'])
+	{
+	    $favicon_link = "<a href=\"$feed_link\" title=\"feed\"><img class=\"g120\" src='" . urldecode($row['feed_image']) . "' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
+    }
+    else
+    {
+        $favicon_link="";
+    }
 
 	$dccreator = $row['dccreator'];
 	$dcdate = $row['dcdate'];
 	$dcsubject = $row['dcsubject'];
-        $expand_link = "<img class=\"g120\" border=\"0\" src=\"ipodarrowright.jpg\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');toggle_arrowimage('exp$item_id');\" title=\"" . _("Expand Body") . "\" />";
+    $expand_link = "<img class=\"g120\" border=\"0\" src=\"ipodarrowright.jpg\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');toggle_arrowimage('exp$item_id');\" title=\"" . _("Expand Body") . "\" />";
 		
-        $star_link = "<img class=\"g120\" border=\"0\" src=\"$starred\" name=\"star$item_id\" id=\"star$item_id\" alt=\"" . _("Toggle Star") . "\" onclick=\"togStar('star$item_id')\" title=\"" . _("Toggle Star"). "\" />";
+    $star_link = "<img class=\"g120\" border=\"0\" src=\"$starred\" name=\"star$item_id\" id=\"star$item_id\" alt=\"" . _("Toggle Star") . "\" onclick=\"togStar('star$item_id')\" title=\"" . _("Toggle Star"). "\" />";
 
 #echo "<div id=\"box\">";
         echo '<div id="shadow-container"><div class="shadow1"><div class="shadow2"><div class="shadow3">';
@@ -388,6 +413,7 @@ http://www.monkeychow.org");
         echo "</div></div></div></div>"; #shadow, etc
         $count ++;
 }
+unset($row);
 mysql_free_result($result);
 if(!$items)
 {
