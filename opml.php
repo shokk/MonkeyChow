@@ -1,12 +1,12 @@
 <?php
 /*
- * This file is part of Monkeychow - http://monkeychow.org
+ * This file is part of Monkeychow - http://shokk.wordpress.com/tag/monkeychow/
  *
  * ompl.php - exports subscription list as OPML
  *
  *
  * Copyright (C) 2006 Ernie Oporto
- * ernieoporto@yahoo.com - http://www.shokk.com/blog/
+ * ernieoporto@yahoo.com - http://shokk.wordpress.com
  *
  * Copyright (C) 2004 Stephen Minutillo
  * steve@minutillo.com - http://minutillo.com/steve/
@@ -23,11 +23,11 @@ $tags = strip_tags($_REQUEST['tags']);
 
 echo '<?xml version="1.0"?>';
 
-$result = fof_do_query("SELECT date_added FROM `feeds` ORDER BY `date_added` DESC LIMIT 1");
+$result = fof_do_query("SELECT date_added FROM `$FOF_FEED_TABLE` ORDER BY `date_added` DESC LIMIT 1");
 $row = mysql_fetch_array($result);
 $date_modified=htmlspecialchars($row['date_added']);
 
-$result = fof_do_query("SELECT date_added FROM `feeds` ORDER BY `date_added` ASC LIMIT 1");
+$result = fof_do_query("SELECT date_added FROM `$FOF_FEED_TABLE` ORDER BY `date_added` ASC LIMIT 1");
 $row = mysql_fetch_array($result);
 $date_created=htmlspecialchars($row['date_added']);
 ?>
@@ -43,7 +43,7 @@ $date_created=htmlspecialchars($row['date_added']);
   <body>
 <?php
 
-$sql = "select url, title, link, description, date_added from feeds where private=0";
+$sql = "select url, title, link, description, date_added from `$FOF_FEED_TABLE` where private=0";
 if (isset($tags) && ($tags != _("All tags")) && ($tags != _("No tags")) )
 {
     $sql .= " and tags LIKE '%$tags%'";

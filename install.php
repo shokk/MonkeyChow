@@ -1,12 +1,12 @@
 <?php
 /*
- * This file is part of Monkeychow - http://monkeychow.org
+ * This file is part of Monkeychow - http://shokk.wordpress.com/tag/monkeychow/
  *
  * install.php - creates tables and cache directory, if they don't exist
  *
  *
  * Copyright (C) 2006 Ernie Oporto
- * ernieoporto@yahoo.com - http://www.shokk.com/blog/
+ * ernieoporto@yahoo.com - http://shokk.wordpress.com
  *
  * Copyright (C) 2004 Stephen Minutillo
  * steve@minutillo.com - http://minutillo.com/steve/
@@ -14,6 +14,8 @@
  * Distributed under the GPL - see LICENSE
  *
  */
+
+error_reporting(E_ERROR);
 
 $installing = true;
 $fof_no_login = true;

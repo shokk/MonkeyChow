@@ -6,7 +6,7 @@
 
         if ($fof_user_prefs['frames'] == 1)
 		{
-				header("Location: frames.php");
+				header("Location: frames.php?newOnly=");
 		}
 		else
 		{

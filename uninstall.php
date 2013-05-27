@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of Monkeychow - http://monkeychow.org
+ * This file is part of Monkeychow - http://shokk.wordpress.com/tag/monkeychow/
  *
  * uninstall.php - if confirmed, drops FoF's tables
  *

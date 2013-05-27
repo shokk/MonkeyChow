@@ -1,12 +1,12 @@
 <?php
 /*
- * This file is part of Monkeychow - http://monkeychow.org
+ * This file is part of Monkeychow - http://shokk.wordpress.com/tag/monkeychow/
  *
  * view-action.php - marks selected items as read (or unread)
  *
  *
  * Copyright (C) 2006 Ernie Oporto
- * ernieoporto@yahoo.com - http://www.shokk.com/blog/
+ * ernieoporto@yahoo.com - http://shokk.wordpress.com
  *
  * Copyright (C) 2004 Stephen Minutillo
  * steve@minutillo.com - http://minutillo.com/steve/
@@ -77,14 +77,14 @@ while (list($key, $val) = each ($_REQUEST))
 #$id_list = implode(",", $ids);
 
 # foreach through the ids to build the correct query
-#INSERT INTO `user_items` (`user_id`, `item_id`, `flag_id`) VALUES ('2', '843132', '1'), ('2', '843131', '1');
+#INSERT INTO `$FOF_ITEM_TABLE` (`user_id`, `item_id`, `flag_id`) VALUES ('2', '843132', '1'), ('2', '843131', '1');
 
 switch ($_REQUEST['action'])
 {
     case 'read':
     case 'star':
     case 'publish':
-		$sql = "INSERT INTO `user_items` (`user_id`, `item_id`, `flag_id`) VALUES ";
+		$sql = "INSERT IGNORE INTO `$FOF_USERITEM_TABLE` (`user_id`, `item_id`, `flag_id`) VALUES ";
 		$sqlvalues="";
 		foreach ($ids as $id)
 		{
@@ -104,13 +104,15 @@ switch ($_REQUEST['action'])
     case 'unpublish':
 		foreach ($ids as $id)
 		{
-			$sql .= "DELETE FROM `user_items` WHERE `user_id`=" . current_user() . " AND `item_id`=" . $id . " AND `flag_id`=" . $who_set . "; ";
+			$sql .= "DELETE FROM `$FOF_USERITEM_TABLE` WHERE `user_id`=" . current_user() . " AND `item_id`=" . $id . " AND `flag_id`=" . $who_set . "; ";
 		}
 		break;
 }
 
-#echo $sql;
-
+/*
+echo "*** SQL: " . $sql;
+exit;
+*/
 fof_do_query($sql);
 header("Location: " . urldecode($_REQUEST['return']));
 

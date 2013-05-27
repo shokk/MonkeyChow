@@ -1,5 +1,5 @@
 <?php
-include_once('../simplepie.inc');
+include_once('../autoloader.php');
 include_once('../idn/idna_convert.class.php');
 
 // Parse it
@@ -27,7 +27,7 @@ else
 $feed->handle_content_type();
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html>
 <title>SimplePie Test</title>
 <pre>
 <?php

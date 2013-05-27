@@ -1,12 +1,12 @@
 <?php
 /*
- * This file is part of Monkeychow - http://monkeychow.org
+ * This file is part of Monkeychow - http://shokk.wordpress.com/tag/monkeychow/
  *
  * edit.php - displays form to edit a feed
  *
  *
  * Copyright (C) 2006 Ernie Oporto
- * ernieoporto@yahoo.com - http://www.shokk.com/blog/
+ * ernieoporto@yahoo.com - http://shokk.wordpress.com
  *
  * Distributed under the GPL - see LICENSE
  *
@@ -17,7 +17,7 @@ include_once("fof-main.php");
 
 header("Content-Type: text/html; charset=utf-8");
 
-$sql = "SELECT tags FROM `feeds` WHERE tags != '' group by tags";
+$sql = "SELECT tags FROM `$FOF_FEED_TABLE` WHERE tags != '' group by tags";
 $result = fof_do_query($sql);
 while($row = mysql_fetch_array($result))
 {
@@ -196,13 +196,13 @@ if ($private == 1)
 <?php
      if (eregi("feeds.php",$_SERVER['HTTP_REFERER']))
      {
-			 echo "<a href=\"framesview.php?how=paged";
+			 echo "<a target=\"_top\" href=\"framesview.php?how=paged";
 			 	 echo ($_REQUEST['framed']) ? "&framed=yes" : "";
 			 echo "\">Return to new items.</a>";
      }
      else
      {
-        echo "<a href=\"index.php\">Return to new items.</a>";
+        echo "<a href=\"frames.php\" target=\"_top\">Return to new items.</a>";
      }
     }
 

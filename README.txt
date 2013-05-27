@@ -2,10 +2,15 @@
 Installation:
 - Untar the archive and create the cache directory with enough permissions 
   for the server to write in it.
+  Alternately, use
+    git clone https://github.com/shokk/MonkeyChow.git monkeychow
+  in the root directory of your web server.
 
 - Check for compatibility by going to the URL where you installed:
   http://www.site.com/monkeychow/simplepie/compatibility_test/sp_compatibility_test.php
-  Make any recommended changes.
+  Make any recommended changes. Current included SimplePie version is 1.3.1.
+  As development of SimplePie has ceased, I will be replacing Simplie with
+  something else.
 
 - Please use a mysql version 4.1 or higher.  Testing with 4.0 revealed that
   using CURRENT_TIMESTAMP does not work on an install of mysql 4.0 hosted
@@ -13,6 +18,7 @@ Installation:
   that it should not work.  This causes install.php to present a white screen.
   I'm not sure that 4.0 is really at fault, but if you can find out why this
   happens, let me know.
+  I recommend using phpMyAdmin to assist with quick database setup.
 
 - copy config-example.php to config.php and alter to taste
 
@@ -48,6 +54,8 @@ Use:
 
 - Set up a cronjob to update your feeds with something like
 0,12,24,36,48 * * * *  (/usr/bin/GET -t 120 -C "username:password" http://www.site.com/monkeychow/update-quiet.php)
+  or
+3,18,33,48 * * * *  (/usr/bin/wget -o /dev/null --user myusername --password mypassword http://localhost/monkeychow/update-quiet.php)
 
 
 

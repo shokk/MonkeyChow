@@ -1,12 +1,12 @@
 <?php
 /*
- * This file is part of Monkeychow - http://monkeychow.org
+ * This file is part of Monkeychow - http://shokk.wordpress.com/tag/monkeychow/
  *
  * init.php - initializes MC, and contains functions used from other scripts
  *
  *
  * Copyright (C) 2006 Ernie Oporto
- * ernieoporto@yahoo.com - http://www.shokk.com/blog/
+ * ernieoporto@yahoo.com - http://shokk.wordpress.com
  *
  * Copyright (C) 2004 Stephen Minutillo
  * steve@minutillo.com - http://minutillo.com/steve/
@@ -29,9 +29,8 @@ $FOF_USERITEM_TABLE = FOF_USERITEM_TABLE;
 
 // Suppress magpie's warnings. We'll handle those ourselves
 //error_reporting(E_ERROR);
-error_reporting(ALL);
 
-require_once('simplepie/simplepie.inc');
+require_once('simplepie/autoloader.php');
 
 // If not in 'safe mode', increase the maximum execution time:
 if (!ini_get('safe_mode')) {
@@ -185,7 +184,7 @@ function fof_get_feeds($order = 'title', $direction = 'asc', $tags = NULL)
 		{
 			$sql2 .= " AND $FOF_FEED_TABLE.id in ($feedlist)";
 		}
-		echo $sql2 . "<br />\n";
+		//echo "FIRSTSQL: " . $sql2 . "<br />\n";
 		$result = fof_do_query($sql2);
 	}
 	else
@@ -265,9 +264,10 @@ function fof_get_feeds($order = 'title', $direction = 'asc', $tags = NULL)
 
 	# unread articles count	
 	$sql = "SELECT count( feed_id ) AS count, feed_id AS id FROM " . $FOF_FEED_TABLE . ", " . $FOF_ITEM_TABLE . " WHERE " . $FOF_FEED_TABLE . ".id = " . $FOF_ITEM_TABLE . ".feed_id ";
-   $sql .= " AND " . $FOF_ITEM_TABLE . ".id NOT IN ( SELECT item_id FROM user_items WHERE user_id=" . current_user() . " AND flag_id=1) ";
+   $sql .= " AND " .  $FOF_ITEM_TABLE . ".id NOT IN ( SELECT `$FOF_ITEM_TABLE`.id FROM `$FOF_ITEM_TABLE`,`$FOF_FEED_TABLE`,`mc_flags`,`mc_users` WHERE `mc_users`.user_id=" . current_user() . " AND flag_id=1) ";
    $sql .= " AND " . $FOF_FEED_TABLE . ".id IN (SELECT  `feed_id` FROM  `" . $FOF_SUBSCRIPTION_TABLE . "` WHERE user_id =" . current_user() . ")";
-   $sql .= "group by feed_id order by " . $FOF_FEED_TABLE . ".title";
+   $sql .= " group by feed_id order by " . $FOF_FEED_TABLE . ".title";
+   //print "SQL: $sql <br/>";
    $result = fof_do_query($sql);
 
    while($row = mysql_fetch_array($result))
@@ -303,7 +303,7 @@ function fof_get_feeds($order = 'title', $direction = 'asc', $tags = NULL)
 function fof_prune_expir_feeds()
 {
 		global $FOF_FEED_TABLE;
-#from feeds, " . $FOF_ITEM_TABLE . " where feeds.id = " . $FOF_ITEM_TABLE . ".feed_id AND `read` is null group by feed_id order by " . $FOF_FEED_TABLE . ".title
+#from `$FOF_FEED_TABLE`, " . $FOF_ITEM_TABLE . " where `$FOF_FEED_TABLE`.id = " . $FOF_ITEM_TABLE . ".feed_id AND `read` is null group by feed_id order by " . $FOF_FEED_TABLE . ".title
     $sql = "select id from " . $FOF_FEED_TABLE . " where expir != 0 AND ((to_days( CURDATE(  )  )  - to_days( date_added )) > expir)";
     $result = fof_do_query($sql);
     while($row = mysql_fetch_array($result))
@@ -498,7 +498,8 @@ function fof_get_items($feed=NULL, $what="new", $when=NULL, $start=NULL, $limit=
       $array[] = $row;
    }
 
-   $array = fof_multi_sort($array, 'timestamp', $order != "asc");
+   //$array = fof_multi_sort($array, 'timestamp', $order != "asc");
+   $array = fof_multi_sort($array, 'dcdate', $order != "asc");
 
    return $array;
 }
@@ -626,7 +627,7 @@ function fof_do_query($sql, $live=0)
      list($usec, $sec) = explode(" ", microtime()); 
      $t1 = (float)$sec + (float)$usec;
    }
-   
+//echo $sql . "<br/>";
    $result = mysql_query($sql, $fof_connection);
 
    if (defined('FOF_QUERY_LOG') && FOF_QUERY_LOG)
@@ -835,7 +836,7 @@ function fof_add_feed($url)
 	echo _("Attempting to subscribe to ") ."<a href=\"$url\">$url</a>...<br />";
 	if($row = fof_is_subscribed($url))
 	{
-		print "<font color='red'><u>" . _("Site is already subscribed to ") . fof_render_feed_link($row) . "</u></font><br /><br />";
+		print "<font color='red'><u>" . _("Site is already subscribed to ") . fof_render_feed_link($row) . "</u></font><br />";
 
 	}
 	else
@@ -963,7 +964,7 @@ else
 	$sql .= " WHERE $FOF_SUBSCRIPTION_TABLE.feed_id = '" . $id . "' and $FOF_SUBSCRIPTION_TABLE.user_id=" . current_user();
 }
 
-   echo ":SQL: " . $sql . "<br />\n";
+   #echo ":SQL: " . $sql . "<br />\n";
    fof_do_query($sql);
 }
 
@@ -1207,7 +1208,7 @@ function fof_update_feed($url)
    #
    #if(defined('FOF_KEEP_DAYS'))
    #{
-   #   $sql="select aging from feeds WHERE id=" . $feed_id;
+   #   $sql="select aging from `$FOF_FEED_TABLE` WHERE id=" . $feed_id;
    #   $result = fof_do_query($sql);
    #   $row = mysql_fetch_array($result);
    #   $keep_days = $row['aging'];
@@ -1331,11 +1332,11 @@ function fof_balanceTags($text) {
 function fof_multi_sort($tab,$key,$rev){
    if($rev)
    {
-   $compare = create_function('$a,$b','if (strtolower($a["'.$key.'"]) == strtolower($b["'.$key.'"])) {return 0;}else {return (strtolower($a["'.$key.'"]) > strtolower($b["'.$key.'"])) ? -1 : 1;}');
+   	$compare = create_function('$a,$b','if (strtolower($a["'.$key.'"]) == strtolower($b["'.$key.'"])) {return 0;}else {return (strtolower($a["'.$key.'"]) > strtolower($b["'.$key.'"])) ? -1 : 1;}');
    }
    else
    {
-   $compare = create_function('$a,$b','if (strtolower($a["'.$key.'"]) == strtolower($b["'.$key.'"])) {return 0;}else {return (strtolower($a["'.$key.'"]) < strtolower($b["'.$key.'"])) ? -1 : 1;}');
+   	$compare = create_function('$a,$b','if (strtolower($a["'.$key.'"]) == strtolower($b["'.$key.'"])) {return 0;}else {return (strtolower($a["'.$key.'"]) < strtolower($b["'.$key.'"])) ? -1 : 1;}');
    }
 
    usort($tab,$compare) ;
@@ -1426,4 +1427,5 @@ function substring_between($haystack,$start,$end)
        return substr($haystack,$start_position,$end_position-$start_position);
    }
 }
+
 ?>

@@ -1,11 +1,11 @@
 <?php
 /*
- * This file is part of Monkeychow - http://monkeychow.org
+ * This file is part of Monkeychow - http://shokk.wordpress.com/tag/monkeychow/
  *
  * add.php - displays form to add a feed
  *
  * Copyright (C) 2006 Ernie Oporto
- * ernieoporto@yahoo.com - http://www.shokk.com/blog/
+ * ernieoporto@yahoo.com - http://shokk.wordpress.com
  * 
  * Copyright (C) 2004 Stephen Minutillo
  * steve@minutillo.com - http://minutillo.com/steve/
@@ -119,6 +119,7 @@ if (ereg('Firefox/3.0', $_SERVER['HTTP_USER_AGENT'])) {
 <?php echo _("OPML filename"); ?>: <input type="file" name="opml_file" size="40" value="<?php echo $file ?>"><input type="Submit" value="<?php echo _("Upload an OPML file") ?>">
 
 </form>
+Note that anyone with a Google Reader account can use Google Takeout to download a zip file of their settings, which includes a Subscriptions.XML file that can be used as an OPML file above.
 <?php
 }
 

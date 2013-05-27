@@ -50,7 +50,7 @@ foreach ($tagarray as $piece)
 <li><a href="index.php" target="_top"><b><?php echo _("panel") ?></b></a></li>
 <li><a href="add.php"><b><?php echo _("add feeds") ?></b></a></li>
 <li><a href="javascript:parent.items.location.reload()"><b><?php echo _("refresh view") ?></b></a></li>
-<li><a href="http://www.monkeychow.org"><b><?php echo _("about") ?></b></a></li>
+<li><a href="http://shokk.wordpress.com/tag/monkeychow/"><b><?php echo _("about") ?></b></a></li>
 <li><a href="logout.php">log out</a></li>
 </ul>
 

@@ -9,10 +9,10 @@ $rss =new RSSWriter(
 	$REPUBLISH_CHANNEL_DESC
 );
 
-$sql="select 'feeds.tags' as 'feed_tags', 'items.read' as 'item_read', 'feeds.title' as 'feed_title', 'feeds.link' as 'feed_link', feeds.description as feed_description, items.id as item_id, items.link as item_link, items.title as item_title, UNIX_TIMESTAMP(items.timestamp) as timestamp, items.content as item_content, items.dcdate as dcdate, items.dccreator as dccreator, items.dcsubject as dcsubject, items.publish as item_publish, items.star as item_star from feeds, items where items.feed_id=feeds.id and feeds.private=0";
+$sql="select '$FOF_FEED_TABLE.tags' as 'feed_tags', 'items.read' as 'item_read', '$FOF_FEED_TABLE.title' as 'feed_title', '$FOF_FEED_TABLE.link' as 'feed_link', $FOF_FEED_TABLE.description as feed_description, items.id as item_id, items.link as item_link, items.title as item_title, UNIX_TIMESTAMP(items.timestamp) as timestamp, items.content as item_content, items.dcdate as dcdate, items.dccreator as dccreator, items.dcsubject as dcsubject, items.publish as item_publish, items.star as item_star from $FOF_FEED_TABLE, items where items.feed_id=$FOF_FEED_TABLE.id and $FOF_FEED_TABLE.private=0";
 
 $mytags = mysql_escape_string($_REQUEST['tags']);
-$sql .= ($_REQUEST['tags']) ? " and feeds.tags LIKE \"%" . $mytags . "%\"" : "";
+$sql .= ($_REQUEST['tags']) ? " and $FOF_FEED_TABLE.tags LIKE \"%" . $mytags . "%\"" : "";
 
 $sql.=" order by timestamp desc limit 200";
 $result = fof_do_query($sql);

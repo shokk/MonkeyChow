@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of MonkeyChow http://www.monkeychow.org
+ * This file is part of MonkeyChow http://shokk.wordpress.com/tag/monkeychow/
  *
  * prefs.php - display and change preferences
  *
@@ -151,7 +151,7 @@ name: <input type="text" size="40" name="wordpresssitename3" value="<?php echo (
 </form>
 
 <?php if(fof_is_admin()) { ?>
-
+<h1>HI!!</h1>
 <br><h1>Add User</h1>
 <form method="post" action="prefs.php" style="border: 1px solid black; margin: 10px; padding: 10px;">
 Username: <input type=string name=username> Password: <input type=string name=password> <input type=submit name=adduser value="Add user">
@@ -180,6 +180,11 @@ No Admin options yet!<br><br>
 </form>
 
 
-<?php } ?>
+<?php }
+else
+{
+	echo "<h5>Standard User Account</h5>";
+}
+ ?>
 
 <?php include("footer.php") ?>

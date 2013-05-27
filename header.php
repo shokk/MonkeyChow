@@ -1,13 +1,13 @@
 <?php
 
 /*
- * This file is part of Monkeychow - http://monkeychow.org
+ * This file is part of Monkeychow - http://shokk.wordpress.com/tag/monkeychow/
  *
  * index.php - the 'control panel'
  *
  *
  * Copyright (C) 2006 Ernie Oporto
- * ernieoporto@yahoo.com - http://www.shokk.com/blog/
+ * ernieoporto@yahoo.com - http://shokk.wordpress.com
  *
  * Copyright (C) 2004 Stephen Minutillo
  * steve@minutillo.com - http://minutillo.com/steve/
@@ -28,9 +28,9 @@ header("Content-Type: text/html; charset=utf-8");
 	<head>
 		<title>MonkeyChow - <?php echo _("control panel") ?></title>
 <?php
-	if (eregi("feeds.php",$_SERVER['PHP_SELF']) && isset($fof_user_prefs['feedsrefresh']) && $fof_user_prefs['feedsrefresh'] != 0)
+	if (eregi("feeds.php",$_REQUEST['PHP_SELF']) && isset($fof_user_prefs['feedsrefresh']) && $fof_user_prefs['feedsrefresh'] != 0)
 	{
-		echo "        <meta http-equiv=\"refresh\" content=\"" . $fof_user_prefs['feedsrefresh']*60 . ";url=" . $_SERVER['REQUEST_URI'] . "\">\n";
+		echo "        <meta http-equiv=\"refresh\" content=\"" . $fof_user_prefs['feedsrefresh']*60 . ";url=" . $_REQUEST['REQUEST_URI'] . "\">\n";
 	}
 ?>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

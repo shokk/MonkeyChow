@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of Monkeychow - http://monkeychow.org
+ * This file is part of Monkeychow - http://shokk.wordpress.com/tag/monkeychow/
  *
  * aggregator.php - frames based viewer
  *
@@ -38,7 +38,7 @@ $title = "My Aggregated Feeds by";
 	</head>
 <body onload="parent.menu.location.reload();">
 
-<p><?php echo _("$title") ?> <a href="http://www.monkeychow.org">MonkeyChow</a> </p>
+<p><?php echo _("$title") ?> <a href="http://shokk.wordpress.com/tag/monkeychow/">MonkeyChow</a> </p>
 
 <div id="items">
 

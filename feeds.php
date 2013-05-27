@@ -1,12 +1,12 @@
 <?php
 /*
- * This file is part of Monkeychow - http://monkeychow.org
+ * This file is part of Monkeychow - http://shokk.wordpress.com/tag/monkeychow/
  *
  * feeds.php - feed list for frames mode
  *
  *
  * Copyright (C) 2006 Ernie Oporto
- * ernieoporto@yahoo.com - http://www.shokk.com/blog/
+ * ernieoporto@yahoo.com - http://shokk.wordpress.com
  *
  * Copyright (C) 2004 Stephen Minutillo
  * steve@minutillo.com - http://minutillo.com/steve/
@@ -14,13 +14,9 @@
  * Distributed under the GPL - see LICENSE
  *
  */
-
 $specialtest=0;
-
-//if ($_REQUEST['framed'] == "yes"){ // start of frames check
 include_once("init.php");
 include_once("fof-main.php");
-
 header("Content-Type: text/html; charset=utf-8");
 
 ?>
@@ -113,7 +109,7 @@ foreach ($tagarray as $piece)
 <li><a href="<?php echo ($_REQUEST['framed'] == "yes") ? "index" : "frames" ; ?>.php" target="_top"><?php echo ($_REQUEST['framed'] == "yes") ? _("panel") : _("frames") ?></a></li>
 <li><a href="add.php"><?php echo _("add feeds") ?></a></li>
 <li><a href="javascript:<?php echo ($_REQUEST['framed'] == "yes") ? "parent.items." : ""; ?>location.reload()<?php echo ($_REQUEST['framed'] == "yes") ? ";parent.menu.location.reload();" : ""; ?>"><?php echo _("refresh view") ?></a></li>
-<li><a href="http://www.monkeychow.org"><?php echo _("about") ?></a></li>
+<li><a href="http://shokk.wordpress.com/tag/monkeychow/"><?php echo _("about") ?></a></li>
 <li><a href="logout.php" target="_top">log out</a></li>
 </ul>
 </div>
@@ -153,11 +149,20 @@ else
 {
 
 $feeds = fof_get_feeds($order, $direction, $tags);
+/*
+
+#find number of total unread for this user
+
+# list their subscribed feeds
+# list subset of existing on server minus marked
+# use that number below
+
 foreach($feeds as $row)
 {
     $n++;
     $unread += $row['unread'];
 }
+*/
 
 ?>
 
@@ -168,12 +173,9 @@ foreach($feeds as $row)
 </td><td align="right">
 <a href="feeds.php?
 <?php
-	echo ($_REQUEST['newonly'] == "yes") ? "" : "&amp;newonly=yes" ;
-	echo ($_REQUEST['framed'] == "yes") ? "&amp;framed=yes" : "" ; 
+	echo ($_REQUEST['newonly'] == "yes") ? "&amp;newonly=yes" : "&amp;newonly=" ;
+	echo ($_REQUEST['framed'] == "yes") ? "&amp;framed=yes" : "&amp;framed=" ; 
 	echo ($_REQUEST['tags']) ? "&amp;tags=" . $tags : "" ; 
-    #if ($_REQUEST['framed']) {
-    #    echo "&amp;framed=yes";
-    #}
 ?>
 " target="menu"><div class="nowrap">
 <?php 
@@ -197,12 +199,12 @@ $title["title"] = _("sort by feed title");
 
 foreach (array("age", "unread", "title") as $col)
 {
-	echo "<td><nobr><a title=\"$title[$col]\"target=\"_self\" href=\"feeds.php?order=$col";
+    echo "<td><nobr><a title=\"$title[$col]\"target=\"_self\" href=\"feeds.php?order=$col " ;
     echo ($_REQUEST['framed'] == "yes") ? "&amp;framed=yes" : "" ;
     echo ($_REQUEST['newonly'] == "yes") ? "&amp;newonly=yes" : "" ;
 	if (($tags) && ($tags != _("All tags")) && ($tags != _("No tags")))
 	{
-        echo ($tags) ? "&amp;tags=".$tags : "" ;
+            echo ($tags) ? "&tags=".$tags : "" ;
 	}
 	if($col == $order && $direction == "asc")
 	{
@@ -253,111 +255,172 @@ foreach($feeds as $row)
 	$agestrabbr = $row['agestrabbr'];
 	$image = $row['image'];
 
-	if ( (($unread)&&($_REQUEST['newonly'])) || (!$_REQUEST['newonly']))
+#beginning of row
+	$rowstring="";
+	if ( (($unread)&&($_REQUEST['newonly'])) || (!$_REQUEST['newonly']) || (1))
 	{
-	if(++$t % 2)
-	{
-		echo "<tr class=\"odd-row\">";
-	}
-	else
-	{
-		echo "<tr>";
-	}
-
-	echo "<td><span title=\"$agestr\">";
-	echo ($_REQUEST['framed'] == "yes") ? "$agestrabbr" : $agestr ;
-	echo "</span></td>";
-
-	$u = "framesview.php?feed=$id&amp;how=paged";
-
-	if ($_REQUEST['framed'] == "yes") {
-		$u = $u . "&amp;framed=yes";
-	}
-
-	echo "<td class=\"nowrap\">";
-	echo ($_REQUEST['framed'] == "yes") ? "" : "&nbsp;&nbsp;" ;
-
-	if($unread)
-	{
-		echo ($_REQUEST['framed'] == "yes") ? "" : "(" ;
-		echo "<a class=\"unread\" title=\"new items\" href=\"$u\">$unread";
-		echo ($_REQUEST['framed'] == "yes") ? "" : " new" ;
-		echo "</a>";
-		echo ($_REQUEST['framed'] == "yes") ? "/" : " / " ;
-	}
-	else
-	{
-		if(!$_REQUEST['framed'])
+	    	if(++$t % 2)
 		{
-			echo "(0 " . _("new") . " / ";
+			$rowstring.="<tr class=\"odd-row\">";
 		}
-	}
+		else
+		{
+			$rowstring.="<tr>";
+		}
 
-	echo "<a href=\"" . $u . "&amp;what=all\" title=\"all items\">$items</a>";
-	echo ($_REQUEST['framed'] == "yes") ? "" : "):" ;
-	echo "</td><td><div class=\"headertitle\">";
+		$rowstring.= "<td><span title=\"$agestr\">";
+		$rowstring.= ($_REQUEST['framed'] == "yes") ? "$agestrabbr" : $agestr ;
+		$rowstring.= "</span></td>";
+		$u = "framesview.php?feed=$id&amp;how=paged";
 
-	if($row['image'] && $fof_user_prefs['favicons'])
-	{
-		echo "<a href=\"$url\" title=\"feed\"><img src='" . urldecode($row['image']) . "' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
-    }
-    else
-    {
-       echo "<a href=\"$url\" title=\"feed\"><img src='feed-icon.png' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
-    }
+		if ($_REQUEST['framed'] == "yes") {
+			$u = $u . "&amp;framed=yes";
+		}
 
-	echo fof_render_feed_link($row) . "</div></td>";
+		$rowstring.= "<td class=\"nowrap\">";
+		$rowstring.= ($_REQUEST['framed'] == "yes") ? "" : "&nbsp;&nbsp;" ;
 
-	echo "<td align=\"right\"><nobr>";
-	echo ($_REQUEST['framed'] == "yes") ? "" : "&nbsp;&nbsp;";
+		if($unread)
+		{
+			$rowstring.= ($_REQUEST['framed'] == "yes") ? "" : "(" ;
+			$rowstring.= "<a class=\"unread\" title=\"new items\" href=\"$u\">$unread";
+			$rowstring.= ($_REQUEST['framed'] == "yes") ? "" : " new" ;
+			$rowstring.= "</a>";
+			$rowstring.= ($_REQUEST['framed'] == "yes") ? "/" : " / " ;
+		}
+		else
+		{
+			if(!$_REQUEST['framed'])
+			{
+				$rowstring.= "(0 " . _("new") . " / ";
+			}
+		}
 
-	echo " <a href=\"mark-read.php?";
-	echo ($_REQUEST['framed'] == "yes") ? "framed=yes&" : "";
-	if (isset($order))
-	{
-			echo ($_REQUEST['order']) ? "order=" . $order . "&" : "";
-	}
-	if (isset($direction))
-	{
-			echo ($_REQUEST['direction']) ? "direction=" . $direction . "&" : "";
-	}
-	if (($tags) && ($tags != _("All tags")) && ($tags != _("No tags")))
-	{
-		echo ($_REQUEST['tags']) ? "tags=" . $tags . "&" : "";
-	}
-	echo ($_REQUEST['newonly'] == "yes") ? "newonly=yes&" : "";
-	echo "feed=$id\" target=\"_self\" title=\"" . _("mark all read") . "\">";
-	echo ($_REQUEST['framed'] == "yes") ? "m" : _("mark all read");
-	echo "</a>";
-	echo ($_REQUEST['framed'] == "yes") ? "" : "&nbsp;&nbsp;";
 
-	echo " <a href=\"edit.php?";
-	echo ($_REQUEST['framed'] == "yes") ? "framed=yes&" : "";
-	if (($tags) && ($tags != _("All tags")) && ($tags != _("No tags")))
-	{
-		echo ($_REQUEST['tags']) ? "tags=" . $tags . "&" : "";
-	}
-	echo "feed=$id\" title=\"" . _("edit") . "\">";
-	echo ($_REQUEST['framed'] == "yes") ? "e" : _("edit");
-	echo "</a>";
-	echo ($_REQUEST['framed'] == "yes") ? "" : "&nbsp;&nbsp;";
+		# insert routines to determine unread counts
+		# get number of articles in system
+		$feedcountsql="SELECT DISTINCT `mc_items`.id FROM `mc_items` WHERE `mc_items`.feed_id=" . $id;
+		#$rowstring.= $feedcountsql . "</br>";
+		$myresult=fof_do_query($feedcountsql);
+		$feedcounttotal="0";
+		while($myrow = mysql_fetch_array($myresult))
+		{
+    			$feedcounttotal++;
+		}
+		#$rowstring.= $feedcounttotal . " total in feed</br>";
+	
+		# see if any of them are NOT set to 1 for read
+		$feedusermarkeditemssql = "SELECT * FROM `mc_user_items`,`mc_items` WHERE user_id=" . current_user() . " AND `mc_items`.id=`mc_user_items`.item_id AND `mc_items`.feed_id=" . $id;
+		# return remaining
+		# if newonly and if count is 0, don't display the line!
+		#$rowstring.= $feedusermarkeditemssql . "</br>";
+		$myresult=fof_do_query($feedusermarkeditemssql);
+		$feedcountmarked="0";
+		while($myrow = mysql_fetch_array($myresult))
+		{
+    			$feedcountmarked++;
+		}
+		#$rowstring.= $feedcountmarked . " total marked by user in this feed.</br>";
+		$totalnew = $feedcounttotal - $feedcountmarked;
+		#$rowstring.= " (userid " . current_user() . " has " . $totalnew . " new items for feed id " . $id . ") ";
+		$items = $totalnew;
 
-    echo " <a href=\"update.php?feed=$id\" title=\"" . _("update") . "\">";
-	echo ($_REQUEST['framed'] == "yes") ? "u" : _("update");
-	echo "</a>";
-	echo ($_REQUEST['framed'] == "yes") ? "" : "&nbsp;&nbsp;";
 
-	echo " <a href=\"delete.php?";
-	echo ($_REQUEST['framed'] == "yes") ? "framed=yes&" : "";
-	if (($tags) && ($tags != _("All tags")) && ($tags != _("No tags")))
-	{
-		echo ($_REQUEST['tags']) ? "tags=" . $tags . "&" : "";
-	}
-	echo "feed=$id\" title=\"" . _("delete") . "\" onclick=\"return confirm('" . _('Are you SURE?') . "')\">";
-	echo ($_REQUEST['framed'] == "yes") ? "d" : _("delete");
-	echo "</a></nobr></td>";
+		if ($items > 0)
+		{
+			$rowstring.= "<a href=\"" . $u . "&amp;what=" . (($_REQUEST['newonly']) ? "" : "all") . "\" title=\"all items\">$items</a>";
+		}
+		else
+		{
+			$rowstring.= "0";
+			#dont print the line!!
+		}
 
-	echo "</tr>\n";
+		$rowstring.= ($_REQUEST['framed'] == "yes") ? "" : "):" ;
+	
+		$rowstring.= "</td><td><div class=\"headertitle\">";
+
+		if($row['image'] && $fof_user_prefs['favicons'])
+		{
+			$rowstring.= "<a href=\"$url\" title=\"feed\"><img src='" . urldecode($row['image']) . "' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
+    		}
+    		else
+    		{
+       			$rowstring.= "<a href=\"$url\" title=\"feed\"><img src='feed-icon.png' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
+    		}
+
+		$rowstring.= fof_render_feed_link($row) . "</div></td>";
+
+		$rowstring.= "<td align=\"right\"><nobr>";
+		$rowstring.= ($_REQUEST['framed'] == "yes") ? "" : "&nbsp;&nbsp;";
+
+		$rowstring.= " <a href=\"mark-read.php?";
+		$rowstring.= ($_REQUEST['framed'] == "yes") ? "framed=yes&" : "";
+		if (isset($order))
+		{
+			$rowstring.= ($_REQUEST['order']) ? "order=" . $order . "&" : "";
+		}
+		if (isset($direction))
+		{
+			$rowstring.= ($_REQUEST['direction']) ? "direction=" . $direction . "&" : "";
+		}
+		if (($tags) && ($tags != _("All tags")) && ($tags != _("No tags")))
+		{
+			$rowstring.= ($_REQUEST['tags']) ? "tags=" . $tags . "&" : "";
+		}
+		$rowstring.= ($_REQUEST['newonly'] == "yes") ? "newonly=yes&" : "";
+		$rowstring.= "feed=$id\" target=\"_self\" title=\"" . _("mark all read") . "\">";
+		$rowstring.= ($_REQUEST['framed'] == "yes") ? "m" : _("mark all read");
+		$rowstring.= "</a>";
+		$rowstring.= ($_REQUEST['framed'] == "yes") ? "" : "&nbsp;&nbsp;";
+
+		$rowstring.= " <a href=\"edit.php?";
+		$rowstring.= ($_REQUEST['framed'] == "yes") ? "framed=yes&" : "";
+		if (($tags) && ($tags != _("All tags")) && ($tags != _("No tags")))
+		{
+			$rowstring.= ($_REQUEST['tags']) ? "tags=" . $tags . "&" : "";
+		}
+		$rowstring.= "feed=$id\" title=\"" . _("edit") . "\">";
+		$rowstring.= ($_REQUEST['framed'] == "yes") ? "e" : _("edit");
+		$rowstring.= "</a>";
+		$rowstring.= ($_REQUEST['framed'] == "yes") ? "" : "&nbsp;&nbsp;";
+
+    		$rowstring.= " <a href=\"update.php?feed=$id\" title=\"" . _("update") . "\">";
+		$rowstring.= ($_REQUEST['framed'] == "yes") ? "u" : _("update");
+		$rowstring.= "</a>";
+		$rowstring.= ($_REQUEST['framed'] == "yes") ? "" : "&nbsp;&nbsp;";
+
+		$rowstring.= " <a href=\"delete.php?";
+		$rowstring.= ($_REQUEST['framed'] == "yes") ? "framed=yes&" : "";
+		if (($tags) && ($tags != _("All tags")) && ($tags != _("No tags")))
+		{
+			$rowstring.= ($_REQUEST['tags']) ? "tags=" . $tags . "&" : "";
+		}
+		$rowstring.= "feed=$id\" title=\"" . _("delete") . "\" onclick=\"return confirm('" . _('Are you SURE?') . "')\">";
+		$rowstring.= ($_REQUEST['framed'] == "yes") ? "d" : _("delete");
+		$rowstring.= "</a></nobr></td>";
+
+		$rowstring.= "</tr>\n";
+		if ( $items < 1 )
+		{
+			#echo "wooooooo why the fuck am i in this bracket set?!?!? i am zero </br>\n";
+			#echo "newonly request is set to " . $_REQUEST['newonly'] . "</br>\n";
+			if ( $_REQUEST['newonly'] )
+			{
+				#
+			}
+			else
+			{
+				#echo "echo wtf I'm asking for only new shit!!! </br>\n";
+				echo $rowstring . "\n";
+			}
+		}
+		else
+		{
+			echo $rowstring . "\n";
+		}
+
+		#end of row
 	}
 } // foreach feeds
 }

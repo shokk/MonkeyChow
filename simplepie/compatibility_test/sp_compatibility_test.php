@@ -14,21 +14,35 @@ else if (isset($_GET['background']))
 	exit;
 }
 
-$php_ok = (function_exists('version_compare') && version_compare(phpversion(), '4.3.0', '>='));
-$xml_ok = extension_loaded('xml');
+$php_ok = (function_exists('version_compare') && version_compare(phpversion(), '5.2.0', '>='));
 $pcre_ok = extension_loaded('pcre');
 $curl_ok = function_exists('curl_exec');
 $zlib_ok = extension_loaded('zlib');
 $mbstring_ok = extension_loaded('mbstring');
 $iconv_ok = extension_loaded('iconv');
+if (extension_loaded('xmlreader'))
+{
+	$xml_ok = true;
+}
+elseif (extension_loaded('xml'))
+{
+	$parser_check = xml_parser_create();
+	xml_parse_into_struct($parser_check, '<foo>&amp;</foo>', $values);
+	xml_parser_free($parser_check);
+	$xml_ok = isset($values[0]['value']);
+}
+else
+{
+	$xml_ok = false;
+}
 
 header('Content-type: text/html; charset=UTF-8');
 
-?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+?><!DOCTYPE html>
 
 <html lang="en">
 <head>
-<title>SimplePie: Server Compatibility Test 1.2</title>
+<title>SimplePie: Server Compatibility Test 1.3</title>
 
 <style type="text/css">
 body {
@@ -200,17 +214,17 @@ function fnLoadPngs() {
 				</thead>
 				<tbody>
 					<tr class="<?php echo ($php_ok) ? 'enabled' : 'disabled'; ?>">
-						<td>PHP&sup1;</td>
-						<td>4.3.0 or higher</td>
+						<td>PHP</td>
+						<td>5.2.0 or higher</td>
 						<td><?php echo phpversion(); ?></td>
 					</tr>
-					<tr class="<?php echo ($xml_ok) ? 'enabled' : 'disabled'; ?>">
+					<tr class="<?php echo ($xml_ok) ? 'enabled, and sane' : 'disabled, or broken'; ?>">
 						<td><a href="http://php.net/xml">XML</a></td>
 						<td>Enabled</td>
-						<td><?php echo ($xml_ok) ? 'Enabled' : 'Disabled'; ?></td>
+						<td><?php echo ($xml_ok) ? 'Enabled, and sane' : 'Disabled, or broken'; ?></td>
 					</tr>
 					<tr class="<?php echo ($pcre_ok) ? 'enabled' : 'disabled'; ?>">
-						<td><a href="http://php.net/pcre">PCRE</a>&sup2;</td>
+						<td><a href="http://php.net/pcre">PCRE</a>&sup1;</td>
 						<td>Enabled</td>
 						<td><?php echo ($pcre_ok) ? 'Enabled' : 'Disabled'; ?></td>
 					</tr>
@@ -247,7 +261,7 @@ function fnLoadPngs() {
 					<?php if ($php_ok): ?>
 						<li><strong>PHP:</strong> You are running a supported version of PHP.  <em>No problems here.</em></li>
 						<?php if ($xml_ok): ?>
-							<li><strong>XML:</strong> You have XML support installed.  <em>No problems here.</em></li>
+							<li><strong>XML:</strong> You have XMLReader support or a version of XML support that isn't broken installed.  <em>No problems here.</em></li>
 							<?php if ($pcre_ok): ?>
 								<li><strong>PCRE:</strong> You have PCRE support installed. <em>No problems here.</em></li>
 								<?php if ($curl_ok): ?>
@@ -299,13 +313,12 @@ function fnLoadPngs() {
 				<p class="footnote"><em><strong>Note</strong></em>: Passing this test does not guarantee that SimplePie will run on your webhost &mdash; it only ensures that the basic requirements have been addressed.</p>
 			<?php } else { ?>
 				<h3>Bottom Line: We're sorry…</h3>
-				<p><em>Your webhost does not support the minimum requirements for SimplePie.</em>  It may be a good idea to contact your webhost, and ask them to install a more recent version of PHP as well as the <code>xml</code>, <code>mbstring</code>, <code>iconv</code>, <code>curl</code>, and <code>zlib</code> extensions.</p>
+				<p><em>Your webhost does not support the minimum requirements for SimplePie.</em>  It may be a good idea to contact your webhost, and ask them to install a more recent version of PHP as well as the <code>xmlreader</code>, <code>xml</code>, <code>mbstring</code>, <code>iconv</code>, <code>curl</code>, and <code>zlib</code> extensions.</p>
 			<?php } ?>
 		</div>
 
 		<div class="chunk">
-			<p class="footnote">&sup1; &mdash; SimplePie 2 will not support PHP 4.x. The core PHP team has discontinued PHP 4.x patches and support. <a href="http://simplepie.org/blog/2007/07/13/simplepie-is-going-php5-only/">Read the announcement.</a></p>
-			<p class="footnote">&sup2; &mdash; Some recent versions of the PCRE (PERL-Compatible Regular Expression) engine compiled into PHP have been buggy, and are the source of PHP segmentation faults (e.g. crashes) which cause random things like blank, white screens. Check the <a href="http://simplepie.org/support/">Support Forums</a> for the latest information on patches and ongoing fixes.</p>
+			<p class="footnote">&sup1; &mdash; Some recent versions of the PCRE (PERL-Compatible Regular Expression) engine compiled into PHP have been buggy, and are the source of PHP segmentation faults (e.g. crashes) which cause random things like blank, white screens. Check the <a href="http://simplepie.org/support/">Support Forums</a> for the latest information on patches and ongoing fixes.</p>
 		</div>
 
 	</div>
