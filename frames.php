@@ -1,12 +1,12 @@
 <?php
 /*
- * This file is part of Monkeychow - http://monkeychow.org
+ * This file is part of Monkeychow - http://shokk.wordpress.com/tag/monkeychow/
  *
  * index.php - frameset for frames mode
  *
  *
  * Copyright (C) 2006 Ernie Oporto
- * ernieoporto@yahoo.com - http://www.shokk.com/blog/
+ * ernieoporto@yahoo.com - http://shokk.wordpress.com
  *
  * Copyright (C) 2004 Stephen Minutillo
  * steve@minutillo.com - http://minutillo.com/steve/
@@ -17,7 +17,6 @@
 
 include_once("init.php");
 include_once("fof-main.php");
-
 if (preg_match("/(wap|midp|cldc|mmp|Symbian|Smartphone|iPhone|WebKit.*Mobile)/si",$_SERVER[HTTP_USER_AGENT]))
 {
 	//header("Location: feeds.php?order=unread&newonly=yes&direction=desc");
@@ -44,7 +43,7 @@ else
 				echo "		ImageUrl[$n] = \"$imageurl\";\n";
 				$n++;
 		}
-		$sql="SELECT image FROM `feeds` WHERE image != ''";
+		$sql="SELECT image FROM `$FOF_FEED_TABLE` WHERE image != ''";
 		$result = fof_do_query($sql);
 		while($row = mysql_fetch_array($result))
 		{
@@ -74,7 +73,7 @@ else
 */
 {
 	$cols = "26%, *";
-	$rows = "13%, *";
+	$rows = "15%, *";
 }
 //
 // end prefs -

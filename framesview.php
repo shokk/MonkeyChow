@@ -1,12 +1,12 @@
 <?php
 /*
- * This file is part of Monkeychow - http://monkeychow.org
+ * This file is part of Monkeychow - http://shokk.wordpress.com/tag/monkeychow/
  *
  * view.php - frames based viewer
  *
  *
  * Copyright (C) 2006 Ernie Oporto
- * ernieoporto@yahoo.com - http://www.shokk.com/blog/
+ * ernieoporto@yahoo.com - http://shokk.wordpress.com
  *
  * Copyright (C) 2004 Stephen Minutillo
  * steve@minutillo.com - http://minutillo.com/steve/
@@ -17,6 +17,7 @@
 
 include_once("init.php");
 include_once("fof-main.php");
+//error_reporting(E_ALL);
 
 fof_prune_expir_feeds();
 flush();
@@ -30,7 +31,7 @@ else
 	$which = $_REQUEST['which'];
 }
 $mobiletrue = $_REQUEST['mobiletrue'];
-if (preg_match("/(wap|midp|cldc|mmp|Symbian|Smartphone|iPhone|WebKit.*Mobile)/si",$_SERVER[HTTP_USER_AGENT])) {
+if (preg_match("/(wap|midp|cldc|mmp|Symbian|Smartphone|iPhone|WebKit.*Mobile)/si",$_REQUEST[HTTP_USER_AGENT])) {
 		$mobiletrue = "yes";
 }
 
@@ -57,10 +58,10 @@ $noedit = $_GET['noedit'];
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-<?
+<?php
 	if (isset($fof_user_prefs['itemsrefresh']) && $fof_user_prefs['itemsrefresh'] != 0)
 	{
-		echo "        <meta http-equiv=\"refresh\" content=\"" . $fof_user_prefs['itemsrefresh']*60 . ";url=" . $_SERVER['REQUEST_URI'] . "\">\n";
+		echo "        <meta http-equiv=\"refresh\" content=\"" . $fof_user_prefs['itemsrefresh']*60 . ";url=" . $_REQUEST['REQUEST_URI'] . "\">\n";
 	}
 ?>
 	<script src="fof.js" type="text/javascript"></script>
@@ -77,12 +78,9 @@ $noedit = $_GET['noedit'];
 	if(!$_REQUEST['framed'])
 	{
 		#include("framesmenu.php");
-?>
-<?php
 		echo "<br />";
 	}
 ?>
-
 <span class="mobilecontent"><?php echo $title?> -
 <?php
 
@@ -135,7 +133,7 @@ if ($mobiletruex) {
 <form id="TagsForm">
 <select name="tags" class="mobilestyle" fontsize="8" onchange="window.location.href='framesview.php?how=paged&tags='+document.getElementById('TagsForm').tags.value;">
 <?php
-	$sql = "SELECT tags FROM `feeds` WHERE tags != '' group by tags";
+	$sql = "SELECT tags FROM `$FOF_FEED_TABLE` WHERE tags != '' group by tags";
 	$result = fof_do_query($sql);
 	print "<OPTION VALUE=\"" . _("All tags") . "\">" . _("All tags") . "\n";
 	print "<OPTION VALUE=\"" . _("No tags") . "\">" . _("No tags") . "\n";
@@ -215,8 +213,8 @@ $count = 0;
 foreach($result as $row)
 {
 	$items = true;
-    $starred = "star_off.gif";
-    $checked = "";
+    	$starred = "star_off.gif";
+    	$checked = "";
 	$item_read = "0";
 	$timestamp =  date("F j, Y, g:i a", $row['timestamp'] - (FOF_TIME_OFFSET * 60 * 60));
 	$feed_link = $row['feed_link'];
@@ -226,19 +224,20 @@ foreach($result as $row)
 	$item_id = $row['item_id'];
 	$item_link = $row['item_link'];
 	$item_title = $row['item_title'];
-    $item_title = strip_tags(htmlspecialchars_decode($item_title));
+    	$item_title = strip_tags(htmlspecialchars_decode($item_title));
 	$item_content = urldecode($row['item_content']);
 
-    $flag_sql = "SELECT `flag_id` FROM `" . $FOF_USERITEM_TABLE . "` WHERE `item_id`=" . $item_id . " AND `user_id`=" . current_user();
+    	$flag_sql = "SELECT `flag_id` FROM `" . $FOF_USERITEM_TABLE . "` WHERE `item_id`=" . $item_id . " AND `user_id`=" . current_user();
+	# AND `flag_id`!=1
 
-	#echo "$flag_sql <br />\n";
+		#echo "$flag_sql <br />\n";
 	$result2 = fof_do_query($flag_sql);
 #	$result2=mysql_fetch_array(fof_do_query($flag_sql));
 #print_r($result2);
 #reset($result2);
-    #foreach ($result2 as $row2)
+    	#foreach ($result2 as $row2)
 	while($row2 = mysql_fetch_array($result2))
-    {
+    	{
         $flag_val = $row2['flag_id'];
 		#echo "$item_id : $flag_val <br />\n";
         switch ($flag_val) {
@@ -340,7 +339,7 @@ foreach($result as $row)
         $email_tag = _("
 ---
 This email brought to you by the Monkeychow web-based RSS reader.
-http://www.monkeychow.org");
+http://shokk.wordpress.com/tag/monkeychow/");
         $email_url .= urlencode($email_tag);
         $digg_url = "http://digg.com/submit?phase=2&url=" . rawurlencode($item_link);
         $newsvine_url = "http://www.newsvine.com/_wine/save?u=" . rawurlencode($item_link) . "&h=" . rawurlencode($item_title);

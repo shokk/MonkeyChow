@@ -1,12 +1,12 @@
 <?php
 /*
- * This file is part of Monkeychow - http://monkeychow.org
+ * This file is part of Monkeychow - http://shokk.wordpress.com/tag/monkeychow/
  *
  * framesmenu.php - upper right menu for frames mode
  *
  *
  * Copyright (C) 2006 Ernie Oporto
- * ernieoporto@yahoo.com - http://www.shokk.com/blog/
+ * ernieoporto@yahoo.com - http://shokk.wordpress.com
  *
  * Copyright (C) 2004 Stephen Minutillo
  * steve@minutillo.com - http://minutillo.com/steve/
@@ -17,6 +17,7 @@
 if ($_REQUEST['framed']){ // start of frames check
 include_once("init.php");
 include_once("fof-main.php");
+error_reporting(E_ALL);
 
 header("Content-Type: text/html; charset=utf-8");
 
@@ -119,25 +120,30 @@ if ($_REQUEST['framed']) {
 
 	<form id="TagsForm">
 New Feeds
-<input name="NewTags" type="checkbox" id="NewTags" onCheck="parent.menu.location = parent.menu.location + '&newonly=yes';" onUnCheck="parent.menu.location = parent.menu.location + '&newonly='" onclick="if(NewTags.checked){eval(NewTags.getAttribute('onCheck'));}else if(!NewTags.checked){eval(NewTags.getAttribute('onUnCheck'));};" >
+<input name="NewTags" type="checkbox" id="NewTags" onCheck="parent.menu.location=addParameter(parent.menu.location,newonly,yes);" onUnCheck="parent.menu.location=addParameter(parent.menu.location,newonly,no);" onclick="if(NewTags.checked){eval(NewTags.getAttribute('onCheck'));}else if(!NewTags.checked){eval(NewTags.getAttribute('onUnCheck'));};" >
 <?php
-	$sql = "SELECT distinct $FOF_SUBSCRIPTION_TABLE.tags FROM `$FOF_FEED_TABLE`,`$FOF_SUBSCRIPTION_TABLE` WHERE user_id=" . current_user() . " and $FOF_SUBSCRIPTION_TABLE.tags != '' group by tags";
-	#echo ":SQL: " . $sql . "<br />\n";
-	$result = fof_do_query($sql);
+	//var newText = text.replace(/(src=).*?(&)/,'$1' + newSrc + '$2');
 ?>
 <select name="tags" fontsize="8" onchange="<?php echo $onchangerequest ?>">
 <?php
 	print "<OPTION VALUE=\"" . _("All tags") . "\">" . _("All tags") . "\n";
 	print "<OPTION VALUE=\"" . _("No tags") . "\">" . _("No tags") . "\n";
+	$sql = "SELECT distinct $FOF_SUBSCRIPTION_TABLE.tags FROM `$FOF_FEED_TABLE`,`$FOF_SUBSCRIPTION_TABLE` WHERE user_id=" . current_user() . " and $FOF_SUBSCRIPTION_TABLE.tags != '' group by tags";
+	#echo ":SQL: " . $sql . "<br />\n";
+	$result = fof_do_query($sql);
 	while($row = mysql_fetch_array($result))
 	{
-		$tagarray = array_unique(array_merge($tagarray, parse_tag_string($row['tags'])));
-	}
-	sort($tagarray);
-	foreach ($tagarray as $piece)
-	{
+		//print_r($row) . "<br/>";
+		//$tagarray = array_unique(array_merge($tagarray, parse_tag_string($row['tags'])));
+		$piece=$row['tags'];
 		print "<OPTION VALUE=\"$piece\">$piece\n";
+		//$tagarray = $row['tags'];
 	}
+	#sort($tagarray);
+	#foreach ($tagarray as $piece)
+	#{
+	#	print "<OPTION VALUE=\"$piece\">$piece\n";
+	#}
 
 ?></select>
 	</form>
@@ -154,9 +160,9 @@ New Feeds
 </ul>
 <ul>
 <li><a href="<?php echo ($_REQUEST['framed']) ? "index" : "frames" ; ?>.php" target="_top"><?php echo ($_REQUEST['framed']) ? _("panel") : _("frames") ?></a></li>
-<li><a href="add.php"><?php echo _("add feeds") ?></a></li>
+<li><a href="add.php" target="items"><?php echo _("add feeds") ?></a></li>
 <li><a href="javascript:<?php echo ($_REQUEST['framed']) ? "parent.items." : ""; ?>location.reload()<?php echo ($_REQUEST['framed']) ? ";parent.menu.location.reload();" : ""; ?>"><?php echo _("refresh view") ?></a></li>
-<li><a href="http://www.monkeychow.org"><?php echo _("about") ?></a></li>
+<li><a href="http://shokk.wordpress.com/tag/monkeychow/"><?php echo _("about") ?></a></li>
 <li><a href="logout.php" target="_top">log out</a></li>
 </ul>
 </div>
