@@ -14,21 +14,21 @@ Installation:
 
 - Please use a mysql version 4.1 or higher.  Testing with 4.0 revealed that
   using CURRENT_TIMESTAMP does not work on an install of mysql 4.0 hosted
-  at 1&1.  This has not been tested with mysql 5.0, but there is no reason
-  that it should not work.  This causes install.php to present a white screen.
-  I'm not sure that 4.0 is really at fault, but if you can find out why this
-  happens, let me know.
+  at 1&1.  This currently works with mysql 5.0. A version of mysql from before 4.1
+  causes install.php to present a white screen.
   I recommend using phpMyAdmin to assist with quick database setup.
 
 - copy config-example.php to config.php and alter to taste
 
 - Visit the install.php page in the base install directory.
   For Spanish, you can visit install.php?language=es_US
-  This will install the database  and its required tables.
+  This will install the database and its required tables.
   
 - Set up the .htaccess file mentioned at the bottom of this page to 
   protect your new install.  Now you're ready to roll!
 
+- I'm always looking for new languages to add to MonkeyChow, so if you can help
+  add a locale, I would be grateful or any assitance.
 
 
 Use:
@@ -53,26 +53,10 @@ Use:
  Otherwise, you can let the public see this.
 
 - Set up a cronjob to update your feeds with something like
-0,12,24,36,48 * * * *  (/usr/bin/GET -t 120 -C "username:password" http://www.site.com/monkeychow/update-quiet.php)
+3,18,33,48 * * * *  (/usr/bin/wget -qO/dev/null --user myusername --password mypassword http://localhost/monkeychow/update-quiet.php)
 
 
-
-
-Upgrading from F0F-0.1.9:
--Add the following columns to your feeds table
-    `date_added` timestamp NOT NULL default CURRENT_TIMESTAMP,
-    `tags` varchar(250) default NULL,
-    `aging` int(11) NOT NULL default '30',
-    `expir` int(11) NOT NULL default '0',
-    `private` bool default '0',
-
-- Add the following columns to your items table:
-    `publish` bool default 0,
-    `star` bool default 0,
-
-- Add the following to your config.php
-     define('FULLNAME',"My Name");
-     define('EMAIL',"email@x.com");
+Upgrades from FOF are no longer supported due to all the database change made in the last few versions.
 
 
 Set up a .htaccess file so that any search engine spiders or strangers that
