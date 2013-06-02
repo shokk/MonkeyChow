@@ -238,21 +238,20 @@ foreach($result as $row)
     	#foreach ($result2 as $row2)
 	while($row2 = mysql_fetch_array($result2))
     	{
-        	$flag_val = $row2['flag_id'];
+        $flag_val = $row2['flag_id'];
 		#echo "$item_id : $flag_val <br />\n";
-        	switch ($flag_val) 
-		{
-        		case 1:
-            			$item_read = "1";
-            			break;
-        		case 2:
-				$starred = "star_on.gif";
-            			break;
-        		case 3:
-				$checked = "checked=\"checked\"";
-            		break;
-        	}
-    	}
+        switch ($flag_val) {
+        case 1:
+            $item_read = "1";
+            break;
+        case 2:
+			$starred = "star_on.gif";
+            break;
+        case 3:
+			$checked = "checked=\"checked\"";
+            break;
+        }
+    }
 	unset($result2);
 
 	if($row['feed_image'] && $fof_user_prefs['favicons'])
