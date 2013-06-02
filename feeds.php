@@ -299,7 +299,7 @@ foreach($feeds as $row)
 
 		# insert routines to determine unread counts
 		# get number of articles in system
-		$feedcountsql="SELECT DISTINCT `mc_items`.id FROM `mc_items` WHERE `mc_items`.feed_id=" . $id;
+		$feedcountsql="SELECT DISTINCT `$FOF_ITEM_TABLE`.id FROM `$FOF_ITEM_TABLE` WHERE `$FOF_ITEM_TABLE`.feed_id=" . $id;
 		#$rowstring.= $feedcountsql . "</br>";
 		$myresult=fof_do_query($feedcountsql);
 		$feedcounttotal="0";
@@ -310,7 +310,7 @@ foreach($feeds as $row)
 		#$rowstring.= $feedcounttotal . " total in feed</br>";
 	
 		# see if any of them are NOT set to 1 for read
-		$feedusermarkeditemssql = "SELECT * FROM `mc_user_items`,`mc_items` WHERE user_id=" . current_user() . " AND `mc_items`.id=`mc_user_items`.item_id AND `mc_items`.feed_id=" . $id;
+		$feedusermarkeditemssql = "SELECT * FROM `$FOF_USERITEM_TABLE`,`$FOF_ITEM_TABLE` WHERE user_id=" . current_user() . " AND `$FOF_ITEM_TABLE`.id=`$FOF_USERITEM_TABLE`.item_id AND `$FOF_ITEM_TABLE`.feed_id=" . $id;
 		# return remaining
 		# if newonly and if count is 0, don't display the line!
 		#$rowstring.= $feedusermarkeditemssql . "</br>";
