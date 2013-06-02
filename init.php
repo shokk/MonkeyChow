@@ -264,7 +264,7 @@ function fof_get_feeds($order = 'title', $direction = 'asc', $tags = NULL)
 
 	# unread articles count	
 	$sql = "SELECT count( feed_id ) AS count, feed_id AS id FROM " . $FOF_FEED_TABLE . ", " . $FOF_ITEM_TABLE . " WHERE " . $FOF_FEED_TABLE . ".id = " . $FOF_ITEM_TABLE . ".feed_id ";
-   $sql .= " AND " .  $FOF_ITEM_TABLE . ".id NOT IN ( SELECT `$FOF_ITEM_TABLE`.id FROM `$FOF_ITEM_TABLE`,`$FOF_FEED_TABLE`,`mc_flags`,`mc_users` WHERE `mc_users`.user_id=" . current_user() . " AND flag_id=1) ";
+   $sql .= " AND " .  $FOF_ITEM_TABLE . ".id NOT IN ( SELECT `$FOF_ITEM_TABLE`.id FROM `$FOF_ITEM_TABLE`,`$FOF_FEED_TABLE`,`$FOF_FLAG_TABLE`,`$FOF_USER_TABLE` WHERE `$FOF_USER_TABLE`.user_id=" . current_user() . " AND flag_id=1) ";
    $sql .= " AND " . $FOF_FEED_TABLE . ".id IN (SELECT  `feed_id` FROM  `" . $FOF_SUBSCRIPTION_TABLE . "` WHERE user_id =" . current_user() . ")";
    $sql .= " group by feed_id order by " . $FOF_FEED_TABLE . ".title";
    //print "SQL: $sql <br/>";
