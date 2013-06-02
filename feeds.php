@@ -300,6 +300,7 @@ foreach($feeds as $row)
 		# insert routines to determine unread counts
 		# get number of articles in system
 		$feedcountsql="SELECT DISTINCT `$FOF_ITEM_TABLE`.id FROM `$FOF_ITEM_TABLE` WHERE `$FOF_ITEM_TABLE`.feed_id=" . $id;
+		#print $feedcountsql . "\n";
 		#$rowstring.= $feedcountsql . "</br>";
 		$myresult=fof_do_query($feedcountsql);
 		$feedcounttotal="0";
