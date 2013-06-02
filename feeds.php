@@ -18,6 +18,8 @@ $specialtest=0;
 include_once("init.php");
 include_once("fof-main.php");
 header("Content-Type: text/html; charset=utf-8");
+global $FOF_FEED_TABLE, $FOF_USER_TABLE, $FOF_FLAG_TABLE, $FOF_ITEM_TABLE, $FOF_SUBSCRIPTION_TABLE, $FOF_USERITEM_TABLE;
+
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -255,7 +257,7 @@ foreach($feeds as $row)
 	$agestrabbr = $row['agestrabbr'];
 	$image = $row['image'];
 
-#beginning of row
+	#beginning of row
 	$rowstring="";
 	if ( (($unread)&&($_REQUEST['newonly'])) || (!$_REQUEST['newonly']) || (1))
 	{
@@ -299,7 +301,7 @@ foreach($feeds as $row)
 
 		# insert routines to determine unread counts
 		# get number of articles in system
-		$feedcountsql="SELECT DISTINCT `mc_items`.id FROM `mc_items` WHERE `mc_items`.feed_id=" . $id;
+		$feedcountsql="SELECT DISTINCT `$FOF_ITEM_TABLE`.id FROM `$FOF_ITEM_TABLE` WHERE `$FOF_ITEM_TABLE`.feed_id=" . $id;
 		#$rowstring.= $feedcountsql . "</br>";
 		$myresult=fof_do_query($feedcountsql);
 		$feedcounttotal="0";
@@ -310,7 +312,7 @@ foreach($feeds as $row)
 		#$rowstring.= $feedcounttotal . " total in feed</br>";
 	
 		# see if any of them are NOT set to 1 for read
-		$feedusermarkeditemssql = "SELECT * FROM `mc_user_items`,`mc_items` WHERE user_id=" . current_user() . " AND `mc_items`.id=`mc_user_items`.item_id AND `mc_items`.feed_id=" . $id;
+		$feedusermarkeditemssql = "SELECT * FROM `$FOF_USERITEM_TABLE`,`$FOF_ITEM_TABLE` WHERE user_id=" . current_user() . " AND `$FOF_ITEM_TABLE`.id=`$FOF_USERITEM_TABLE`.item_id AND `$FOF_ITEM_TABLE`.feed_id=" . $id;
 		# return remaining
 		# if newonly and if count is 0, don't display the line!
 		#$rowstring.= $feedusermarkeditemssql . "</br>";
