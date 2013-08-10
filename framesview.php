@@ -323,11 +323,12 @@ foreach($result as $row)
 	echo ($fof_user_prefs['collapse'] == 1) ? " style=\"display:none\" " : "" ;
 		echo ">";
 
+// itembar_plugins
 // the following should be placed into individual plugins for the itembar
         $recycle_link= "<span class=\"mobiletext3\">" . _("Publish") . "</span> <input class=\"bigcheck\" type=\"checkbox\" name=\"pub$item_id\" onclick=\"togglePublish(this)\" value=\"$item_id\" $checked>";
-        $delicious_url = "http://del.icio.us/" . DELICIOUS_USERNAME . "?v=3&url=" . $item_link . "&title=" . $item_title . "&notes=&v=4&noui&jump=close&src=ffext1.0.2";
-        $technorati_url = "http://www.technorati.com/cosmos/search.html?sub=postcosm&url=" . $item_link;
-        $blogger_url = "http://www.blogger.com/blog_this.pyra?&u=" . $item_link . "&n=" . $item_title;
+//        $delicious_url = "http://del.icio.us/" . DELICIOUS_USERNAME . "?v=3&url=" . $item_link . "&title=" . $item_title . "&notes=&v=4&noui&jump=close&src=ffext1.0.2";
+//       $technorati_url = "http://www.technorati.com/cosmos/search.html?sub=postcosm&url=" . $item_link;
+//      $blogger_url = "http://www.blogger.com/blog_this.pyra?&u=" . $item_link . "&n=" . $item_title;
         $email_url="subject=" . rawurlencode($item_title) . "&body=" . _("Check this out at ") . rawurlencode($item_link) . " " . rawurlencode("
 " . $item_content);
         $email_url = eregi_replace(",","%2C",$email_url);
@@ -341,38 +342,42 @@ foreach($result as $row)
 This email brought to you by the Monkeychow web-based RSS reader.
 http://shokk.wordpress.com/tag/monkeychow/");
         $email_url .= urlencode($email_tag);
-        $digg_url = "http://digg.com/submit?phase=2&url=" . rawurlencode($item_link);
-        $newsvine_url = "http://www.newsvine.com/_wine/save?u=" . rawurlencode($item_link) . "&h=" . rawurlencode($item_title);
-		$pingfm_url = "http://ping.fm/ref/?method=microblog&link=" . rawurlencode($item_link) . "&title=" . rawurlencode($item_title) . "&body=This link brought to you by the MonkeyChow RSS reader.";
-		$friendfeed_url="http://friendfeed.com/api/share?title=" . $item_title . "&link=" . $item_link;
-
-        $friendfeed_link = "<a href=\"$friendfeed_url\" target=\"_blank\" title=\"Submit to FriendFeed\"><img class=\"g120\" border=\"0\" src=\"friendfeed.png\"></a>";
-        $twitter_link = "<a style=\"cursor: pointer;\" onclick=\"twitterit('" . urlencode($item_title) . "','" . urlencode($item_link) . "'); alert('Posted to Twitter');\" target=\"_blank\" title=\"Twitter This!\"><img class=\"g120\" border=\"0\" src=\"twitter.png\"></a>";
-
-        $wordpresssite1_link = "<a style=\"cursor: pointer;\" onclick=\"javascript:pressit('" . $fof_user_prefs['wordpresssite1'] . "','" .urlencode($item_title) . "','" . urlencode($item_link) . "');\" target=\"_blank\" title=\"Press It! to " . $fof_user_prefs['wordpresssitename1']  . "\"><img class=\"g120\" border=\"0\" src=\"wordpress.gif\"></a>";
-        $wordpresssite2_link = "<a style=\"cursor: pointer;\" onclick=\"javascript:pressit('" . $fof_user_prefs['wordpresssite2'] . "','" .urlencode($item_title) . "','" . urlencode($item_link) . "');\" target=\"_blank\" title=\"Press It! to " . $fof_user_prefs['wordpresssitename2']  . "\"><img class=\"g120\" border=\"0\" src=\"wordpress.gif\"></a>";
-        $wordpresssite2_link = "<a style=\"cursor: pointer;\" onclick=\"javascript:pressit('" . $fof_user_prefs['wordpresssite2'] . "','" .urlencode($item_title) . "','" . urlencode($item_link) . "');\" target=\"_blank\" title=\"Press It! to " . $fof_user_prefs['wordpresssitename2']  . "\"><img class=\"g120\" border=\"0\" src=\"wordpress.gif\"></a>";
-        $wordpresssite2_link = "<a style=\"cursor: pointer;\" onclick=\"javascript:pressit('" . $fof_user_prefs['wordpresssite2'] . "','" .urlencode($item_title) . "','" . urlencode($item_link) . "');\" target=\"_blank\" title=\"Press It! to " . $fof_user_prefs['wordpresssitename2']  . "\"><img class=\"g120\" border=\"0\" src=\"wordpress.gif\"></a>";
-        $wordpresssite3_link = "<a style=\"cursor: pointer;\" onclick=\"javascript:pressit('" . $fof_user_prefs['wordpresssite3'] . "','" .urlencode($item_title) . "','" . urlencode($item_link) . "');\" target=\"_blank\" title=\"Press It! to " . $fof_user_prefs['wordpresssitename3']  . "\"><img class=\"g120\" border=\"0\" src=\"wordpress.gif\"></a>";
-
-        $pingfm_link = "<a href=\"$pingfm_url\" target=\"_blank\" title=\"Ping This!\"><img class=\"g120\" border=\"0\" src=\"pingfm.jpg\"></a>";
-        $digg_link = "<a href=\"$digg_url\" target=\"_blank\" title=\"" . "Digg This" . "\"><img class=\"g120\" border=\"0\" src=\"digg.png\"></a>";
-		//$digg_link = "";
-        $newsvine_link = "<a href=\"$newsvine_url\" target=\"_blank\" title=\"Seed Newsvine\"><img class=\"g120\" border=\"0\" src=\"newsvine.png\"></a>";
-        $delicious_link = "<a href=\"$delicious_url\" target=\"_blank\" title=\"Add to My del.icio.us\"><img class=\"g120\" border=\"0\" src=\"delicious_favicon.ico\"></a>";
-        $technorati_link = "<a href=\"$technorati_url\" target=\"_blank\" title=\"" . _("Search") . " Technorati Cosmos\"><img class=\"g120\" border=\"0\" src=\"bubble.gif\"></a>";
-        $blogger_link = "<a href=\"$blogger_url\" target=\"_blank\" title=\"" . _("BlogThis") . "!\"><img class=\"g120\" border=\"0\" src=\"blogit.png\"></a>";
+//        $digg_url = "http://digg.com/submit?phase=2&url=" . rawurlencode($item_link);
+//        $newsvine_url = "http://www.newsvine.com/_wine/save?u=" . rawurlencode($item_link) . "&h=" . rawurlencode($item_title);
+//		$pingfm_url = "http://ping.fm/ref/?method=microblog&link=" . rawurlencode($item_link) . "&title=" . rawurlencode($item_title) . "&body=This link brought to you by the MonkeyChow RSS reader.";
+//		$friendfeed_url="http://friendfeed.com/api/share?title=" . $item_title . "&link=" . $item_link;
+//
+//        $friendfeed_link = "<a href=\"$friendfeed_url\" target=\"_blank\" title=\"Submit to FriendFeed\"><img class=\"g120\" border=\"0\" src=\"friendfeed.png\"></a>";
+//        $twitter_link = "<a style=\"cursor: pointer;\" onclick=\"twitterit('" . urlencode($item_title) . "','" . urlencode($item_link) . "'); alert('Posted to Twitter');\" target=\"_blank\" title=\"Twitter This!\"><img class=\"g120\" border=\"0\" src=\"twitter.png\"></a>";
+//
+//        $wordpresssite1_link = "<a style=\"cursor: pointer;\" onclick=\"javascript:pressit('" . $fof_user_prefs['wordpresssite1'] . "','" .urlencode($item_title) . "','" . urlencode($item_link) . "');\" target=\"_blank\" title=\"Press It! to " . $fof_user_prefs['wordpresssitename1']  . "\"><img class=\"g120\" border=\"0\" src=\"wordpress.gif\"></a>";
+//        $wordpresssite2_link = "<a style=\"cursor: pointer;\" onclick=\"javascript:pressit('" . $fof_user_prefs['wordpresssite2'] . "','" .urlencode($item_title) . "','" . urlencode($item_link) . "');\" target=\"_blank\" title=\"Press It! to " . $fof_user_prefs['wordpresssitename2']  . "\"><img class=\"g120\" border=\"0\" src=\"wordpress.gif\"></a>";
+//        $wordpresssite2_link = "<a style=\"cursor: pointer;\" onclick=\"javascript:pressit('" . $fof_user_prefs['wordpresssite2'] . "','" .urlencode($item_title) . "','" . urlencode($item_link) . "');\" target=\"_blank\" title=\"Press It! to " . $fof_user_prefs['wordpresssitename2']  . "\"><img class=\"g120\" border=\"0\" src=\"wordpress.gif\"></a>";
+//        $wordpresssite2_link = "<a style=\"cursor: pointer;\" onclick=\"javascript:pressit('" . $fof_user_prefs['wordpresssite2'] . "','" .urlencode($item_title) . "','" . urlencode($item_link) . "');\" target=\"_blank\" title=\"Press It! to " . $fof_user_prefs['wordpresssitename2']  . "\"><img class=\"g120\" border=\"0\" src=\"wordpress.gif\"></a>";
+//        $wordpresssite3_link = "<a style=\"cursor: pointer;\" onclick=\"javascript:pressit('" . $fof_user_prefs['wordpresssite3'] . "','" .urlencode($item_title) . "','" . urlencode($item_link) . "');\" target=\"_blank\" title=\"Press It! to " . $fof_user_prefs['wordpresssitename3']  . "\"><img class=\"g120\" border=\"0\" src=\"wordpress.gif\"></a>";
+//
+//        $pingfm_link = "<a href=\"$pingfm_url\" target=\"_blank\" title=\"Ping This!\"><img class=\"g120\" border=\"0\" src=\"pingfm.jpg\"></a>";
+//        $digg_link = "<a href=\"$digg_url\" target=\"_blank\" title=\"" . "Digg This" . "\"><img class=\"g120\" border=\"0\" src=\"digg.png\"></a>";
+//	$digg_link = "";
+//        $newsvine_link = "<a href=\"$newsvine_url\" target=\"_blank\" title=\"Seed Newsvine\"><img class=\"g120\" border=\"0\" src=\"newsvine.png\"></a>";
+//        $delicious_link = "<a href=\"$delicious_url\" target=\"_blank\" title=\"Add to My del.icio.us\"><img class=\"g120\" border=\"0\" src=\"delicious_favicon.ico\"></a>";
+//        $technorati_link = "<a href=\"$technorati_url\" target=\"_blank\" title=\"" . _("Search") . " Technorati Cosmos\"><img class=\"g120\" border=\"0\" src=\"bubble.gif\"></a>";
+//        $blogger_link = "<a href=\"$blogger_url\" target=\"_blank\" title=\"" . _("BlogThis") . "!\"><img class=\"g120\" border=\"0\" src=\"blogit.png\"></a>";
         $email_link = "<a target=\"_blank\" href=\"mailto:?" . $email_url . "\" title=\"" . _("Email To") . "...\"><img class=\"g120\" border=\"0\" src=\"mailto.gif\"></a>";
 
 // each of the above should be assembled into the tem toolbar with plugins
 // itembar_plugins($item_link,$item_content);
 
-    echo $recycle_link . "&nbsp;&nbsp;" . $delicious_link . "&nbsp;&nbsp;&nbsp;" . $newsvine_link . "&nbsp;&nbsp;&nbsp;" . $digg_link . "&nbsp;&nbsp;&nbsp;" . $pingfm_link;
-	echo (isset($fof_user_prefs['twitteruser']) && $fof_user_prefs['twitteruser'] != "" ) ?  "&nbsp;&nbsp;&nbsp;" . $twitter_link : "" ;
-	echo (isset($fof_user_prefs['wordpresssite1']) && $fof_user_prefs['wordpresssite1'] != "" ) ?  "&nbsp;&nbsp;&nbsp;" . $wordpresssite1_link : "" ;
-	echo (isset($fof_user_prefs['wordpresssite2']) && $fof_user_prefs['wordpresssite2'] != "" ) ?  "&nbsp;&nbsp;&nbsp;" . $wordpresssite2_link : "" ;
-	echo (isset($fof_user_prefs['wordpresssite3']) && $fof_user_prefs['wordpresssite3'] != "" ) ?  "&nbsp;&nbsp;&nbsp;" . $wordpresssite3_link : "" ;
-	echo "&nbsp;&nbsp;&nbsp;" . $friendfeed_link . "&nbsp;&nbsp;&nbsp;" . $technorati_link . "&nbsp;&nbsp;&nbsp;" . $blogger_link . "&nbsp;&nbsp;&nbsp;" . $email_link;
+
+	echo $recycle_link;
+	echo "&nbsp;&nbsp;&nbsp;";
+//	echo $delicious_link . "&nbsp;&nbsp;&nbsp;" . $newsvine_link . "&nbsp;&nbsp;&nbsp;" . $digg_link . "&nbsp;&nbsp;&nbsp;" . $pingfm_link;
+//	echo (isset($fof_user_prefs['twitteruser']) && $fof_user_prefs['twitteruser'] != "" ) ?  "&nbsp;&nbsp;&nbsp;" . $twitter_link : "" ;
+//	echo (isset($fof_user_prefs['wordpresssite1']) && $fof_user_prefs['wordpresssite1'] != "" ) ?  "&nbsp;&nbsp;&nbsp;" . $wordpresssite1_link : "" ;
+//	echo (isset($fof_user_prefs['wordpresssite2']) && $fof_user_prefs['wordpresssite2'] != "" ) ?  "&nbsp;&nbsp;&nbsp;" . $wordpresssite2_link : "" ;
+//	echo (isset($fof_user_prefs['wordpresssite3']) && $fof_user_prefs['wordpresssite3'] != "" ) ?  "&nbsp;&nbsp;&nbsp;" . $wordpresssite3_link : "" ;
+//	echo "&nbsp;&nbsp;&nbsp;" . $friendfeed_link . "&nbsp;&nbsp;&nbsp;" . $technorati_link . "&nbsp;&nbsp;&nbsp;" . $blogger_link . "&nbsp;&nbsp;&nbsp;";
+    echo $email_link;
 
     echo "<br />";
 	echo "<span class=\"mobilecontent\">";
