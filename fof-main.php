@@ -120,6 +120,18 @@ function fof_add_item_filter($function)
     $item_filters[] = $function;
 }
 
+function content_plugins($filters,$content)
+{
+    // functions act upon $content above
+    // e.g. fixdivs($content) and atarget($content)
+    foreach($filters as $functionname)
+    {
+        //echo $functionname . "</br>";
+        $content=call_user_func($functionname,$content);
+    } 
+    return $content;
+}
+
 function strip_punctuation( $text )
 {
     $urlbrackets    = '\[\]\(\)';

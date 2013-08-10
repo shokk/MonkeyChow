@@ -391,26 +391,30 @@ http://shokk.wordpress.com/tag/monkeychow/");
     echo "</div>"; #item div
 
 
-// alter item_content here with plugins
-// content_plugins($item_link,$item_content);
 
     if( function_exists( 'tidy_parse_string' ) ) 
     {
-			tidy_parse_string($item_content);
-			tidy_setopt('output-xhtml', TRUE);
-			tidy_setopt('indent', TRUE);
-			tidy_setopt('indent-spaces', 2);
-			tidy_setopt('wrap', 200);
-			tidy_setopt('show-body-only', TRUE);
-			tidy_clean_repair();
-			$item_content = tidy_get_output();
-	}
-	echo "<div class=\"body\" id=\"body$item_id\"";
-	echo ($fof_user_prefs['collapse'] == 1) ? " style=\"display:none\" " : "" ;
-	echo "><span class=\"mobilecontent\">$item_content</span></div>";
-        echo "</div>"; #items div
-        echo "</div></div></div></div>"; #shadow, etc
-        $count ++;
+        tidy_parse_string($item_content);
+        tidy_setopt('output-xhtml', TRUE);
+        tidy_setopt('indent', TRUE);
+        tidy_setopt('indent-spaces', 2);
+        tidy_setopt('wrap', 200);
+        tidy_setopt('show-body-only', TRUE);
+        tidy_clean_repair();
+        $item_content = tidy_get_output();
+    }
+    echo "<div class=\"body\" id=\"body$item_id\"";
+    echo ($fof_user_prefs['collapse'] == 1) ? " style=\"display:none\" " : "" ;
+    echo "><span class=\"mobilecontent\">";
+
+    // alter item_content here with plugins
+    $item_content = content_plugins($item_filters,$item_content);
+    echo $item_content;
+
+    echo "</span></div>";
+    echo "</div>"; #items div
+    echo "</div></div></div></div>"; #shadow, etc
+    $count ++;
 }
 unset($row);
 mysql_free_result($result);
