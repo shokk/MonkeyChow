@@ -328,15 +328,15 @@ foreach($feeds as $row)
 		$items = $totalnew;
 
 
-		if ($items > 0)
-		{
+		#if ($items > 0)
+		#{
 			$rowstring.= "<a href=\"" . $u . "&amp;what=" . (($_REQUEST['newonly']) ? "" : "all") . "\" title=\"all items\">$items</a>";
-		}
-		else
-		{
-			$rowstring.= "0";
-			#dont print the line!!
-		}
+		#}
+		#else
+		#{
+		#	$rowstring.= "0";
+		#	#dont print the line!!
+		#}
 
 		$rowstring.= ($_REQUEST['framed'] == "yes") ? "" : "):" ;
 	
