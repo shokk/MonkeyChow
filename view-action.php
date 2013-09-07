@@ -109,10 +109,6 @@ switch ($_REQUEST['action'])
 		break;
 }
 
-/*
-echo "*** SQL: " . $sql;
-exit;
-*/
 fof_do_query($sql);
 header("Location: " . urldecode($_REQUEST['return']));
 

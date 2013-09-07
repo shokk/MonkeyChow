@@ -15,8 +15,18 @@
  *
  */
 
-include_once("init.php");
-include_once("fof-main.php");
+require_once("init.php");
+require_once("fof-main.php");
+require_once('includes/Oauth.php');
+require_once('includes/Facebook.php');
+require_once('auth/socialoauth.php');
+$facebook = new Facebook($fb_app_id, $fb_app_secret, $fb_callback);
+#if($facebook->validateAccessToken())
+#{
+#        $fb_response = $facebook->makeRequest('https://graph.facebook.com/me');
+#	print_r($fb_response);
+#}
+
 if (preg_match("/(wap|midp|cldc|mmp|Symbian|Smartphone|iPhone|WebKit.*Mobile)/si",$_SERVER[HTTP_USER_AGENT]))
 {
 	//header("Location: feeds.php?order=unread&newonly=yes&direction=desc");

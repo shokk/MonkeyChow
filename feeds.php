@@ -344,11 +344,11 @@ foreach($feeds as $row)
 
 		if($row['image'] && $fof_user_prefs['favicons'])
 		{
-			$rowstring.= "<a href=\"$url\" title=\"feed\"><img src='" . urldecode($row['image']) . "' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
+			$rowstring.= "<a target=\"_blank\" href=\"$url\" title=\"feed\"><img src='" . urldecode($row['image']) . "' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
     		}
     		else
     		{
-       			$rowstring.= "<a href=\"$url\" title=\"feed\"><img src='feed-icon.png' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
+       			$rowstring.= "<a target=\"_blank\" href=\"$url\" title=\"feed\"><img src='feed-icon.png' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
     		}
 
 		$rowstring.= fof_render_feed_link($row) . "</div></td>";
@@ -405,7 +405,7 @@ foreach($feeds as $row)
 		$rowstring.= "</tr>\n";
 		if ( $items < 1 )
 		{
-			#echo "wooooooo why the fuck am i in this bracket set?!?!? i am zero </br>\n";
+			#echo "wooooooo why am i in this bracket set?!?!? i am zero </br>\n";
 			#echo "newonly request is set to " . $_REQUEST['newonly'] . "</br>\n";
 			if ( $_REQUEST['newonly'] )
 			{

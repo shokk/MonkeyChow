@@ -17,6 +17,15 @@ html, body, input {
 	clear: both;
 }
 
+.loading {
+   position: absolute;
+   margin: 0 auto;
+   z-index: 9999;
+   top: 500 px;
+   cursor: wait;
+   display: block;
+}
+
 #view-page
 {
 	font-family: arial,sans-serif;
@@ -325,3 +334,4 @@ img.valign
     background: #ffffff;
     padding: 0px;
 }
+

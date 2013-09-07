@@ -73,19 +73,32 @@ function flag_upto(id)
 	//alert(nam);
 }
 
+function hasClass(ele, cls) {
+    return ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+}
+function addClass(ele, cls) {
+    if (!this.hasClass(ele, cls)) ele.className += " " + cls;
+}
+function removeClass(ele, cls) {
+    if (hasClass(ele, cls)) {
+        var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+        ele.className = ele.className.replace(reg, '');
+    }
+}
+
 function toggle_arrowimage(img)
 {
 	//'exp$item_id'
 	var s = document.getElementById(img);
-	//print s.src;
-	var image = s.src.split("/").pop();
-	if (image == "ipodarrowright.jpg")
+	if (hasClass(s,"icon-collapse"))
 	{
-		s.src = "ipodarrowdown.jpg";
+        removeClass(s,"icon-collapse");
+        addClass(s,"icon-expand");
 	}
 	else
 	{
-		s.src = "ipodarrowright.jpg";
+        removeClass(s,"icon-expand");
+        addClass(s,"icon-collapse");
 	}
 }
 
@@ -192,16 +205,6 @@ function togStar(item)
        SendRequest(url);                       
 }
 
-/*
-function twitterit(title,url)
-{
-	var urlz = SendTINYURLRequest(title,url);
-	SendTwitterRequest(title,urlz); 
-	//return urlz;
-	//perform POST action to Twitter
-}
-*/
-
 /* document.getElementsBySelector(selector)
    - returns an array of element objects from the current document
      matching the CSS selector. Selectors can contain element names, 
@@ -220,6 +223,11 @@ function twitterit(title,url)
    -- Works in Phoenix 0.5, Mozilla 1.3, Opera 7, Internet Explorer 6, Internet Explorer 5 on Windows
    -- Opera 7 fails 
 */
+
+function hideLoader() {
+    var divs=document.getElementsByClassName("loading")
+    for(var i=0;i<divs.length;i++) divs[i].style.display="none";
+}
 
 function getAllChildren(e) {
   // Returns all children of element. Workaround required for IE5/Windows. Ugh.

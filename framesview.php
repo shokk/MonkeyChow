@@ -17,7 +17,7 @@
 
 include_once("init.php");
 include_once("fof-main.php");
-//error_reporting(E_ALL);
+error_reporting(E_ALL);
 
 fof_prune_expir_feeds();
 flush();
@@ -71,9 +71,10 @@ $noedit = $_GET['noedit'];
 	echo ($mobiletrue) ?  "<link rel=\"stylesheet\" href=\"mc-iphone.css\" media=\"all\" />" : "";
 ?>
 	<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
-
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/latest/css/font-awesome.css" rel="stylesheet">
 </head>
-<body onload="<?php echo ($mobiletrue) ?  "" : "parent.menu.location.reload();"; ?>">
+<body onload='<?php echo ($mobiletrue) ?  "" : "parent.menu.location.reload();hideLoader();"; ?>'>
+
 <?php
 	if(!$_REQUEST['framed'])
 	{
@@ -203,7 +204,7 @@ if (user_is_new())
     echo "</div>";
     echo "</td></tr>";
     echo "</table>";
-		exit(0);
+	exit(0);
 }
 
 
@@ -213,8 +214,8 @@ $count = 0;
 foreach($result as $row)
 {
 	$items = true;
-    	$starred = "star_off.gif";
-    	$checked = "";
+    $starred = "star_off.gif";
+    $checked = "";
 	$item_read = "0";
 	$timestamp =  date("F j, Y, g:i a", $row['timestamp'] - (FOF_TIME_OFFSET * 60 * 60));
 	$feed_link = $row['feed_link'];
@@ -266,9 +267,10 @@ foreach($result as $row)
 	$dccreator = $row['dccreator'];
 	$dcdate = $row['dcdate'];
 	$dcsubject = $row['dcsubject'];
-    $expand_link = "<img class=\"g120\" border=\"0\" src=\"ipodarrowright.jpg\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');toggle_arrowimage('exp$item_id');\" title=\"" . _("Expand Body") . "\" />";
-		
-    $star_link = "<img class=\"g120\" border=\"0\" src=\"$starred\" name=\"star$item_id\" id=\"star$item_id\" alt=\"" . _("Toggle Star") . "\" onclick=\"togStar('star$item_id')\" title=\"" . _("Toggle Star"). "\" />";
+
+    $expand_link = "<i type=\"image\" class=\"g120 icon-large icon-expand\" border=\"0\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_arrowimage('exp$item_id');toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');\" title=\"" . _("Expand Body") . "\" ></i>";
+    $expand_link .= "<img class=\"g120 icon-large icon-expand\" border=\"0\" src=\"ipodarrowright.jpg\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_arrowimage('exp$item_id');toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');\" title=\"" . _("Expand Body") . "\" >";
+    $star_link = "<i class=\"icon-large icon-star\"></i><i class=\"icon-large icon-star-empty\"></i><img class=\"g120\" border=\"0\" src=\"$starred\" name=\"star$item_id\" id=\"star$item_id\" alt=\"" . _("Toggle Star") . "\" onclick=\"togStar('star$item_id')\" title=\"" . _("Toggle Star"). "\" />";
 
 #echo "<div id=\"box\">";
         echo '<div id="shadow-container"><div class="shadow1"><div class="shadow2"><div class="shadow3">';
@@ -277,7 +279,7 @@ foreach($result as $row)
 
         echo "<table style=\"table-layout:fixed;\" bgcolor=\"#ffffff\" width=\"100%\" border=\"0\">";
         echo "<tr bgcolor=\"#ffffff\" height=\"9\"><td class=\"headertitle\">";
-        echo $expand_link;
+        echo $expand_link . " ";
         echo $star_link . " ";
 		echo $favicon_link;
         echo "<a target=\"_blank\" class=\"item_title mobilestyle\" title=\"$item_title\" href=\"$item_link\">$item_title</a>";
@@ -286,8 +288,8 @@ foreach($result as $row)
 
         echo "</td><td width=\"45\" align=\"right\">";
 	echo "<div valign=\"center\" class=\"controls\">";
-	echo "<img class=\"g120\" src=\"flagup.jpg\" title=\"" . _("flag up to here") . "\" border=\"0\" onclick=\"flag_upto('c" . $item_id . "." . $count . "')\" />";
-	echo "<input class=\"bigcheck\" onclick=\"clickage(event)\" type=\"checkbox\" name=\"c" . $item_id . "." . $count . "\" value=\"checked\" />";
+	echo "<i class=\"icon-large icon-arrow-down\"></i><img class=\"g120\" src=\"flagup.jpg\" title=\"" . _("flag up to here") . "\" border=\"0\" onclick=\"flag_upto('c" . $item_id . "." . $count . "')\" />";
+	echo "<i class=\"icon-large icon-check\"></i><input class=\"bigcheck\" onclick=\"clickage(event)\" type=\"checkbox\" name=\"c" . $item_id . "." . $count . "\" value=\"checked\" /><i class=\"icon-check icon-check-empty\"></i>";
 	echo '</div>';
 
         echo "</tr></td>";
@@ -461,6 +463,5 @@ if(!$items)
 <?php
 		}
 ?>
-<script type="text/javascript" src="http://del.icio.us/js/playtagger"></script>
 </body>
 </html>

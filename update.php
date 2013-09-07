@@ -60,12 +60,12 @@ $sql = "select DISTINCT " . $FOF_FEED_TABLE . ".url, " . $FOF_FEED_TABLE . ".id,
 
 if($feed)
 {
-  $sql .= " and " . $FOF_FEED_TABLE . ".id = $feed";
+    $sql .= " and " . $FOF_FEED_TABLE . ".id = $feed";
 }
 
 if($tags)
 {
-  $sql .= " and " . $FOF_SUBSCRIPTION_TABLE . ".tags like '%" . $tags . "%'";
+    $sql .= " and " . $FOF_SUBSCRIPTION_TABLE . ".tags like '%" . $tags . "%'";
 }
 
 $sql .= " order by title";
@@ -80,7 +80,7 @@ while($row = mysql_fetch_array($result))
 	print _("Updating") . " <b>" . $row['title'] . "</b>...";
         flush();
 
-        //fof_prune_feed($row['id']);
+    //fof_prune_feed($row['id']);
 	$count = fof_update_feed($row['url']);
 
 	print "<font color=\"green\">" . _("done. ") . "</font>";

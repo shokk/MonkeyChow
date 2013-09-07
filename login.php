@@ -49,18 +49,34 @@ if(isset($_REQUEST["user_name"]) && isset($_REQUEST["user_password"]))
 		font-size: 16px;
       }
       </style>
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/latest/css/font-awesome.css" rel="stylesheet">
    </head>
       
   <body>
-<div style="background: #eee; border: 1px solid black; width: 20em; margin: 5em auto; padding: 1.5em;">
+<div style="background: #eee; border: 1px solid black; width: 15em; margin: 5em auto; padding: 1.5em;">
 	<form action="login.php" method="POST" style="display: inline">
-		<center><a href="http://shokk.wordpress.com/tag/monkeychow/" style="font-size: 20px; font-family: georgia;">MonkeyChow Site</a></center><br>
-		User name:<br><input type=string name=user_name style='font-size: 16px'><br><br>
-		Password:<br><input type=password name=user_password style='font-size: 16px'><br><br>
-		<input type=submit value="Log on!" style='font-size: 16px; float: right;'><br>
+
+		Please log in
+
+		<div class="input-prepend">
+    			<span class="add-on"><i class="icon-envelope"></i></span>
+    			<input class="span2" type="text" name="user_name" placeholder="Username or Email">
+  		</div>
+  		<div class="input-prepend">
+    			<span class="add-on"><i class="icon-key"></i></span>
+    			<input class="span2" type="password" name="user_password" placeholder="Password">
+		</div>
+		<input type=submit value="Log on!" style='font-size: 16px; float: left;'><br>
+
+		</br></br>
+		<p align="left"><a href="http://shokk.wordpress.com/tag/monkeychow/" style="font-size: 12px; font-family: georgia;">MonkeyChow Author's Site</a><br></p>
 		<?php if($failed) echo "<br><center><font color=red><b>Incorrect user name or password</b></font></center>"; ?>
 	</form>
 </div>
   </body>
+
+<div id="loading">
+	<i class="icon-spinner icon-spin icon-large"></i>
+</div>
   
 </html>
