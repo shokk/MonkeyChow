@@ -257,7 +257,7 @@ foreach($result as $row)
 
 	if($row['feed_image'] && $fof_user_prefs['favicons'])
 	{
-	    $favicon_link = "<a href=\"$feed_link\" title=\"feed\"><img class=\"g120\" src='" . urldecode($row['feed_image']) . "' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
+	    $favicon_link = "<a target=\"_blank\"href=\"$feed_link\" title=\"feed\"><img class=\"g120\" src='" . urldecode($row['feed_image']) . "' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
     }
     else
     {
