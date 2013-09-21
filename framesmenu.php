@@ -26,47 +26,47 @@ header("Content-Type: text/html; charset=utf-8");
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-	<title>MonkeyChow - <?php _("control panel") ?></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" href="fof-common.css" media="all" />
+    <title>MonkeyChow - <?php _("control panel") ?></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="fof-common.css" media="all" />
         <link href="http://netdna.bootstrapcdn.com/font-awesome/latest/css/font-awesome.css" rel="stylesheet">
-	<script src="fof.js" type="text/javascript"></script>
-	<script src="behindthescenes.js"></script>
-	<script language="javascript" type="text/javascript">
+    <script src="fof.js" type="text/javascript"></script>
+    <script src="behindthescenes.js"></script>
+    <script language="javascript" type="text/javascript">
 // doesn't quite work yet, supposed to be an onResize
 // handler for body, works in Mozilla, but IE and Safari give me
 // problems.  it remembers the frame sizes transparently in a cookie.
 function saveLayout()
 {
-	expires = new Date()
-	exptime = expires.getTime()
-	exptime += (10 * 365 * 24 * 60 * 60 * 1000)
-	expires.setTime(exptime)
+    expires = new Date()
+    exptime = expires.getTime()
+    exptime += (10 * 365 * 24 * 60 * 60 * 1000)
+    expires.setTime(exptime)
 
-	c = top.document.getElementById('hframeset').cols + '$' + top.document.getElementById('vframeset').rows;
+    c = top.document.getElementById('hframeset').cols + '$' + top.document.getElementById('vframeset').rows;
 
-	document.cookie = "fof_layout=" + c + "; expires=" + expires.toGMTString();
+    document.cookie = "fof_layout=" + c + "; expires=" + expires.toGMTString();
 }
 function changetagslink(tagz)
 {
-	if (tagz=='All tags')
-	{
-		document.getElementById('updatetagslink').innerHTML = '<a href="update.php">update all</a>';
-	}
-	else
-	{
-		document.getElementById('updatetagslink').innerHTML = '<a href="update.php?tags='+tagz+'">update tag</a>';
-	}
+    if (tagz=='All tags')
+    {
+        document.getElementById('updatetagslink').innerHTML = '<a href="update.php">update all</a>';
+    }
+    else
+    {
+        document.getElementById('updatetagslink').innerHTML = '<a href="update.php?tags='+tagz+'">update tag</a>';
+    }
 }
-		</script>
+        </script>
 
-		<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
-		<base target="items" />
-	</head>
+        <meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+        <base target="items" />
+    </head>
 
-	<body id="panel-page" bgcolor="#eee">
+    <body id="panel-page" bgcolor="#eee">
 <?php 
-		} // end of frames check 
+        } // end of frames check 
 ?>
 <div class="menu" id="menu">
 <ul>
@@ -86,7 +86,7 @@ function changetagslink(tagz)
 <ul>
 <form id="SearchForm" method="get" action="framesview.php">
 <?php
-	echo ($_REQUEST['framed']) ? "<input type='hidden' name='framed' value='yes'>" : "";
+    echo ($_REQUEST['framed']) ? "<input type='hidden' name='framed' value='yes'>" : "";
 ?>
 <input type="hidden" name="how" value="paged"><input type="hidden" name="what" value="search"><input style=".input" type="reset" value="<?php echo _("Clear") ?>"></input><input style=".input" type="text" height="8" size="8" maxlength="40" name ="search" value=""><input style=".input" type="submit" value="<?php echo _("Find") ?>">
 </form>
@@ -95,62 +95,89 @@ function changetagslink(tagz)
 <?php
 //document.getElementById("TagsForm").NewTags.checked
 if ($_REQUEST['framed']) {
-	$onchangerequest  ="javascript:";
+    $onchangerequest  ="javascript:";
     $onchangerequest .="if(document.getElementById('TagsForm').NewTags.checked){";
     $onchangerequest .="parent.menu.location.href='feeds.php?newonly=yes&";
     $onchangerequest .=($_REQUEST['framed']) ? "framed=yes&" : "";
-	$onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
-	$onchangerequest .="parent.items.location.href='framesview.php?";
-	$onchangerequest .=($_REQUEST['framed']) ? "framed=yes&how=paged&" : "";
-	$onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
-	//$onchangerequest .="parent.controls.location.reload();";
-	$onchangerequest .="changetagslink(document.getElementById('TagsForm').tags.value);";
-	//$onchangerequest .="parent.controls.location.href='framesmenu.php?newonly=yes&framed=yes&tags='+document.getElementById('TagsForm').tags.value;";
+    $onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
+    $onchangerequest .="parent.items.location.href='framesview.php?";
+    $onchangerequest .=($_REQUEST['framed']) ? "framed=yes&how=paged&" : "";
+    $onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
+    //$onchangerequest .="parent.controls.location.reload();";
+    $onchangerequest .="changetagslink(document.getElementById('TagsForm').tags.value);";
+    //$onchangerequest .="parent.controls.location.href='framesmenu.php?newonly=yes&framed=yes&tags='+document.getElementById('TagsForm').tags.value;";
     $onchangerequest .= "}else if(!document.getElementById('TagsForm').NewTags.checked){";
     $onchangerequest .="parent.menu.location.href='feeds.php?";
     $onchangerequest .=($_REQUEST['framed']) ? "framed=yes&" : "";
-	$onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
-	$onchangerequest .="parent.items.location.href='framesview.php?";
-	$onchangerequest .=($_REQUEST['framed']) ? "framed=yes&how=paged&" : "";
-	$onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
-	$onchangerequest .="changetagslink(document.getElementById('TagsForm').tags.value);";
-	//$onchangerequest .="parent.controls.location.reload();";
-	//$onchangerequest .="parent.controls.location.href='framesmenu.php?framed=yes&tags='+document.getElementById('TagsForm').tags.value;";
+    $onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
+    $onchangerequest .="parent.items.location.href='framesview.php?";
+    $onchangerequest .=($_REQUEST['framed']) ? "framed=yes&how=paged&" : "";
+    $onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
+    $onchangerequest .="changetagslink(document.getElementById('TagsForm').tags.value);";
+    //$onchangerequest .="parent.controls.location.reload();";
+    //$onchangerequest .="parent.controls.location.href='framesmenu.php?framed=yes&tags='+document.getElementById('TagsForm').tags.value;";
     $onchangerequest .= "};";
 ?>
 
-	<form id="TagsForm">
+    <form id="TagsForm">
 New Feeds
 <input name="NewTags" type="checkbox" id="NewTags" onCheck="parent.menu.location=addParameter(parent.menu.location,newonly,yes);" onUnCheck="parent.menu.location=addParameter(parent.menu.location,newonly,no);" onclick="if(NewTags.checked){eval(NewTags.getAttribute('onCheck'));}else if(!NewTags.checked){eval(NewTags.getAttribute('onUnCheck'));};" >
 <?php
-	//var newText = text.replace(/(src=).*?(&)/,'$1' + newSrc + '$2');
+    //var newText = text.replace(/(src=).*?(&)/,'$1' + newSrc + '$2');
 ?>
 <select name="tags" fontsize="8" onchange="<?php echo $onchangerequest ?>">
 <?php
-	print "<OPTION VALUE=\"" . _("All tags") . "\">" . _("All tags") . "\n";
-	print "<OPTION VALUE=\"" . _("No tags") . "\">" . _("No tags") . "\n";
-	$sql = "SELECT distinct $FOF_SUBSCRIPTION_TABLE.tags FROM `$FOF_FEED_TABLE`,`$FOF_SUBSCRIPTION_TABLE` WHERE user_id=" . current_user() . " and $FOF_SUBSCRIPTION_TABLE.tags != '' group by tags";
-	#echo ":SQL: " . $sql . "<br />\n";
-	$result = fof_do_query($sql);
-	while($row = mysql_fetch_array($result))
-	{
-		//print_r($row) . "<br/>";
-		//$tagarray = array_unique(array_merge($tagarray, parse_tag_string($row['tags'])));
-		$piece=$row['tags'];
-		print "<OPTION VALUE=\"$piece\">$piece\n";
-		//$tagarray = $row['tags'];
-	}
-	#sort($tagarray);
-	#foreach ($tagarray as $piece)
-	#{
-	#	print "<OPTION VALUE=\"$piece\">$piece\n";
-	#}
+    print "<OPTION VALUE=\"" . _("All tags") . "\">" . _("All tags") . "\n";
+    print "<OPTION VALUE=\"" . _("No tags") . "\">" . _("No tags") . "\n";
+    $sql = "SELECT distinct $FOF_SUBSCRIPTION_TABLE.tags FROM `$FOF_FEED_TABLE`,`$FOF_SUBSCRIPTION_TABLE` WHERE user_id=" . current_user() . " and $FOF_SUBSCRIPTION_TABLE.tags != '' group by tags";
+    // echo ":SQL: " . $sql . "<br />\n"; 
+    $result = fof_do_query($sql);
+
+    while($row = mysql_fetch_array($result))
+    {
+        $thetagline=$row['tags'];
+        //print "<OPTION VALUE=\"$thetagline\">$thetagline\n";
+        if (strpos($thetagline, ' ') !== FALSE) {
+            $tagslinearray = explode(' ', $thetagline);
+            $count=0;
+            foreach ($tagslinearray as $tagslinewithspaces)
+            {
+                $pieces[$tagslinewithspaces]=1;
+            }
+        } else {
+            $pieces[$thetagline]=1;
+        }
+    }
+    foreach ($pieces as $key => $piece)
+    {
+        print "<OPTION VALUE=\"$key\">$key</OPTION>\n";
+    }
+    /*
+    #while($row = mysql_fetch_array($result))
+    #{
+    #    //if contains a space, do this same thing for each
+    #    //should build a list of tags first before building options list
+    #
+    #    $piece=$row['tags'];
+    #    print "<OPTION VALUE=\"$piece\">$piece\n";
+    #    //$tagarray = $row['tags'];
+    #}
+    #while () 
+    #{
+    #}
+    #
+    #sort($tagarray);
+    #foreach ($tagarray as $piece)
+    #{
+    #    print "<OPTION VALUE=\"$piece\">$piece\n";
+    #}
+     =*/
 
 ?></select>
-	</form>
-	<input name="reapplyTagsButton" onclick="<?php echo $onchangerequest ?>" style=".input" type="submit" value="<?php echo _("Reapply") ?>">
+    </form>
+    <input name="reapplyTagsButton" onclick="<?php echo $onchangerequest ?>" style=".input" type="submit" value="<?php echo _("Reapply") ?>">
 </p>
-	<?php
+    <?php
 } #end framed
 ?>
 </ul>
@@ -168,10 +195,10 @@ New Feeds
 </ul>
 </div>
 <?php 
-	if($_REQUEST['framed']) 
-	{ 
+    if($_REQUEST['framed']) 
+    { 
 ?>
-		</body></html>
-		<?php 
-	}
-		?>
+        </body></html>
+        <?php 
+    }
+        ?>

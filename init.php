@@ -1045,6 +1045,7 @@ function fof_edit_feed($id, $url, $title, $link, $description, $date_added, $tag
        $private="1";
     }
 
+    // need to repeat for each tag in $tags
     if (fof_is_admin()) {
         $sql = "update $FOF_FEED_TABLE,$FOF_SUBSCRIPTION_TABLE SET " . $FOF_FEED_TABLE . ".url = '$url', " . $FOF_FEED_TABLE . ".title = '$title', " . $FOF_FEED_TABLE . ".link = '$link', " . $FOF_FEED_TABLE . ".description = '$description', " . $FOF_FEED_TABLE . ".date_added = '$date_added', " . $FOF_SUBSCRIPTION_TABLE . ".tags = '$tags', " . $FOF_FEED_TABLE . ".private = '$private'";
 
