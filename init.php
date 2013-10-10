@@ -1139,7 +1139,35 @@ function fof_search_word($word)
  */
 function mygetfavicon($url)
 {
-    //1 check http://site/favicon.ico first
+    //1 check for rel "shortcut icon"
+    $doc = new DOMDocument();
+    $doc->strictErrorChecking = false;
+    $doc->loadHTML(file_get_contents($url));
+    $xml = simplexml_import_dom($doc);
+    $arr = $xml->xpath('//link[@rel="shortcut icon"]');
+    $myfavicon=$arr[0]['href'];
+    if ($myfavicon) {
+        echo $myfavicon . " ";
+        return $myfavicon;
+    } else {
+        $myfavicon="";
+    }
+
+    //2 check for rel "icon"
+    $doc = new DOMDocument();
+    $doc->strictErrorChecking = false;
+    $doc->loadHTML(file_get_contents($url));
+    $xml = simplexml_import_dom($doc);
+    $arr = $xml->xpath('//link[@rel="icon"]');
+    $myfavicon=$arr[0]['href'];
+    if ($myfavicon) {
+        echo $myfavicon . " ";
+        return $myfavicon;
+    } else {
+        $myfavicon="";
+    }
+
+    //3 check http://site/favicon.ico as the old method since it is old school
     $strendtest="/";
     if (substr_compare($url, $strendtest, -strlen($strendtest), strlen($strendtest)) === 00) {
         $favicon=$url . "favicon.ico";
@@ -1149,29 +1177,16 @@ function mygetfavicon($url)
     $HTTPRequest = @fopen($favicon, 'r');
     if ($HTTPRequest) {
         stream_set_timeout($HTTPRequest, 0.1);
-        $favicon = fread($HTTPRequest, 8192);
+        $faviconico = fread($HTTPRequest, 8192);
         $HTTPRequestData = stream_get_meta_data($HTTPRequest);
         fclose($HTTPRequest);
-        if (!$HTTPRequestData['timed_out'] && strlen($favicon) < 42) {
+        if (!$HTTPRequestData['timed_out'] && strlen($faviconico) < 42) {
             $favicon = "";
         } else {
             return $favicon;
         }
     }
 
-    //2 check for "shortcut icon"
-    $doc = new DOMDocument();
-    $doc->strictErrorChecking = false;
-    $doc->loadHTML(file_get_contents($url));
-    $xml = simplexml_import_dom($doc);
-    $arr = $xml->xpath('//link[@rel="shortcut icon"]');
-    $myfavicon=$arr[0]['href'];
-    if ($favicon) {
-        echo $myfavicon . " ";
-    } else {
-        $myfavicon="";
-    }
-    return $myfavicon;
 }
 /**
  * Updates the article content of a feed as necessary
