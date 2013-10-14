@@ -1244,8 +1244,8 @@ function fof_update_feed($url)
     $link2 = $row2['link'];
     
     if ($image2) {
-        echo "we already have an image";
-        echo "<img src=\"" . $image2 . "\">";
+        echo "we already have an image ";
+        echo "<img width=\"16\" height=\"16\" border=\"0\" src=\"" . $image2 . "\">";
     } else {
         echo "oops we don't have a favicon for $url, lets grab a new one. ";
         $imagelink = mygetfavicon($link2);
