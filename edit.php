@@ -189,7 +189,7 @@ if ($private == 1)
 ?>> (feed or its articles will not be shown in RSS or aggregate outputs)</td>
 </tr>
 </table>
-<input type="Submit" value="Save feed edits"><br><br>
+<input type="Submit" value="Save feed edits" onClick="parent.controls.location.reload();"><br><br>
 </form>
 
 

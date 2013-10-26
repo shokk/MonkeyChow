@@ -14,6 +14,7 @@
  * Distributed under the GPL - see LICENSE
  *
  */
+sleep(1);
 if ($_REQUEST['framed']){ // start of frames check
 include_once("init.php");
 include_once("fof-main.php");
@@ -97,19 +98,18 @@ function changetagslink(tagz)
 if ($_REQUEST['framed']) {
     $onchangerequest  ="javascript:";
     $onchangerequest .="if(document.getElementById('TagsForm').NewTags.checked){";
-    $onchangerequest .="parent.menu.location.href='feeds.php?newonly=yes&";
-    $onchangerequest .=($_REQUEST['framed']) ? "framed=yes&" : "";
-    $onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
+    //$onchangerequest .=($_REQUEST['framed']) ? "framed=yes&" : "";
+    //$onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
     $onchangerequest .="parent.items.location.href='framesview.php?";
     $onchangerequest .=($_REQUEST['framed']) ? "framed=yes&how=paged&" : "";
+    $onchangerequest .="newonly=yes&";
     $onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
     //$onchangerequest .="parent.controls.location.reload();";
     $onchangerequest .="changetagslink(document.getElementById('TagsForm').tags.value);";
-    //$onchangerequest .="parent.controls.location.href='framesmenu.php?newonly=yes&framed=yes&tags='+document.getElementById('TagsForm').tags.value;";
     $onchangerequest .= "}else if(!document.getElementById('TagsForm').NewTags.checked){";
-    $onchangerequest .="parent.menu.location.href='feeds.php?";
-    $onchangerequest .=($_REQUEST['framed']) ? "framed=yes&" : "";
-    $onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
+    #$onchangerequest .="parent.menu.location.href='feeds.php?";
+    #$onchangerequest .=($_REQUEST['framed']) ? "framed=yes&" : "";
+    #$onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
     $onchangerequest .="parent.items.location.href='framesview.php?";
     $onchangerequest .=($_REQUEST['framed']) ? "framed=yes&how=paged&" : "";
     $onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
@@ -121,7 +121,7 @@ if ($_REQUEST['framed']) {
 
     <form id="TagsForm">
 New Feeds
-<input name="NewTags" type="checkbox" id="NewTags" onCheck="parent.menu.location=addParameter(parent.menu.location,newonly,yes);" onUnCheck="parent.menu.location=addParameter(parent.menu.location,newonly,no);" onclick="if(NewTags.checked){eval(NewTags.getAttribute('onCheck'));}else if(!NewTags.checked){eval(NewTags.getAttribute('onUnCheck'));};" >
+<input name="NewTags" type="checkbox" id="NewTags" onCheck="parent.items.location.href=addParameter(parent.items.location,newonly,yes);" onUnCheck="parent.items.location.href=addParameter(parent.items.location,newonly,no);" onchange="if(NewTags.checked){eval(NewTags.getAttribute('onCheck'));}else if(!NewTags.checked){eval(NewTags.getAttribute('onUnCheck'));};" >
 <?php
     //var newText = text.replace(/(src=).*?(&)/,'$1' + newSrc + '$2');
 ?>
@@ -130,48 +130,28 @@ New Feeds
     print "<OPTION VALUE=\"" . _("All tags") . "\">" . _("All tags") . "\n";
     print "<OPTION VALUE=\"" . _("No tags") . "\">" . _("No tags") . "\n";
     $sql = "SELECT distinct $FOF_SUBSCRIPTION_TABLE.tags FROM `$FOF_FEED_TABLE`,`$FOF_SUBSCRIPTION_TABLE` WHERE user_id=" . current_user() . " and $FOF_SUBSCRIPTION_TABLE.tags != '' group by tags";
-    // echo ":SQL: " . $sql . "<br />\n"; 
     $result = fof_do_query($sql);
 
     while($row = mysql_fetch_array($result))
     {
         $thetagline=$row['tags'];
-        //print "<OPTION VALUE=\"$thetagline\">$thetagline\n";
         if (strpos($thetagline, ' ') !== FALSE) {
             $tagslinearray = explode(' ', $thetagline);
             $count=0;
             foreach ($tagslinearray as $tagslinewithspaces)
             {
                 $pieces[$tagslinewithspaces]=1;
+                $count++;
             }
         } else {
             $pieces[$thetagline]=1;
         }
     }
+    ksort($pieces);
     foreach ($pieces as $key => $piece)
     {
         print "<OPTION VALUE=\"$key\">$key</OPTION>\n";
     }
-    /*
-    #while($row = mysql_fetch_array($result))
-    #{
-    #    //if contains a space, do this same thing for each
-    #    //should build a list of tags first before building options list
-    #
-    #    $piece=$row['tags'];
-    #    print "<OPTION VALUE=\"$piece\">$piece\n";
-    #    //$tagarray = $row['tags'];
-    #}
-    #while () 
-    #{
-    #}
-    #
-    #sort($tagarray);
-    #foreach ($tagarray as $piece)
-    #{
-    #    print "<OPTION VALUE=\"$piece\">$piece\n";
-    #}
-     =*/
 
 ?></select>
     </form>

@@ -82,8 +82,8 @@ if(isset($_COOKIE['fof_layout']))
 else
 */
 {
-	$cols = "26%, *";
-	$rows = "15%, *";
+	$cols = "300em, *";
+	$rows = "90em, *";
 }
 //
 // end prefs -

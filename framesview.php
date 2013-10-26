@@ -45,6 +45,7 @@ $when = $_REQUEST['when'];
 $howmany = $_REQUEST['howmany'];
 $search = htmlspecialchars($_REQUEST['search']);
 $tags = $_REQUEST['tags'];
+$newonly = $_REQUEST['newonly'];
 
 $title = fof_view_title($feed, $what, $when, $which, $howmany);
 $noedit = $_GET['noedit'];
@@ -73,7 +74,8 @@ $noedit = $_GET['noedit'];
 	<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/latest/css/font-awesome.css" rel="stylesheet">
 </head>
-<body onload='<?php echo ($mobiletrue) ?  "" : "parent.menu.location.reload();hideLoader();"; ?>'>
+<!--body onload='<?php echo ($mobiletrue) ?  "" : "parent.menu.location.reload();hideLoader();"; ?>' -->
+<body onload="parent.menu.location.href='feeds.php?<?php if($newonly=="yes"){echo "newonly=yes&";} ?><?php if($framed=="yes"){echo "framed=yes&";} ?><?php if($tags!="All tags"){echo "tags=$tags";} ?>';" >
 
 <?php
 	if(!$_REQUEST['framed'])
@@ -172,7 +174,7 @@ if ($mobiletruex) {
 <ul>
 <li class="mobilestyle"><a target=_blank href="add.php"><?php echo _("add feed"); ?></a></li>
 </li>
-<li class="mobilestyle"><a target=_blank href="feeds.php?order=unread&newonly=yes&direction=desc"><?php echo _("feeds list"); ?></a></li>
+<li class="mobilestyle"><a target=_blank href="feeds.php?order=unread<?php if($newonly=="yes"){echo "&newonly=yes";} ?>&direction=desc"><?php echo _("feeds list"); ?></a></li>
 <li>
 
 </li>
