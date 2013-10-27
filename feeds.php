@@ -330,7 +330,7 @@ foreach($feeds as $row)
 
 		#if ($items > 0)
 		#{
-			$rowstring.= "<a href=\"" . $u . "&amp;what=" . (($_REQUEST['newonly']) ? "" : "all") . "\" title=\"all items\">$items</a>";
+			$rowstring.= "<a href=\"" . $u . (($_REQUEST['newonly']) ? "&newonly=yes" : "") . "&amp;what=" . (($_REQUEST['newonly']) ? "" : "all") . "\" title=\"all items\">$items</a>";
 		#}
 		#else
 		#{
@@ -345,11 +345,11 @@ foreach($feeds as $row)
 		if($row['image'] && $fof_user_prefs['favicons'])
 		{
 			$rowstring.= "<a target=\"_blank\" href=\"$url\" title=\"feed\"><img src='" . urldecode($row['image']) . "' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
-    		}
-    		else
-    		{
-       			$rowstring.= "<a target=\"_blank\" href=\"$url\" title=\"feed\"><img src='feed-icon.png' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
-    		}
+    	}
+    	else
+    	{
+       		$rowstring.= "<a target=\"_blank\" href=\"$url\" title=\"feed\"><img src='feed-icon.png' width='" . $fof_user_prefs['faviconsize'] . "' height='" . $fof_user_prefs['faviconsize'] . "' border='0' /></a>";
+    	}
 
 		$rowstring.= fof_render_feed_link($row) . "</div></td>";
 
