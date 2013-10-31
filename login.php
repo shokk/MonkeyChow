@@ -49,10 +49,11 @@ if(isset($_REQUEST["user_name"]) && isset($_REQUEST["user_password"]))
 		font-size: 16px;
       }
       </style>
-	<link href="http://netdna.bootstrapcdn.com/font-awesome/latest/css/font-awesome.css" rel="stylesheet">
+      <link rel="stylesheet" href="<?php echo $MC_PATH?>/Font-Awesome/css/font-awesome.min.css" media="all">
    </head>
       
   <body>
+<?php echo MC_PATH ?>
 <div style="background: #eee; border: 1px solid black; width: 15em; margin: 5em auto; padding: 1.5em;">
 	<form action="login.php" method="POST" style="display: inline">
 
@@ -72,11 +73,6 @@ if(isset($_REQUEST["user_name"]) && isset($_REQUEST["user_password"]))
 		<p align="left"><a href="http://shokk.wordpress.com/tag/monkeychow/" style="font-size: 12px; font-family: georgia;">MonkeyChow Author's Site</a><br></p>
 		<?php if($failed) echo "<br><center><font color=red><b>Incorrect user name or password</b></font></center>"; ?>
 	</form>
-</div>
+   </div>
   </body>
-
-<div id="loading">
-	<i class="icon-spinner icon-spin icon-large"></i>
-</div>
-  
 </html>

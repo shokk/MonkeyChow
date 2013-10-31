@@ -67,16 +67,18 @@ $noedit = $_GET['noedit'];
 ?>
 	<script src="fof.js" type="text/javascript"></script>
 	<script src="behindthescenes.js"></script>
+    <script>
+        Load();
+    </script>
 	<link rel="stylesheet" href="fof-common.css" media="all" />
 <?php
 	echo ($mobiletrue) ?  "<link rel=\"stylesheet\" href=\"mc-iphone.css\" media=\"all\" />" : "";
 ?>
 	<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
-	<link href="http://netdna.bootstrapcdn.com/font-awesome/latest/css/font-awesome.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/latest/css/font-awesome.css" rel="stylesheet">
 </head>
 <!--body onload='<?php echo ($mobiletrue) ?  "" : "parent.menu.location.reload();hideLoader();"; ?>' -->
 <body onload="parent.menu.location.href='feeds.php?<?php if($newonly=="yes"){echo "newonly=yes&";} ?><?php if($framed=="yes"){echo "framed=yes&";} ?><?php if($tags!="All tags"){echo "tags=$tags";} ?>';" >
-
 <?php
 	if(!$_REQUEST['framed'])
 	{
@@ -216,7 +218,8 @@ $count = 0;
 foreach($result as $row)
 {
 	$items = true;
-    $starred = "star_off.gif";
+    #$starred = "star_off.gif";
+    $starred = "-empty";
     $checked = "";
 	$item_read = "0";
 	$timestamp =  date("F j, Y, g:i a", $row['timestamp'] - (FOF_TIME_OFFSET * 60 * 60));
@@ -248,7 +251,7 @@ foreach($result as $row)
             $item_read = "1";
             break;
         case 2:
-			$starred = "star_on.gif";
+			$starred = "";
             break;
         case 3:
 			$checked = "checked=\"checked\"";
@@ -271,11 +274,12 @@ foreach($result as $row)
 	$dcsubject = $row['dcsubject'];
 
     $expand_link = "<i type=\"image\" class=\"g120 icon-large icon-expand\" border=\"0\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_arrowimage('exp$item_id');toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');\" title=\"" . _("Expand Body") . "\" ></i>";
-    $expand_link .= "<img class=\"g120 icon-large icon-expand\" border=\"0\" src=\"ipodarrowright.jpg\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_arrowimage('exp$item_id');toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');\" title=\"" . _("Expand Body") . "\" >";
-    $star_link = "<i class=\"icon-large icon-star\"></i><i class=\"icon-large icon-star-empty\"></i><img class=\"g120\" border=\"0\" src=\"$starred\" name=\"star$item_id\" id=\"star$item_id\" alt=\"" . _("Toggle Star") . "\" onclick=\"togStar('star$item_id')\" title=\"" . _("Toggle Star"). "\" />";
+    #$expand_link .= "<img class=\"g120 icon-large\" border=\"0\" src=\"ipodarrowright.jpg\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_arrowimage('exp$item_id');toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');\" title=\"" . _("Expand Body") . "\" >";
+    $star_link   = "<i type=\"image\" class=\"g120 icon-large icon-star$starred\" border=\"0\" name=\"star$item_id\" id=\"star$item_id\" alt=\"" . _("Toggle Star") . "\" onclick=\"toggle_star('star$item_id')\" title=\"" . _("Toggle Star") . "\"></i>";
+    #$star_link .= "<img class=\"g120\" border=\"0\" src=\"$starred\" name=\"star$item_id\" id=\"star$item_id\" alt=\"" . _("Toggle Star") . "\" onclick=\"toggle_star('star$item_id')\" title=\"" . _("Toggle Star") . "\" />";
 
-#echo "<div id=\"box\">";
-        echo '<div id="shadow-container"><div class="shadow1"><div class="shadow2"><div class="shadow3">';
+    #echo "<div id=\"box\">";
+    echo '<div id="shadow-container"><div class="shadow1"><div class="shadow2"><div class="shadow3">';
 	echo "\n"."<div class=\"item itemout container\" onmouseover=\"this.className='item itemover container'\" onmouseout=\"this.className='item itemout container'\">";
 	echo '<div class="header">';
 

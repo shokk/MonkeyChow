@@ -1,4 +1,5 @@
 var oldInp=0;
+var img='';
 
 function addParameter(url, param, value) {
     // Using a positive lookahead (?=\=) to find the
@@ -102,7 +103,6 @@ function toggle_arrowimage(img)
 	}
 }
 
-
 function toggle_expand_item(id)
 {
         elements = document.getElementsBySelector('.item div#' + id);
@@ -112,7 +112,6 @@ function toggle_expand_item(id)
             elements[i].style.display = (elements[i].style.display != 'none') ? 'none' : '';
         }
 }
-
 
 function toggle_expand_all()
 {
@@ -188,21 +187,26 @@ function togglePublish(item)
 		(item.checked ? "publish" : "unpublish");
        SendRequest(url);                       
 }
-function togStar(item)
+
+function toggle_star(item)
 {
-       var s = document.getElementById(item);
-       var image = s.src.split("/").pop();
-       if (image == "star_off.gif") 
-       {
-           s.src = "star_on.gif";
-           url = "view-action.php?"+s.id+"=starred&action=star";
-       }
-       else
-       {
-           s.src = "star_off.gif";
-           url = "view-action.php?"+s.id+"=starred&action=unstar";
-       }
-       SendRequest(url);                       
+    var s = document.getElementById(item); //'star$item_id'
+    //var image = s.src.split("/").pop();
+    if (hasClass(s,"icon-star-empty"))
+    {
+        removeClass(s,"icon-star-empty");
+        addClass(s,"icon-star");
+        s.src = "star_on.gif";
+        url = "view-action.php?"+s.id+"=starred&action=star";
+    }
+    else
+    {
+        removeClass(s,"icon-star");
+        addClass(s,"icon-star-empty");
+        s.src = "star_off.gif";
+        url = "view-action.php?"+s.id+"=starred&action=unstar";
+    }
+    SendRequest(url);                       
 }
 
 /* document.getElementsBySelector(selector)
