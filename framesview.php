@@ -273,7 +273,7 @@ foreach($result as $row)
 	$dcdate = $row['dcdate'];
 	$dcsubject = $row['dcsubject'];
 
-    $expand_link = "<i type=\"image\" class=\"g120 icon-large icon-expand\" border=\"0\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_arrowimage('exp$item_id');toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');\" title=\"" . _("Expand Body") . "\" ></i>";
+    $expand_link = "<i type=\"image\" class=\"g120 icon-large icon-double-angle-right\" border=\"0\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_arrowimage('exp$item_id');toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');\" title=\"" . _("Expand Body") . "\" ></i>";
     #$expand_link .= "<img class=\"g120 icon-large\" border=\"0\" src=\"ipodarrowright.jpg\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_arrowimage('exp$item_id');toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');\" title=\"" . _("Expand Body") . "\" >";
     $star_link   = "<i type=\"image\" class=\"g120 icon-large icon-star$starred\" border=\"0\" name=\"star$item_id\" id=\"star$item_id\" alt=\"" . _("Toggle Star") . "\" onclick=\"toggle_star('star$item_id')\" title=\"" . _("Toggle Star") . "\"></i>";
     #$star_link .= "<img class=\"g120\" border=\"0\" src=\"$starred\" name=\"star$item_id\" id=\"star$item_id\" alt=\"" . _("Toggle Star") . "\" onclick=\"toggle_star('star$item_id')\" title=\"" . _("Toggle Star") . "\" />";
@@ -283,24 +283,24 @@ foreach($result as $row)
 	echo "\n"."<div class=\"item itemout container\" onmouseover=\"this.className='item itemover container'\" onmouseout=\"this.className='item itemout container'\">";
 	echo '<div class="header">';
 
-        echo "<table style=\"table-layout:fixed;\" bgcolor=\"#ffffff\" width=\"100%\" border=\"0\">";
-        echo "<tr bgcolor=\"#ffffff\" height=\"9\"><td class=\"headertitle\">";
-        echo $expand_link . " ";
-        echo $star_link . " ";
-		echo $favicon_link;
-        echo "<a target=\"_blank\" class=\"item_title mobilestyle\" title=\"$item_title\" href=\"$item_link\">$item_title</a>";
-		#if($mobiletrue){echo "<br />"; }
-        echo " <span class=\"mobiletext2 feed_title\">$feed_title</span>";
+    echo "<table style=\"table-layout:fixed;\" bgcolor=\"#ffffff\" width=\"100%\" border=\"0\">";
+    echo "<tr bgcolor=\"#ffffff\" height=\"9\"><td class=\"headertitle\">";
+    echo $expand_link . " ";
+    echo $star_link . " ";
+	echo $favicon_link;
+    echo "<a target=\"_blank\" class=\"item_title mobilestyle\" title=\"$item_title\" href=\"$item_link\">$item_title</a>";
+	#if($mobiletrue){echo "<br />"; }
+    echo " <span class=\"mobiletext2 feed_title\">$feed_title</span>";
 
-        echo "</td><td width=\"45\" align=\"right\">";
-	echo "<div valign=\"center\" class=\"controls\">";
-	echo "<i class=\"icon-large icon-arrow-down\"></i><img class=\"g120\" src=\"flagup.jpg\" title=\"" . _("flag up to here") . "\" border=\"0\" onclick=\"flag_upto('c" . $item_id . "." . $count . "')\" />";
-	echo "<i class=\"icon-large icon-check\"></i><input class=\"bigcheck\" onclick=\"clickage(event)\" type=\"checkbox\" name=\"c" . $item_id . "." . $count . "\" value=\"checked\" /><i class=\"icon-check icon-check-empty\"></i>";
-	echo '</div>';
+    echo "</td><td width=\"45\" align=\"right\">";
+    echo "<div valign=\"center\" class=\"controls\">";
+    echo "<i class=\"icon-large icon-arrow-down\"></i><img class=\"g120\" src=\"flagup.jpg\" title=\"" . _("flag up to here") . "\" border=\"0\" onclick=\"flag_upto('c" . $item_id . "." . $count . "')\" />";
+    echo "<i class=\"icon-large icon-check\"></i><input class=\"bigcheck\" onclick=\"clickage(event)\" type=\"checkbox\" name=\"c" . $item_id . "." . $count . "\" value=\"checked\" /><i class=\"icon-check icon-check-empty\"></i>";
+    echo '</div>';
 
-        echo "</tr></td>";
-        echo "<tr bgcolor=\"#ffffff\">";
-        echo "<td colspan=\"2\">";
+    echo "</tr></td>";
+    echo "<tr bgcolor=\"#ffffff\">";
+    echo "<td colspan=\"2\">";
 
 
     echo "<div class=\"control\" id=\"controls1-$item_id\"";

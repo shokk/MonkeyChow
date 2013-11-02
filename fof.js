@@ -91,15 +91,15 @@ function toggle_arrowimage(img)
 {
 	//'exp$item_id'
 	var s = document.getElementById(img);
-	if (hasClass(s,"icon-collapse"))
+	if (hasClass(s,"icon-double-angle-right"))
 	{
-        removeClass(s,"icon-collapse");
-        addClass(s,"icon-expand");
+        removeClass(s,"icon-double-angle-right");
+        addClass(s,"icon-double-angle-down");
 	}
 	else
 	{
-        removeClass(s,"icon-expand");
-        addClass(s,"icon-collapse");
+        removeClass(s,"icon-double-angle-down");
+        addClass(s,"icon-double-angle-right");
 	}
 }
 
