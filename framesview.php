@@ -75,7 +75,7 @@ $noedit = $_GET['noedit'];
 	echo ($mobiletrue) ?  "<link rel=\"stylesheet\" href=\"mc-iphone.css\" media=\"all\" />" : "";
 ?>
 	<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/latest/css/font-awesome.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 </head>
 <!--body onload='<?php echo ($mobiletrue) ?  "" : "parent.menu.location.reload();hideLoader();"; ?>' -->
 <body onload="parent.menu.location.href='feeds.php?<?php if($newonly=="yes"){echo "newonly=yes&";} ?><?php if($framed=="yes"){echo "framed=yes&";} ?><?php if($tags!="All tags"){echo "tags=$tags";} ?>';" >
