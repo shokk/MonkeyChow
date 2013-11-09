@@ -230,7 +230,7 @@ foreach($result as $row)
 	$item_id = $row['item_id'];
 	$item_link = $row['item_link'];
 	$item_title = $row['item_title'];
-    	$item_title = strip_tags(htmlspecialchars_decode($item_title));
+    $item_title = strip_tags(htmlspecialchars_decode($item_title));
 	$item_content = urldecode($row['item_content']);
 
     	$flag_sql = "SELECT `flag_id` FROM `" . $FOF_USERITEM_TABLE . "` WHERE `item_id`=" . $item_id . " AND `user_id`=" . current_user();
@@ -295,7 +295,7 @@ foreach($result as $row)
     echo "</td><td width=\"45\" align=\"right\">";
     echo "<div valign=\"center\" class=\"controls\">";
     echo "<i class=\"icon-large icon-arrow-down\"></i><img class=\"g120\" src=\"flagup.jpg\" title=\"" . _("flag up to here") . "\" border=\"0\" onclick=\"flag_upto('c" . $item_id . "." . $count . "')\" />";
-    echo "<i class=\"icon-large icon-check\"></i><input class=\"bigcheck\" onclick=\"clickage(event)\" type=\"checkbox\" name=\"c" . $item_id . "." . $count . "\" value=\"checked\" /><i class=\"icon-check icon-check-empty\"></i>";
+    echo "<i class=\"icon-large icon-check-sign\"></i><input class=\"bigcheck\" onclick=\"clickage(event)\" type=\"checkbox\" name=\"c" . $item_id . "." . $count . "\" value=\"checked\" /><i class=\"icon-check icon-check-empty icon-large\"></i>";
     echo '</div>';
 
     echo "</tr></td>";
@@ -387,6 +387,8 @@ http://shokk.wordpress.com/tag/monkeychow/");
 //	echo "&nbsp;&nbsp;&nbsp;" . $friendfeed_link . "&nbsp;&nbsp;&nbsp;" . $technorati_link . "&nbsp;&nbsp;&nbsp;" . $blogger_link . "&nbsp;&nbsp;&nbsp;";
     echo $email_link;
 
+    //insert social plugins function here
+    social_plugins($social_filters,$item_content);
     echo "<br />";
 	echo "<span class=\"mobilecontent\">";
 	if($dcdate)

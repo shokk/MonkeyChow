@@ -54,6 +54,21 @@ define('EMAIL',"email@x.com");
 
 // How many posts to show by default in paged mode
 define('FOF_HOWMANY', 50);
+define('FB_APP_ID', "");
+define('FB_APP_SECRET', "");
+define('FB_CALLBACK', "http://" . $_REQUEST['baserequest'] . "/auth/facebook.php");
+define('BUFFER_APP_ID','');
+define('BUFFER_APP_SECRET','');
+define('BUFFER_CALLBACK', "http://" . $_REQUEST['baserequest'] . "/auth/buffer.php");
+define('TWITTER_APP_ID','');
+define('TWITTER_APP_SECRET','');
+define('TWITTER_CALLBACK', "http://" . $_REQUEST['baserequest'] . "/auth/twitter.php");
+define('LINKEDIN_APP_ID',"");
+define('LINKEDIN_APP_SECRET',"");
+define('LINKEDIN_CALLBACK', "http://" . $_REQUEST['baserequest'] . "/auth/linkedin.php");
+define('GOOGLE_APP_ID',"");
+define('GOOGLE_APP_SECRET',"");
+define('GOOGLE_CALLBACK', "http://" . $_REQUEST['baserequest'] . "/auth/google.php");
 ######################################################################
 # END PREFS
 ######################################################################

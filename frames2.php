@@ -14,10 +14,9 @@
  * Distributed under the GPL - see LICENSE
  *
  */
-
-require_once("init.php");
-require_once("fof-main.php");
-#$facebook = new Facebook($fb_app_id, $fb_app_secret, $fb_callback);
+include_once("init.php");
+include_once("fof-main.php");
+$facebook = new Facebook($fb_app_id, $fb_app_secret, $fb_callback);
 #if($facebook->validateAccessToken())
 #{
 #        $fb_response = $facebook->makeRequest('https://graph.facebook.com/me');
@@ -79,8 +78,8 @@ if(isset($_COOKIE['fof_layout']))
 else
 */
 {
-	$cols = "300em, *";
-	$rows = "100em, *";
+	$cols = "26%, *";
+	$rows = "15%, *";
 }
 //
 // end prefs -
@@ -88,10 +87,10 @@ else
 ?>
 <frameset id="hframeset" cols="<?php echo $cols?>" >
 <frameset id="vframeset" rows="<?php echo $rows?>" >
-<frame src="framesmenu.php?framed=yes" name="controls" />
-<frame src="feeds.php?framed=yes" name="menu" />
+<frame src="http://<?php echo $_REQUEST['baserequest'];?>/framesmenu.php?framed=yes" name="controls" />
+<frame src="http://<?php echo $_REQUEST['baserequest'];?>/feeds.php?framed=yes" name="menu" />
 </frameset>
-<frame src="framesview.php?how=paged&framed=yes" name="items" />
+<frame src="http://<?php echo $_REQUEST['baserequest'];?>/framesview.php?how=paged&framed=yes" name="items" />
 </frameset>
 </html>
 <?php

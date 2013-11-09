@@ -28,6 +28,29 @@
 error_reporting(E_ERROR);
 require_once('config.php');
 
+$fb_app_id = FB_APP_ID;
+$fb_app_secret = FB_APP_SECRET;
+$fb_callback = FB_CALLBACK;
+$tw_app_id = TWITTER_APP_ID;
+$tw_app_secret = TWITTER_APP_SECRET;
+$tw_callback = TWITTER_CALLBACK;
+$li_app_id = LINKEDIN_APP_ID;
+$li_app_secret = LINKEDIN_APP_SECRET;
+$li_callback = LINKEDIN_CALLBACK;
+$gg_app_id = GOOGLE_APP_ID;
+$gg_app_secret = GOOGLE_APP_SECRET;
+$gg_callback = GOOGLE_CALLBACK;
+$bu_app_id = BUFFER_APP_ID;
+$bu_app_secret = BUFFER_APP_SECRET;
+$bu_callback = BUFFER_CALLBACK;
+
+require_once('includes/Oauth.php');
+if ($fb_app_id) {require_once('includes/Facebook.php');}
+if ($gg_app_id) {require_once('includes/Google.php');}
+if ($li_app_id) {require_once('includes/LinkedIn.php');}
+if ($tw_app_id) {require_once('includes/Twitter.php');}
+if ($bu_app_id) {require_once('includes/Buffer.php');}
+
 define('FOF_MAX_INT', 2147483647);
 $_REQUEST['baserequest']=$_SERVER['SERVER_NAME'] . dirname($_SERVER['REQUEST_URI']);
 // $_REQUEST['baserequest']= "shokk.shokk.com" . dirname($_SERVER['REQUEST_URI']);
@@ -1611,5 +1634,7 @@ function substring_between($haystack, $start, $end)
         return substr($haystack, $start_position, $end_position-$start_position);
     }
 }
+
+$facebook = new Facebook($fb_app_id, $fb_app_secret, $fb_callback);
 
 ?>

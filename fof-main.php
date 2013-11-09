@@ -18,7 +18,8 @@
 require_once("config.php");
 require_once("fof-db.php");
 
-init_plugins();
+init_text_plugins();
+init_social_plugins();
 
 if(!$fof_no_login)
 {
@@ -92,31 +93,26 @@ function fof_is_admin()
     return $fof_user_level == "admin";
 }
 
-function init_plugins()
+function init_text_plugins()
 {
     global $item_filters;
-    
     $item_filters = array();
-    
-    $dirlist = opendir(FOF_DIR . "/plugins");
+    $dirlist = opendir(FOF_DIR . "/textplugins");
     while($file=readdir($dirlist))
     {
-    	fof_log("considering " . $file);
+    	//fof_log("considering " . $file);
         if(ereg('\.php$',$file))
         {
-        	fof_log("including " . $file);
-
-            include(FOF_DIR . "/plugins/" . $file);
+        	//fof_log("including " . $file);
+            include(FOF_DIR . "/textplugins/" . $file);
         }
     }
-
     closedir();
 }
 
 function fof_add_item_filter($function)
 {
     global $item_filters;
-    
     $item_filters[] = $function;
 }
 
@@ -126,8 +122,45 @@ function content_plugins($filters,$content)
     // e.g. fixdivs($content) and atarget($content)
     foreach($filters as $functionname)
     {
-        //echo $functionname . "</br>";
         $content=call_user_func($functionname,$content);
+    } 
+    return $content;
+}
+
+function init_social_plugins()
+{
+    global $social_filters;
+    $social_filters = array();
+    $dirlist = opendir(FOF_DIR . "/socialplugins");
+    sort($dirlist);
+    while($file=readdir($dirlist))
+    {
+        if(ereg('\.php$',$file))
+        {
+            include(FOF_DIR . "/socialplugins/" . $file);
+        }
+    }
+    closedir($dirlist);
+}
+
+function fof_add_social_filter($function)
+{
+    global $social_filters;
+    $social_filters[] = $function;
+}
+
+function social_plugins($filters,$content)
+{
+    echo "&nbsp;";
+    echo "&nbsp;";
+    echo "&nbsp;";
+    sort($filters);
+    foreach($filters as $functionname)
+    {
+        call_user_func($functionname,$content);
+        echo "&nbsp;";
+        echo "&nbsp;";
+        echo "&nbsp;";
     } 
     return $content;
 }
