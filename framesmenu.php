@@ -30,7 +30,7 @@ header("Content-Type: text/html; charset=utf-8");
     <title>MonkeyChow - <?php _("control panel") ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="fof-common.css" media="all" />
-    <link rel="stylesheet" href="<?php echo $MC_PATH?>/Font-Awesome/css/font-awesome.min.css" media="all">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <script src="fof.js" type="text/javascript"></script>
     <script src="behindthescenes.js"></script>
     <script language="javascript" type="text/javascript">

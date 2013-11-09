@@ -43,12 +43,16 @@ $gg_callback = GOOGLE_CALLBACK;
 $bu_app_id = BUFFER_APP_ID;
 $bu_app_secret = BUFFER_APP_SECRET;
 $bu_callback = BUFFER_CALLBACK;
+//$tu_app_id = TUMBLR_APP_ID;
+//$tu_app_secret = TUMBLR_APP_SECRET;
+//$tu_callback = TUMBLR_CALLBACK;
 
 require_once('includes/Oauth.php');
 if ($fb_app_id) {require_once('includes/Facebook.php');}
 if ($gg_app_id) {require_once('includes/Google.php');}
 if ($li_app_id) {require_once('includes/LinkedIn.php');}
 if ($tw_app_id) {require_once('includes/Twitter.php');}
+//if ($tu_app_id) {require_once('includes/Tumblr.php');}
 if ($bu_app_id) {require_once('includes/Buffer.php');}
 
 define('FOF_MAX_INT', 2147483647);

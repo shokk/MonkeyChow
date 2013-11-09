@@ -91,15 +91,15 @@ function toggle_arrowimage(img)
 {
 	//'exp$item_id'
 	var s = document.getElementById(img);
-	if (hasClass(s,"icon-double-angle-right"))
+	if (hasClass(s,"fa-angle-double-right"))
 	{
-        removeClass(s,"icon-double-angle-right");
-        addClass(s,"icon-double-angle-down");
+        removeClass(s,"fa-angle-double-right");
+        addClass(s,"fa-angle-double-down");
 	}
 	else
 	{
-        removeClass(s,"icon-double-angle-down");
-        addClass(s,"icon-double-angle-right");
+        removeClass(s,"fa-angle-double-down");
+        addClass(s,"fa-angle-double-right");
 	}
 }
 
@@ -192,17 +192,17 @@ function toggle_star(item)
 {
     var s = document.getElementById(item); //'star$item_id'
     //var image = s.src.split("/").pop();
-    if (hasClass(s,"icon-star-empty"))
+    if (hasClass(s,"fa-star-o"))
     {
-        removeClass(s,"icon-star-empty");
-        addClass(s,"icon-star");
+        removeClass(s,"fa-star-o");
+        addClass(s,"fa-star");
         s.src = "star_on.gif";
         url = "view-action.php?"+s.id+"=starred&action=star";
     }
     else
     {
-        removeClass(s,"icon-star");
-        addClass(s,"icon-star-empty");
+        removeClass(s,"fa-star");
+        addClass(s,"fa-star-o");
         s.src = "star_off.gif";
         url = "view-action.php?"+s.id+"=starred&action=unstar";
     }

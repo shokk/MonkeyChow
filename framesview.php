@@ -75,7 +75,7 @@ $noedit = $_GET['noedit'];
 	echo ($mobiletrue) ?  "<link rel=\"stylesheet\" href=\"mc-iphone.css\" media=\"all\" />" : "";
 ?>
 	<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 </head>
 <!--body onload='<?php echo ($mobiletrue) ?  "" : "parent.menu.location.reload();hideLoader();"; ?>' -->
 <body onload="parent.menu.location.href='feeds.php?<?php if($newonly=="yes"){echo "newonly=yes&";} ?><?php if($framed=="yes"){echo "framed=yes&";} ?><?php if($tags!="All tags"){echo "tags=$tags";} ?>';" >
@@ -219,7 +219,7 @@ foreach($result as $row)
 {
 	$items = true;
     #$starred = "star_off.gif";
-    $starred = "-empty";
+    $starred = "-o";
     $checked = "";
 	$item_read = "0";
 	$timestamp =  date("F j, Y, g:i a", $row['timestamp'] - (FOF_TIME_OFFSET * 60 * 60));
@@ -273,10 +273,10 @@ foreach($result as $row)
 	$dcdate = $row['dcdate'];
 	$dcsubject = $row['dcsubject'];
 
-    $expand_link = "<i type=\"image\" class=\"g120 icon-large icon-double-angle-right\" border=\"0\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_arrowimage('exp$item_id');toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');\" title=\"" . _("Expand Body") . "\" ></i>";
-    #$expand_link .= "<img class=\"g120 icon-large\" border=\"0\" src=\"ipodarrowright.jpg\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_arrowimage('exp$item_id');toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');\" title=\"" . _("Expand Body") . "\" >";
-    $star_link   = "<i type=\"image\" class=\"g120 icon-large icon-star$starred\" border=\"0\" name=\"star$item_id\" id=\"star$item_id\" alt=\"" . _("Toggle Star") . "\" onclick=\"toggle_star('star$item_id')\" title=\"" . _("Toggle Star") . "\"></i>";
-    #$star_link .= "<img class=\"g120\" border=\"0\" src=\"$starred\" name=\"star$item_id\" id=\"star$item_id\" alt=\"" . _("Toggle Star") . "\" onclick=\"toggle_star('star$item_id')\" title=\"" . _("Toggle Star") . "\" />";
+    $expand_link = "<i type=\"image\" class=\"fa g120 fa-lg fa-angle-double-right\" border=\"0\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_arrowimage('exp$item_id');toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');\" title=\"" . _("Expand Body") . "\" ></i>";
+    #$expand_link .= "<img class=\"fa-lg\" border=\"0\" src=\"ipodarrowright.jpg\" name=\"exp$item_id\" id=\"exp$item_id\" alt=\"" . _("Expand Body") . "\" onclick=\"toggle_arrowimage('exp$item_id');toggle_expand_item('body$item_id');toggle_expand_item('controls1-$item_id');toggle_expand_item('controls2-$item_id');\" title=\"" . _("Expand Body") . "\" >";
+    $star_link   = "<i type=\"image\" class=\"fa g120 fa-lg fa-star$starred\" border=\"0\" name=\"star$item_id\" id=\"star$item_id\" alt=\"" . _("Toggle Star") . "\" onclick=\"toggle_star('star$item_id')\" title=\"" . _("Toggle Star") . "\"></i>";
+    #$star_link .= "<img class=\"fa-lg\" border=\"0\" src=\"$starred\" name=\"star$item_id\" id=\"star$item_id\" alt=\"" . _("Toggle Star") . "\" onclick=\"toggle_star('star$item_id')\" title=\"" . _("Toggle Star") . "\" />";
 
     #echo "<div id=\"box\">";
     echo '<div id="shadow-container"><div class="shadow1"><div class="shadow2"><div class="shadow3">';
@@ -294,8 +294,8 @@ foreach($result as $row)
 
     echo "</td><td width=\"45\" align=\"right\">";
     echo "<div valign=\"center\" class=\"controls\">";
-    echo "<i class=\"icon-large icon-arrow-down\"></i><img class=\"g120\" src=\"flagup.jpg\" title=\"" . _("flag up to here") . "\" border=\"0\" onclick=\"flag_upto('c" . $item_id . "." . $count . "')\" />";
-    echo "<i class=\"icon-large icon-check-sign\"></i><input class=\"bigcheck\" onclick=\"clickage(event)\" type=\"checkbox\" name=\"c" . $item_id . "." . $count . "\" value=\"checked\" /><i class=\"icon-check icon-check-empty icon-large\"></i>";
+    echo "<i class=\"fa fa-lg fa-arrow-down\"></i><img class=\"g120\" src=\"flagup.jpg\" title=\"" . _("flag up to here") . "\" border=\"0\" onclick=\"flag_upto('c" . $item_id . "." . $count . "')\" />";
+    echo "<i class=\"fa fa-lg fa-check-sign\"></i><input class=\"bigcheck\" onclick=\"clickage(event)\" type=\"checkbox\" name=\"c" . $item_id . "." . $count . "\" value=\"checked\" /><i class=\"fa fa-check-o fa-lg\"></i>";
     echo '</div>';
 
     echo "</tr></td>";

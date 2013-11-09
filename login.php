@@ -49,7 +49,7 @@ if(isset($_REQUEST["user_name"]) && isset($_REQUEST["user_password"]))
 		font-size: 16px;
       }
       </style>
-      <link rel="stylesheet" href="<?php echo $MC_PATH?>/Font-Awesome/css/font-awesome.min.css" media="all">
+      <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
    </head>
       
   <body>
@@ -60,11 +60,11 @@ if(isset($_REQUEST["user_name"]) && isset($_REQUEST["user_password"]))
 		Please log in
 
 		<div class="input-prepend">
-    			<span class="add-on"><i class="icon-envelope"></i></span>
+    			<span class="add-on"><i class="fa-envelope-o"></i></span>
     			<input class="span2" type="text" name="user_name" placeholder="Username or Email">
   		</div>
   		<div class="input-prepend">
-    			<span class="add-on"><i class="icon-key"></i></span>
+    			<span class="add-on"><i class="fa-key"></i></span>
     			<input class="span2" type="password" name="user_password" placeholder="Password">
 		</div>
 		<input type=submit value="Log on!" style='font-size: 16px; float: left;'><br>
