@@ -20,6 +20,7 @@
 
 define('FOF_TIME_OFFSET', 0);
 define(COOKIE_DIR, "/");
+define('MC_PATH', dirname($_SERVER["REQUEST_URI"]));
 
 ######################################################################
 # Database connection information.  Host, username, password, database name.
