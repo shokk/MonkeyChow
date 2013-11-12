@@ -177,17 +177,17 @@ foreach($feeds as $row)
 <?php
 	echo ($_REQUEST['newonly'] == "yes") ? "&amp;newonly=yes" : "&amp;newonly=" ;
 	echo ($_REQUEST['framed'] == "yes") ? "&amp;framed=yes" : "&amp;framed=" ; 
-	echo ($_REQUEST['tags']) ? "&amp;tags=" . $tags : "" ; 
+	echo ($_REQUEST['tags'] != "") ? "&amp;tags=" . $tags : "" ; 
 ?>
 " target="menu"><div class="nowrap">
 <?php 
     //echo ($_REQUEST['newonly'] == "yes") ? _("all articles") : _("new articles") ; </a><br />
 ?>
 <a href="opml.php<?php 
-    if (($tags) && ($tags != _("All tags")) && ($tags != _("No tags")) )
-    {
+    #if (($tags) && ($tags != _("All tags")) && ($tags != _("No tags")) )
+    #{
         echo "?tags=".$tags;
-    }
+    #}
 ?>"><b><?php echo _("opml list") ?></b></div></a>
 
 </td></tr>
@@ -204,10 +204,10 @@ foreach (array("age", "unread", "title") as $col)
     echo "<td><nobr><a title=\"$title[$col]\"target=\"_self\" href=\"feeds.php?order=$col " ;
     echo ($_REQUEST['framed'] == "yes") ? "&amp;framed=yes" : "" ;
     echo ($_REQUEST['newonly'] == "yes") ? "&amp;newonly=yes" : "" ;
-	if (($tags) && ($tags != _("All tags")) && ($tags != _("No tags")))
-	{
+	#if (($tags) && ($tags != _("All tags")) && ($tags != _("No tags")))
+	#{
             echo ($tags) ? "&tags=".$tags : "" ;
-	}
+	#}
 	if($col == $order && $direction == "asc")
 	{
 		echo "&amp;direction=desc\">";
@@ -277,6 +277,7 @@ foreach($feeds as $row)
 
 		if ($_REQUEST['framed'] == "yes") {
 			$u = $u . "&amp;framed=yes";
+            $u = $u . "&tags=" . $tags;
 		}
 
 		$rowstring.= "<td class=\"nowrap\">";
@@ -366,10 +367,10 @@ foreach($feeds as $row)
 		{
 			$rowstring.= ($_REQUEST['direction']) ? "direction=" . $direction . "&" : "";
 		}
-		if (($tags) && ($tags != _("All tags")) && ($tags != _("No tags")))
-		{
+		#if (($tags) && ($tags != _("All tags")) && ($tags != _("No tags")))
+		#{
 			$rowstring.= ($_REQUEST['tags']) ? "tags=" . $tags . "&" : "";
-		}
+		#}
 		$rowstring.= ($_REQUEST['newonly'] == "yes") ? "newonly=yes&" : "";
 		$rowstring.= "feed=$id\" target=\"_self\" title=\"" . _("mark all read") . "\">";
 		$rowstring.= ($_REQUEST['framed'] == "yes") ? "m" : _("mark all read");
