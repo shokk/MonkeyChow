@@ -67,7 +67,12 @@ $noedit = $_GET['noedit'];
 ?>
 	<script src="fof.js" type="text/javascript"></script>
 	<script src="behindthescenes.js"></script>
+    <script src="mousetrap/mousetrap.min.js"></script>
     <script>
+        Mousetrap.bind(["shift+a"], function() {
+            parent.items.flag_all();parent.items.mark_read();
+            return false;
+        });
         Load();
     </script>
 	<link rel="stylesheet" href="fof-common.css" media="all" />
@@ -295,7 +300,7 @@ foreach($result as $row)
     echo "</td><td width=\"45\" align=\"right\">";
     echo "<div valign=\"center\" class=\"controls\">";
     echo "<i class=\"fa fa-lg fa-arrow-down\"></i><img class=\"g120\" src=\"flagup.jpg\" title=\"" . _("flag up to here") . "\" border=\"0\" onclick=\"flag_upto('c" . $item_id . "." . $count . "')\" />";
-    echo "<i class=\"fa fa-lg fa-check-sign\"></i><input class=\"bigcheck\" onclick=\"clickage(event)\" type=\"checkbox\" name=\"c" . $item_id . "." . $count . "\" value=\"checked\" /><i class=\"fa fa-check-o fa-lg\"></i>";
+    echo "<i class=\"fa fa-lg fa-check-square\"></i><input class=\"bigcheck\" onclick=\"clickage(event)\" type=\"checkbox\" name=\"c" . $item_id . "." . $count . "\" value=\"checked\" /><i class=\"fa fa-check-o fa-lg\"></i>";
     echo '</div>';
 
     echo "</tr></td>";
@@ -471,5 +476,7 @@ if(!$items)
 <?php
 		}
 ?>
+
+
 </body>
 </html>
