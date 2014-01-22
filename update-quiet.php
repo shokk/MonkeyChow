@@ -15,47 +15,52 @@
  *
  */
 
-$debug = 0;
+// this script should be protected by .htaccess so nobody runs it when not intended
+
+$debug = 0;           // admin mode to make sure everything is running smoothly
+$segmentsperhour = 5; // is used to ok dividing feed updates across the hour
+                      // set segmentsperhour to 0 to disable
+                      // set the cronjob accordingly
 
 if (!$debug) ob_start();
 include_once("fof-main.php");
 include_once("init.php");
 
-if (isset ($_REQUEST['age']))
-{
-		$sql_query = "select count(*) from " . $FOF_FEED_TABLE  ." where ";
-}
-else
-{
-		$sql_query = "select count(*) from " . $FOF_FEED_TABLE ;
-}
+$sql_query = "select count(*) from " . $FOF_FEED_TABLE ;
+
 $count = mysql_fetch_array(mysql_query("$sql_query"));
 $feedsnum = $count[0];
+
 $feedsfrom=1;
 $feedsto=$feedsnum;
+
 if ($debug) echo "$feedsnum total feeds<br />";
-
-$mins = date(i);
-$hourseg=($mins/60);
-$numseg=intval($feedsnum/5) + 1;
-if ($debug)
+if ($segmentsperhour)
 {
-	print $numseg . " feeds per fifth<br />";
-	print $mins . " mins into the hour<br />";
-	print $hourseg * 100 . "% into the hour<br />";
+    $mins = date(i);
+    $hourseg=($mins/60);
+    $numseg=intval($feedsnum/$segmentsperhour) + 1;
+    if ($debug)
+    {
+	    print $numseg . " feeds per fifth<br />";
+	    print $mins . " mins into the hour<br />";
+	    print $hourseg * 100 . "% into the hour<br />";
+        print "cronjob should be run every " . 60/$segmentsperhour . " minutes.<br />";
+    }
+    $segment = intval($hourseg * $segmentsperhour) + 1;
+    if ($debug) print "segment " . $segment . " (1/" . $segmentsperhour . " of the hour)<br />";
+    $feedsfrom = intval($numseg * ($segment - 1));
+    $feedsto = intval($numseg * $segment);
 }
-$segment = intval($hourseg * 5) + 1;
-if ($debug) print "segment " . $segment . " (fifth of the hour)<br />";
-$feedsfrom = intval($numseg * ($segment - 1));
-$feedsto = intval($numseg * $segment);
 if ($debug) print "updating feeds $feedsfrom thru $feedsto<br />";
-
+if ($debug) exit;
 $numcount = 0;
 if ($debug) exit(0);
 $sql_query="select distinct " . $FOF_FEED_TABLE . ".url, " . $FOF_FEED_TABLE . ".id, " . $FOF_FEED_TABLE . ".title from " . $FOF_FEED_TABLE . ", " . $FOF_SUBSCRIPTION_TABLE . " where " . $FOF_FEED_TABLE . ".id = " . $FOF_SUBSCRIPTION_TABLE . ".feed_id ";
 $sql .= " order by title";
 if ($debug) print "$sql_query<br />";
 $result = fof_do_query($sql_query);
+
 while($row = mysql_fetch_array($result))
 {
     if (($numcount >= $feedsfrom) && ($numcount <= $feedsto))
@@ -72,5 +77,5 @@ $result = fof_do_query("optimize table " . $FOF_FEED_TABLE . "," . $FOF_ITEM_TAB
 $result = fof_do_query("flush tables;");
 flush();
 
-ob_end_clean();
+if (!$debug) ob_end_clean();
 ?>
