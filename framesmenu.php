@@ -114,8 +114,8 @@ if ($_REQUEST['framed']) {
     $onchangerequest .=($_REQUEST['framed']) ? "framed=yes&how=paged&" : "";
     $onchangerequest .="tags='+document.getElementById('TagsForm').tags.value;";
     $onchangerequest .="changetagslink(document.getElementById('TagsForm').tags.value);";
-    $onchangerequest .= "self.blur;";
-    $onchangerequest .= "};";
+    $onchangerequest .="this.blur();";
+    $onchangerequest .="};";
 ?>
 
     <form id="TagsForm">
