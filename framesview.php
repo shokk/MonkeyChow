@@ -73,6 +73,11 @@ $noedit = $_GET['noedit'];
             parent.items.flag_all();parent.items.mark_read();
             return false;
         });
+        Mousetrap.bind(["m"], function() {
+            parent.items.mark_read();
+            return false;
+        });
+        parent.menu.location.href='feeds.php?<?php if($newonly=="yes"){echo "newonly=yes&";} ?><?php if($framed=="yes"){echo "framed=yes&";} ?><?php if($tags!="All tags"){echo "tags=$tags";} ?>';
         Load();
     </script>
 	<link rel="stylesheet" href="fof-common.css" media="all" />
@@ -83,7 +88,8 @@ $noedit = $_GET['noedit'];
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 </head>
 <!--body onload='<?php echo ($mobiletrue) ?  "" : "parent.menu.location.reload();hideLoader();"; ?>' -->
-<body onload="parent.menu.location.href='feeds.php?<?php if($newonly=="yes"){echo "newonly=yes&";} ?><?php if($framed=="yes"){echo "framed=yes&";} ?><?php if($tags!="All tags"){echo "tags=$tags";} ?>';" >
+<!--body onload="parent.menu.location.href='feeds.php?<?php if($newonly=="yes"){echo "newonly=yes&";} ?><?php if($framed=="yes"){echo "framed=yes&";} ?><?php if($tags!="All tags"){echo "tags=$tags";} ?>';" -->
+<body>
 <?php
 	if(!$_REQUEST['framed'])
 	{
