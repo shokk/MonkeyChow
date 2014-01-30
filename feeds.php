@@ -15,6 +15,8 @@
  *
  */
 $specialtest=0;
+$totalfeeditems=0;
+$totalfeedcountnum=0;
 include_once("init.php");
 include_once("fof-main.php");
 header("Content-Type: text/html; charset=utf-8");
@@ -151,27 +153,14 @@ else
 {
 
 $feeds = fof_get_feeds($order, $direction, $tags);
-/*
-
-#find number of total unread for this user
-
-# list their subscribed feeds
-# list subset of existing on server minus marked
-# use that number below
-
-foreach($feeds as $row)
-{
-    $n++;
-    $unread += $row['unread'];
-}
-*/
-
+$unreadfeedsnum=0;
+$unreadarticlesnum=0;
 ?>
 
 <table cellspacing="0" cellpadding="1" border="0">
 <tr><td colspan="3">
 
-<?php echo $n . " " . _("feeds") . ", " . $unread . " " . _("new items") ?>;
+<span id="unreadfeedsnum"><?php echo $unreadfeedsnum ?></span> <?php echo _("feeds") . ", " ?><span id="unreadarticlesnum"><?php echo $unreadarticlesnum ?></span> <?php echo _("new items") . "." ?></span>
 </td><td align="right">
 <a href="feeds.php?
 <?php
@@ -314,8 +303,7 @@ foreach($feeds as $row)
 	
 		# see if any of them are NOT set to 1 for read
 		$feedusermarkeditemssql = "SELECT * FROM `$FOF_USERITEM_TABLE`,`$FOF_ITEM_TABLE` WHERE user_id=" . current_user() . " AND `$FOF_ITEM_TABLE`.id=`$FOF_USERITEM_TABLE`.item_id AND `$FOF_ITEM_TABLE`.feed_id=" . $id;
-		# return remaining
-		# if newonly and if count is 0, don't display the line!
+		
 		#$rowstring.= $feedusermarkeditemssql . "</br>";
 		$myresult=fof_do_query($feedusermarkeditemssql);
 		$feedcountmarked="0";
@@ -328,16 +316,21 @@ foreach($feeds as $row)
 		#$rowstring.= " (userid " . current_user() . " has " . $totalnew . " new items for feed id " . $id . ") ";
 		$items = $totalnew;
 
-
-		#if ($items > 0)
-		#{
-			$rowstring.= "<a href=\"" . $u . (($_REQUEST['newonly']) ? "&newonly=yes" : "") . "&amp;what=" . (($_REQUEST['newonly']) ? "" : "all") . "\" title=\"all items\">$items</a>";
-		#}
-		#else
-		#{
-		#	$rowstring.= "0";
-		#	#dont print the line!!
-		#}
+        if ($_REQUEST['newonly'])
+        {
+            if ($items>0)
+            {
+                $totalfeeditems += $items;
+                $totalfeedcountnum++;
+            }
+        }
+        else
+        {
+            $totalfeeditems += $items;
+            $totalfeedcountnum++;
+        }
+        
+		$rowstring.= "<a href=\"" . $u . (($_REQUEST['newonly']) ? "&newonly=yes" : "") . "&amp;what=" . (($_REQUEST['newonly']) ? "" : "all") . "\" title=\"all items\">$items</a>";
 
 		$rowstring.= ($_REQUEST['framed'] == "yes") ? "" : "):" ;
 	
@@ -427,14 +420,14 @@ foreach($feeds as $row)
 	}
 } // foreach feeds
 }
-
-
 ?>
-
 </table>
 
 </div>
 <?php 
+    echo "<script type=\"text/javascript\">\n";
+    echo "document.getElementById('unreadfeedsnum').innerHTML=\"" . $totalfeedcountnum . "\";document.getElementById('unreadarticlesnum').innerHTML=\"" . $totalfeeditems . "\";\n";
+    echo "</script>\n";
     include("panel.php"); 
     //include("framesmenu.php"); 
     if($_REQUEST['framed'] == "yes")
