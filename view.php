@@ -160,6 +160,5 @@ if(!$noedit)
 	readfile("view-menu.html");
 }
 ?>
-<script type="text/javascript" src="http://del.icio.us/js/playtagger"></script>
 </body>
 </html>

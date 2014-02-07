@@ -27,7 +27,7 @@
 
 error_reporting(E_ERROR);
 require_once('config.php');
-
+#$MC_PATH = "/monkeychow";
 $fb_app_id = FB_APP_ID;
 $fb_app_secret = FB_APP_SECRET;
 $fb_callback = FB_CALLBACK;
@@ -65,7 +65,6 @@ $FOF_SUBSCRIPTION_TABLE = FOF_SUBSCRIPTION_TABLE;
 $FOF_FLAG_TABLE = FOF_FLAG_TABLE;
 $FOF_USER_TABLE = FOF_USER_TABLE;
 $FOF_USERITEM_TABLE = FOF_USERITEM_TABLE;
-$MC_PATH = MC_PATH;
 
 require_once('simplepie/autoloader.php');
 
@@ -1227,6 +1226,7 @@ function fof_update_feed($url)
 {
     global $FOF_FEED_TABLE;
     global $FOF_ITEM_TABLE;
+    global $MC_PATH;
     //
     // Get feed data.
     //
@@ -1241,7 +1241,9 @@ function fof_update_feed($url)
     } else {
         return 0;
     }
+    $piefeed->enable_cache(true);
     $piefeed->set_cache_location(FOF_CACHE_DIR);
+    $piefeed->set_cache_duration(2592000);
     $piefeed->init();
     $piefeed->handle_content_type();
 
@@ -1366,7 +1368,9 @@ function fof_update_feed($url)
       $content = str_replace('"?i=http', '"http', $content); // dont know why
                                                             // this creeps in
       if ($enclosure = $item->get_enclosure(0)) {
-          $content .= '<br />(' . $enclosure->get_type() . '; ' . $enclosure->get_size() . ' MB)<br />';
+          $enclink = $enclosure->get_link();
+          $content .= '<br /><a href="' . $enclink . '">' . $enclink . '</a><br />';        
+          $content .= "<br />(" . $enclosure->get_type() . "; " . $enclosure->get_extension() . "; " . $enclosure->get_size() . " MB; " . $enclosure->get_link() . ")<br />";
       }
 
       //
@@ -1377,6 +1381,7 @@ function fof_update_feed($url)
       $result = fof_do_query($sql);
       $row = mysql_fetch_array($result);
       $id = $row['id'];
+      $result = fof_do_query($sql);
 
       // if the item does not already exist, add it
       if (mysql_num_rows($result) == 0) {
@@ -1396,8 +1401,9 @@ function fof_update_feed($url)
          }
          if ($ageflag) {
              $n++;
+             #$sql = "insert into $FOF_ITEM_TABLE (feed_id,link,title,content,dcdate,dccreator,dcsubject) values ($feed_id,$link,$title,$content,$dcdatetime,$dccreator,$dcsubject)";
              $sql = "insert into " . $FOF_ITEM_TABLE . " (feed_id,link,title,content,dcdate,dccreator,dcsubject) values ('$feed_id','$link','$title','$content','$dcdatetime','$dccreator','$dcsubject')";
-             //print "<br />" . $sql . "<br />";
+             #print "<br />" . $sql . "zzz<br />";
              $result = fof_do_query($sql);
              $ids[] = $id; //keep track of it so we don't delete it below
              $ageflag = 0;

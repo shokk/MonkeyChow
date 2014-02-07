@@ -482,7 +482,6 @@ if(!$items)
 <?php
 		}
 ?>
-
-
+<script src="playtagger/playtagger-pop.js" type="text/javascript"></script>
 </body>
 </html>

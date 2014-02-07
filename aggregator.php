@@ -271,6 +271,5 @@ if(!$items)
 ?>
 
 </div>
-<script type="text/javascript" src="http://del.icio.us/js/playtagger"></script>
 </body>
 </html>

@@ -93,6 +93,11 @@ else
 </frameset>
 <frame src="framesview.php?how=paged&framed=yes" name="items" />
 </frameset>
+<noframes>
+<body bgcolor="#FFFFFF">
+Sorry, this site requires a frames-compatible browser.
+</body>
+</noframes>
 </html>
 <?php
 }
