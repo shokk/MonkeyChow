@@ -27,7 +27,6 @@
 
 error_reporting(E_ERROR);
 require_once('config.php');
-#$MC_PATH = "/monkeychow";
 $fb_app_id = FB_APP_ID;
 $fb_app_secret = FB_APP_SECRET;
 $fb_callback = FB_CALLBACK;
@@ -57,7 +56,6 @@ if ($bu_app_id) {require_once('includes/Buffer.php');}
 
 define('FOF_MAX_INT', 2147483647);
 $_REQUEST['baserequest']=$_SERVER['SERVER_NAME'] . dirname($_SERVER['REQUEST_URI']);
-// $_REQUEST['baserequest']= "shokk.shokk.com" . dirname($_SERVER['REQUEST_URI']);
 
 $FOF_FEED_TABLE = FOF_FEED_TABLE;
 $FOF_ITEM_TABLE = FOF_ITEM_TABLE;
@@ -957,7 +955,6 @@ function fof_add_feed($url)
     } else {
         $piefeed = new SimplePie();
         $piefeed->set_image_handler();
-        //$piefeed->strip_ads(true);
         $piefeed->set_feed_url($url);
         $piefeed->set_cache_location(FOF_CACHE_DIR);
         $piefeed->init();
@@ -1226,7 +1223,7 @@ function fof_update_feed($url)
 {
     global $FOF_FEED_TABLE;
     global $FOF_ITEM_TABLE;
-    global $MC_PATH;
+    #global $MC_PATH;
     //
     // Get feed data.
     //
@@ -1243,7 +1240,7 @@ function fof_update_feed($url)
     }
     $piefeed->enable_cache(true);
     $piefeed->set_cache_location(FOF_CACHE_DIR);
-    $piefeed->set_cache_duration(2592000);
+    $piefeed->set_cache_duration(3600);
     $piefeed->init();
     $piefeed->handle_content_type();
 
@@ -1319,13 +1316,13 @@ function fof_update_feed($url)
     
         $sql = "update `$FOF_FEED_TABLE` set `image`='$imagelink' where `id`='$feed_id'";
         $result = fof_do_query($sql);
-    }
+       }
 
 
-   //
-   // Get article items and attributes
-   //
-   foreach ($piefeed->get_items() as $item) {
+      //
+      // Get article items and attributes
+      //
+      foreach ($piefeed->get_items() as $item) {
       $ageflag= "0";
       $dccreator = "";
       $dcsubject = "";

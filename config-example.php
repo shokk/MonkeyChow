@@ -19,8 +19,8 @@
 // Difference, in hours, between your server and your local time zone.
 
 define('FOF_TIME_OFFSET', 0);
-define(COOKIE_DIR, "/");
-define('MC_PATH', dirname($_SERVER["REQUEST_URI"]));
+define('COOKIE_DIR', "/");
+define('MC_PATH', "/monkeychow");
 
 ######################################################################
 # Database connection information.  Host, username, password, database name.
