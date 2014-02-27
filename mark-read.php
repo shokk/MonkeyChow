@@ -26,15 +26,12 @@ $tags = $_REQUEST['tags'];
 $order = $_REQUEST['order'];
 $direction = $_REQUEST['direction'];
 
-# building this query
-#$sql = "insert $FOF_ITEM_TABLE set flag_id=1,user_id=" . current_user(); //, timestamp=timestamp ";
-
 if($feed)
 {
 	$sql = "insert into $FOF_USERITEM_TABLE (user_id,flag_id,item_id) VALUES "; //, timestamp=timestamp ";
 	$id_list="";
 	$sql1 = "select id as item_id from " . $FOF_ITEM_TABLE . " WHERE feed_id=" . $feed . " and NOT (id IN (SELECT item_id FROM $FOF_USERITEM_TABLE WHERE user_id=" . current_user() . " AND flag_id=1))";
-echo "$sql1";
+    echo "$sql1";
 	$result1=fof_do_query($sql1);
     while($row = mysql_fetch_array($result1))
 	{
@@ -71,12 +68,16 @@ echo "$sql1";
 }
 else if($item)
 {
+    echo $sql;
 	$sql = "insert $FOF_ITEM_TABLE set flag_id=1,user_id=" . current_user(); //, timestamp=timestamp ";
 	$sql .= " where `item_id` = " . $item;
 }
 
-//echo $sql;
-$result = fof_do_query($sql);
+if($value_list != "")
+{
+    echo $sql;
+    $result = fof_do_query($sql);
+}
 
 if($item)
 {

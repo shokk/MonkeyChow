@@ -56,6 +56,7 @@ switch ($_REQUEST['action'])
  * apply the action to.
  */
 $ids = array();
+$idcount=0;
 while (list($key, $val) = each ($_REQUEST))
 {
 	if ($val == "checked")
@@ -86,18 +87,25 @@ switch ($_REQUEST['action'])
     case 'publish':
 		$sql = "INSERT IGNORE INTO `$FOF_USERITEM_TABLE` (`user_id`, `item_id`, `flag_id`) VALUES ";
 		$sqlvalues="";
-		foreach ($ids as $id)
-		{
-			if ($sqlvalues == "")
-			{
-				$sqlvalues = "('" . current_user() . "', '" . $id . "', '" . $to_set . "')";
-			}
-			else
-			{
-				$sqlvalues .= ", ('" . current_user() . "', '" . $id . "', '" . $to_set . "')";
-			}
-		}
-		$sql .= $sqlvalues;
+        if (count($ids))
+        {
+		    foreach ($ids as $id)
+		    {
+			    if ($sqlvalues == "")
+			    {
+				    $sqlvalues = "('" . current_user() . "', '" . $id . "', '" . $to_set . "')";
+			    }
+			    else
+			    {
+				    $sqlvalues .= ", ('" . current_user() . "', '" . $id . "', '" . $to_set . "')";
+			    }
+		    }
+		    $sql .= $sqlvalues;
+        }
+        else
+        {
+            header("Location: " . urldecode($_REQUEST['return']));
+        }
 		break;
     case 'unread':
     case 'unstar':

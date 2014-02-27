@@ -166,10 +166,9 @@ function unflag_all()
 
 function mark_read()
 {
-	//document.items['action'].value = 'read';
-	//document.items['return'].value = escape(location);
 	document.getElementById('action').value = 'read';
-    	document.getElementById('return').value = escape(location);
+    document.getElementById('return').value = escape(location);
+    //alert(location);
 	//alert(document.items['action'].value);
 	//alert(document.items['return'].value);
 	document.items.submit();
@@ -181,6 +180,7 @@ function mark_unread()
 	document.items['return'].value = escape(location);
 	document.items.submit();
 }
+
 function togglePublish(item)
 {
        url = "view-action.php?c"+item.value+"=checked&action=" +
