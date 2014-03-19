@@ -256,7 +256,7 @@ function fof_get_feeds($order = 'title', $direction = 'asc', $tags = null)
         $feeds[$i]['description'] = $row['description'];
         $feeds[$i]['image'] = $row['image'];
   
-        $age = fof_rss_age($feeds[$i]['url']);
+        $age = fof_rss_age($row['id']);
         $feeds[$i]['age'] = $age;
 
 
@@ -321,7 +321,7 @@ function fof_get_feeds($order = 'title', $direction = 'asc', $tags = null)
     $sql .= " AND " .  $FOF_ITEM_TABLE . ".id NOT IN ( SELECT `$FOF_ITEM_TABLE`.id FROM `$FOF_ITEM_TABLE`,`$FOF_FEED_TABLE`,`$FOF_FLAG_TABLE`,`$FOF_USER_TABLE` WHERE `$FOF_USER_TABLE`.user_id=" . current_user() . " AND flag_id=1) ";
     $sql .= " AND " . $FOF_FEED_TABLE . ".id IN (SELECT  `feed_id` FROM  `" . $FOF_SUBSCRIPTION_TABLE . "` WHERE user_id =" . current_user() . ")";
     $sql .= " group by feed_id order by " . $FOF_FEED_TABLE . ".title";
-    //print "SQL: $sql <br/>";
+    //print "SECOND SQL: $sql <br/>";
     $result = fof_do_query($sql);
 
     while ($row = mysql_fetch_array($result)) {
@@ -722,19 +722,27 @@ function fof_do_query($sql, $live=0)
  *
  * @return int
  */
-function fof_rss_age($url)
+function fof_rss_age($id)
 {
+   global $FOF_ITEM_TABLE;
    //sha or md5?
-   $filename = FOF_CACHE_DIR . "/" . md5($url) . '.spc';
-   if (file_exists($filename)) {
-      // find how long ago the file was added to the cache
-      // and whether that is longer then MAX_AGE
-      $mtime = filemtime($filename);
-      $age = time() - $mtime;
-      return $age;
-   } else {
-      return FOF_MAX_INT;
-   }
+   //$filename = FOF_CACHE_DIR . "/" . md5($url) . '.spc';
+   //if (file_exists($filename)) {
+   //   // find how long ago the file was added to the cache
+   //   // and whether that is longer then MAX_AGE
+   //   $mtime = filemtime($filename);
+   //   $age = time() - $mtime;
+   //   return $id;
+   //} else {
+   //   return FOF_MAX_INT;
+   //}
+   
+   //given the id of a feed, look up the most recent article and return it
+   $sql = "SELECT $FOF_ITEM_TABLE.`timestamp` FROM $FOF_ITEM_TABLE where $FOF_ITEM_TABLE.`feed_id`=".$id." ORDER BY $FOF_ITEM_TABLE.`timestamp` DESC LIMIT 1;";
+   $row = mysql_fetch_array(fof_do_query($sql));
+   $latest_time = strtotime("now") - strtotime($row['timestamp']);
+   #echo "<b>$latest_time</b> $sql</br>";
+   return $latest_time;
 }
 
 /**
