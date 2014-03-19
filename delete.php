@@ -66,18 +66,20 @@ else
 $result = fof_do_query($sql);
 
 
-if (eregi("feeds.php",$_SERVER['HTTP_REFERER']))
-{
-    echo $result_text . "  <a href=\"";
-    echo ($framed) ? "framesview.php" : "index.php";
-    echo ($framed) ? "?framed=yes" : "";
-    echo "\">" . _("Return to new items") . "</a>";
-}
-else
-{
-   echo $_REQUEST['ref'] . ":";
-   echo $result_text . "  <a href=\"index.php\">Return to new items.</a>";
-}
+#if (eregi("feeds.php",$_SERVER['HTTP_REFERER']))
+#{
+#    echo $result_text . "  <a href=\"";
+#    echo ($framed) ? "framesview.php" : "index.php";
+#    echo ($framed) ? "?framed=yes" : "";
+#    echo "\">" . _("Return to new items") . "</a>";
+#}
+#else
+#{
+#   echo $_REQUEST['ref'] . ":";
+#   echo $result_text . "  <a href=\"index.php\">Return to new items.</a>";
+#}
+
+header('Location: dino.php', true, 302);
 ?>
 
 </body></html>
