@@ -29,7 +29,7 @@ header("Content-Type: text/html; charset=utf-8");
 </head>
 <body>
 <center><h1><?php echo _("dinosaurs") ?></h1></center>
-<?php echo _("The following feeds have not been updated in 30 days.  Consider deleting them from your feed list to save update time.") ?>
+<?php echo _("The following feeds have not been updated in at least 30 days.  Consider deleting them from your feed list to save update time.") ."</br></br>" ?>
 <table cellspacing="0" cellpadding="1" border="0">
 <tr class="heading">
 
@@ -38,33 +38,49 @@ header("Content-Type: text/html; charset=utf-8");
 <td><nobr><b><?php echo _("Last Updated") ?></b></nobr></td>
 </tr>
 <?php
-$rightnow=time();
 
-$sql = "select link, url, id, title from " . $FOF_FEED_TABLE . " order by title";
+$num_feed_list=fof_get_subscribed_feeds_list();
+$sql = "select `" . $FOF_FEED_TABLE . "`.`link`,`" . $FOF_FEED_TABLE . "`.`url`,`" . $FOF_FEED_TABLE . "`.`id`,`" . $FOF_FEED_TABLE . "`.`title` from `" . $FOF_FEED_TABLE . "` where `" . $FOF_FEED_TABLE . "`.`id` in (" . $num_feed_list . ") order by title";
+//echo "$sql</br>";
 $result = fof_do_query($sql);
-
 while($row = mysql_fetch_array($result))
 {
-        $sql2 = "select `timestamp` from items where feed_id = " . $row['id'] . " ORDER BY `timestamp` DESC LIMIT 0,1";
-        $result2 = fof_do_query($sql2);
-        $row2 = mysql_fetch_array($result2);
-
-#test $row2['timestamp'] to see if it older than 30 days and then proceed if so
-    $difftime = $rightnow - strtotime($row2['timestamp']);
-    if ($difftime > 2592000)
+    $id = $row['id'];
+    if ($id)
     {
-
-
-        print "<tr><td>";
-?><a href="delete.php?feed=<?php echo $row['id'] ?>" title="<?php echo _("delete") ?>" onclick="return confirm('<?php echo _("Are you sure?") ?>')"><?php echo _("delete") ?></a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<?php
-        print "</td><td>";
-        print "<a href=\"" . $row['link'] . "\">" . $row['title'] . "</a>";
-        print "</td><td>";
-        print $row2['timestamp'];
-#print "xx" . strtotime($row2['timestamp']) . "xx<br/>";
-#print "yy" . $difftime . "yy<br />";
-#print "zz" .  $rightnow . "zz<br />";
-        print "</td></tr>";
+        $age = fof_rss_age($id);
+        if ($age == FOF_MAX_INT) {
+            $agestr = "never";
+            $agestrabbr = "&infin;";
+        } else {
+            $seconds = $age % 60;
+            $minutes = $age / 60 % 60;
+            $hours = $age / 60 / 60 % 24;
+            $days = floor($age / 60 / 60 / 24);
+            if ($seconds) {
+                $agestrabbr = $seconds . "s";
+            }
+            if ($minutes) {
+                $agestrabbr = $minutes . "m";
+            }
+            if ($hours) {
+                $agestrabbr = $hours . "h";
+            }
+            if ($days) {
+                $agestrabbr = $days . "d";
+            }
+        }
+        #$feeds[$i]['agestrabbr'] = $agestrabbr;
+        if ($age > 2592000)
+        {
+            print "<tr><td>";
+    ?><a href="delete.php?feed=<?php echo $row['id'] ?>" title="<?php echo _("delete") ?>" onclick="return confirm('<?php echo _("Are you sure?") ?>')"><?php echo _("delete") ?></a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<?php
+            print "</td><td>";
+            print "<a href=\"" . $row['link'] . "\">" . $row['title'] . "</a>";
+            print "</td><td>";
+            print $agestrabbr; #.$age.$row['timestamp'];
+            print "</td></tr>";
+        }
     }
 }
 ?>
