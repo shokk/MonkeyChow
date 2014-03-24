@@ -82,7 +82,7 @@ function saveLayout()
 <?php
 if ($_REQUEST['framed'] == "yes") {
 ?>  
-        <form><select name="tags" fontsize="8" onchange="javascript:parent.menu.location.href='feeds.php?<?php echo ($_REQUEST['framed'] == "yes") ? "framed=yes&" : "" ;  ?>tags='+this.value;parent.items.location.href='framesview.php?<?php echo ($_REQUEST['framed'] == "yes") ? "framed=yes&how=paged&" : "" ;  ?>tags='+this.value"><?php
+        <form><select name="tags" fontsize="8" onchange="javascript:parent.menu.location.replace='feeds.php?<?php echo ($_REQUEST['framed'] == "yes") ? "framed=yes&" : "" ;  ?>tags='+this.value;parent.items.location.replace='framesview.php?<?php echo ($_REQUEST['framed'] == "yes") ? "framed=yes&how=paged&" : "" ;  ?>tags='+this.value"><?php
     $sql = "SELECT $FOF_SUBSCRIPTION_TABLE.tags FROM `" . $FOF_FEED_TABLE . "` WHERE $FOF_SUBSCRIPTION_TABLE.tags != '' group by tags";
 $result = fof_do_query($sql);
 print "<OPTION VALUE=\"" . _("All tags") . "\">" . _("All tags") . "\n";
@@ -152,9 +152,9 @@ if (user_is_new())
 else
 {
 
-$feeds = fof_get_feeds($order, $direction, $tags);
-$unreadfeedsnum=0;
-$unreadarticlesnum=0;
+    $feeds = fof_get_feeds($order, $direction, $tags);
+    $unreadfeedsnum=0;
+    $unreadarticlesnum=0;
 ?>
 
 <table cellspacing="0" cellpadding="1" border="0">
@@ -275,7 +275,8 @@ foreach($feeds as $row)
 		if($unread)
 		{
 			$rowstring.= ($_REQUEST['framed'] == "yes") ? "" : "(" ;
-			$rowstring.= "<a class=\"unread\" title=\"new items\" href=\"$u\">$unread";
+			#$rowstring.= "<a class=\"unread\" title=\"new items\" href=\"$u\">$unread";
+			$rowstring.= "<a onclick=\"parent.items.location.replace=\"$u\";return false;\" class=\"unread\" title=\"new items\">$unread";
 			$rowstring.= ($_REQUEST['framed'] == "yes") ? "" : " new" ;
 			$rowstring.= "</a>";
 			$rowstring.= ($_REQUEST['framed'] == "yes") ? "/" : " / " ;
@@ -330,7 +331,8 @@ foreach($feeds as $row)
             $totalfeedcountnum++;
         }
         
-		$rowstring.= "<a href=\"" . $u . (($_REQUEST['newonly']) ? "&newonly=yes" : "") . "&amp;what=" . (($_REQUEST['newonly']) ? "" : "all") . "\" title=\"all items\">$items</a>";
+		#$rowstring.= "<a href=\"" . $u . (($_REQUEST['newonly']) ? "&newonly=yes" : "") . "&amp;what=" . (($_REQUEST['newonly']) ? "" : "all") . "\" title=\"all items\">$items</a>";
+		$rowstring.= "<a href=\"#\" style=\"color: #0000FF; text-decoration: underline\" onclick=\"parent.items.location.replace('$u" . (($_REQUEST['newonly']) ? "&newonly=yes" : "") . "&amp;what=" . (($_REQUEST['newonly']) ? "" : "all") . "');return false;\" title=\"all items\">$items</a>";
 
 		$rowstring.= ($_REQUEST['framed'] == "yes") ? "" : "):" ;
 	

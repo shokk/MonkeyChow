@@ -118,6 +118,12 @@ switch ($_REQUEST['action'])
 }
 
 fof_do_query($sql);
-header("Location: " . urldecode($_REQUEST['return']));
+?>
+<script>
+  //alert("<?php echo "hi"?>");
+  window.location.replace("<?php echo urldecode($_REQUEST['return'])?>");
+</script>
+<?php
+//header("Location: " . urldecode($_REQUEST['return']), 'true');
 
 ?>
