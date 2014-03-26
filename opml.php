@@ -16,6 +16,7 @@
  */
 
 header("Content-Type: text/xml; charset=utf-8");
+include_once("fof-main.php");
 include_once("init.php");
 include_once("config.php");
 $tags = ereg_replace("[^A-Za-z0-9 ]", "", $tags);
@@ -43,12 +44,13 @@ $date_created=htmlspecialchars($row['date_added']);
   <body>
 <?php
 
-$sql = "select url, title, link, description, date_added from `$FOF_FEED_TABLE` where private=0";
-if (isset($tags) && ($tags != _("All tags")) && ($tags != _("No tags")) )
+$sql = "select url, title, link, description, date_added from `$FOF_FEED_TABLE`,`$FOF_SUBSCRIPTION_TABLE` WHERE `$FOF_SUBSCRIPTION_TABLE`.`user_id`=" . current_user() . " AND `$FOF_FEED_TABLE`.`id`=`$FOF_SUBSCRIPTION_TABLE`.`feed_id` AND private=0";
+if (isset($tags) && ($tags != "") && ($tags != _("All tags")) && ($tags != _("No tags")) )
 {
     $sql .= " and tags LIKE '%$tags%'";
 }
 $sql .= " order by title";
+echo "SQL:: " . $sql . " ::SQL";
 $result = fof_do_query($sql);
 
 while($row = mysql_fetch_array($result))
