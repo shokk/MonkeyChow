@@ -443,6 +443,95 @@ function fof_view_title($feed=null, $what="new", $when=null, $start=null, $limit
  *
  * @return array
  */
+
+function array_kshift(&$arr)
+{
+  list($k) = array_keys($arr);
+  $r  = array($k=>$arr[$k]);
+  unset($arr[$k]);
+  return $r;
+}
+
+function fof_get_items_pastweek($feed=null, $what="new", $when=null, $start=null, $limit=null, $order="desc", $tags=null, $search=null)
+{
+    $stopwords = array("a", "about", "above", "above", "across", "after", "afterwards", "again", "against", "all", "almost", "alone", "along", "already", "also","although","always","am","among", "amongst", "amoungst", "amount",  "an", "and", "another", "any","anyhow","anyone","anything","anyway", "anywhere", "are", "around", "as",  "at", "back","be","became", "because","become","becomes", "becoming", "been", "before", "beforehand", "behind", "being", "below", "beside", "besides", "between", "beyond", "bill", "both", "bottom","but", "by", "call", "can", "cannot", "cant", "co", "con", "could", "couldnt", "cry", "de", "describe", "detail", "do", "done", "down", "due", "during", "each", "eg", "eight", "either", "eleven","else", "elsewhere", "empty", "enough", "etc", "even", "ever", "every", "everyone", "everything", "everywhere", "except", "few", "fifteen", "fify", "fill", "find", "fire", "first", "five", "for", "former", "formerly", "forty", "found", "four", "from", "front", "full", "further", "get", "give", "go", "had", "has", "hasnt", "have", "he", "hence", "her", "here", "hereafter", "hereby", "herein", "hereupon", "hers", "herself", "him", "himself", "his", "how", "however", "hundred", "ie", "if", "in", "inc", "indeed", "interest", "into", "is", "it", "its", "itself", "keep", "last", "latter", "latterly", "least", "less", "ltd", "made", "many", "may", "me", "meanwhile", "might", "mill", "mine", "more", "moreover", "most", "mostly", "move", "much", "must", "my", "myself", "name", "namely", "neither", "never", "nevertheless", "next", "nine", "no", "nobody", "none", "noone", "nor", "not", "nothing", "now", "nowhere", "of", "off", "often", "on", "once", "one", "only", "onto", "or", "other", "others", "otherwise", "our", "ours", "ourselves", "out", "over", "own","part", "per", "perhaps", "please", "put", "rather", "re", "same", "see", "seem", "seemed", "seeming", "seems", "serious", "several", "she", "should", "show", "side", "since", "sincere", "six", "sixty", "so", "some", "somehow", "someone", "something", "sometime", "sometimes", "somewhere", "still", "such", "system", "take", "ten", "than", "that", "the", "their", "them", "themselves", "then", "thence", "there", "thereafter", "thereby", "therefore", "therein", "thereupon", "these", "they", "thickv", "thin", "third", "this", "those", "though", "three", "through", "throughout", "thru", "thus", "to", "together", "too", "top", "toward", "towards", "twelve", "twenty", "two", "un", "under", "until", "up", "upon", "us", "very", "via", "was", "we", "well", "were", "what", "whatever", "when", "whence", "whenever", "where", "whereafter", "whereas", "whereby", "wherein", "whereupon", "wherever", "whether", "which", "while", "whither", "who", "whoever", "whole", "whom", "whose", "why", "will", "with", "within", "without", "would", "yet", "you", "your", "yours", "yourself", "yourselves", "the","...","thank","screenshot","Chapters","new");
+    $stopworduniquearray=array();
+    foreach($stopwords as $stopword)
+    {
+       $stopworduniquearray[$stopword]=1;
+    }
+    #print_r($stopworduniquearray);
+    $titlestring="";
+    global $FOF_FEED_TABLE;
+    global $FOF_ITEM_TABLE;
+    global $FOF_USERITEM_TABLE;
+    global $FOF_SUBSCRIPTION_TABLE;
+    if ($when="week")
+    {
+        $begin = strtotime(date("Y/m/d", time() - (7 * 24 * 60 * 60))); # one week ago
+    }
+    elseif ($when="today")
+    {
+        $begin = strtotime(date("Y/m/d", time() - (24 * 60 * 60))); # one day ago
+    }
+    else
+    {
+        #blah
+    }
+    $end=time();
+    $sql = "SELECT `$FOF_ITEM_TABLE`.`title`,`$FOF_ITEM_TABLE`.`timestamp` FROM `$FOF_ITEM_TABLE`,`$FOF_FEED_TABLE`,`$FOF_SUBSCRIPTION_TABLE` WHERE `$FOF_ITEM_TABLE`.`feed_id`=`$FOF_FEED_TABLE`.`id` AND `$FOF_FEED_TABLE`.`id`=`$FOF_SUBSCRIPTION_TABLE`.`feed_id` AND `$FOF_SUBSCRIPTION_TABLE`.`user_id`=" . current_user() . " AND (`$FOF_ITEM_TABLE`.`timestamp` > NOW( ) - INTERVAL 1 WEEK)";
+    #echo "SQL:: " . $sql . " ::SQL</br></br>";
+    $result = fof_do_query($sql);
+    while($row = mysql_fetch_array($result))
+    {
+        $origstring = $row['title'];
+        $origstring = trim($origstring);
+        $origstring = strtolower(str_replace(array("[","]","–","-","&amp","\$","...","\'","\"","#","?","!",",",";",":"),"", $origstring));
+        $titlestring .= htmlspecialchars($origstring) . " ";
+    }
+    $pieces=explode(" ", $titlestring);
+    $countingarray=array_count_values($pieces); #count all the pieces - not unique
+    foreach($countingarray as $key => $value)
+    {
+         $value=trim($value);
+         if(preg_match('/^\d/',$key))
+         {
+             #echo $countingarray[$key];
+         }
+         else
+         {
+             $countarray[$key]=$value;
+         }
+    }
+    $countingarray=array();
+    krsort($countarray);
+    $uniquearray=array_diff_key($countarray,$stopworduniquearray); #the unique count of the group of non-stopwords
+    $countarray=array();
+    $stopworduniquearray=array();
+    arsort($uniquearray);
+    array_kshift($uniquearray);
+
+    #at this point we have all the popular keep words in titles from the articles of the past week
+    #everything below is how we determine which are the most popular
+    #for something quick and dirty, I take 3 articles of the top 10 (30) and 2 articles from the next 10 (20)
+  
+    $array=array();
+    for($i=0;$i<20;$i++)
+    {
+        $keyword = key(array_kshift($uniquearray));
+        $rows=fof_get_items($null,"search",$null,0,3,$null,$null,$keyword);
+        $array[] = $rows;
+    }
+    for($i=0;$i<10;$i++)
+    {
+        $keyword =  key(array_kshift($uniquearray));
+        $rows=fof_get_items($null,"search",$null,0,2,$null,$null,$keyword);
+        $array[] = $rows;
+    }
+    $array = fof_multi_sort($array, 'dcdate', $order != "asc");
+    return $array;
+}
+
 function fof_get_items($feed=null, $what="new", $when=null, $start=null, $limit=null, $order="desc", $tags=null, $search=null)
 {
     global $FOF_FEED_TABLE;
@@ -468,8 +557,7 @@ function fof_get_items($feed=null, $what="new", $when=null, $start=null, $limit=
           if (!is_numeric($limit)) {
              $limit = FOF_HOWMANY;
           }
-    
-              $limit_clause = " limit $start, $limit ";
+          $limit_clause = " limit $start, $limit ";
        }
 
     $query = "select " . $FOF_FEED_TABLE . ".tags as feed_tags, " . $FOF_FEED_TABLE . ".image as feed_image, " . $FOF_FEED_TABLE . ".title as feed_title, " . $FOF_FEED_TABLE . ".link as feed_link, " . $FOF_FEED_TABLE . ".description as feed_description, " . $FOF_ITEM_TABLE . ".id as item_id, " . $FOF_ITEM_TABLE . ".link as item_link, " . $FOF_ITEM_TABLE . ".title as item_title, UNIX_TIMESTAMP(" . $FOF_ITEM_TABLE . ".timestamp) as timestamp, " . $FOF_ITEM_TABLE . ".content as item_content, " . $FOF_ITEM_TABLE . ".dcdate as dcdate, " . $FOF_ITEM_TABLE . ".dccreator as dccreator, " . $FOF_ITEM_TABLE . ".dcsubject as dcsubject ";
@@ -527,6 +615,7 @@ function fof_get_items($feed=null, $what="new", $when=null, $start=null, $limit=
     }
 
     $query .= " order by timestamp desc $limit_clause";    
+    //echo "SQL:: " . $query . " ::SQL<br/>";
     if ($feedlist != "") {
         $result = fof_do_query($query);
     } else {
@@ -537,9 +626,7 @@ function fof_get_items($feed=null, $what="new", $when=null, $start=null, $limit=
       $array[] = $row;
    }
 
-   //$array = fof_multi_sort($array, 'timestamp', $order != "asc");
    $array = fof_multi_sort($array, 'dcdate', $order != "asc");
-
    return $array;
 }
 
@@ -600,20 +687,24 @@ function fof_get_frame_nav_links($feed=null, $what="new", $when=null, $start=nul
         $earlier = $start + $limit;
         $later = $start - $limit;
 
+        $newonly = $_REQUEST['newonly'];
         $string .= "<a href=\"framesview.php?feed=$feed&amp;what=$what&amp;when=$when&amp;how=paged&amp;which=$earlier&amp;howmany=$limit";
         $string .= ($framed) ? "&amp;framed=yes" : "";
         $string .= ($tags) ? "&amp;tags=" . $tags : "";
+        $string .= ($newonly) ? "&amp;newonly=" . $newonly : "";
         $string .= "\">[&laquo; previous $limit]</a> ";
         if ($later >= 0) {
             $string .= "<a href=\"framesview.php?feed=$feed&amp;what=$what&amp;when=$when&amp;how=paged&amp;howmany=$limit";
             $string .= ($framed) ? "&amp;framed=yes" : "";
             $string .= ($tags) ? "&amp;tags=" . $tags : "";
+            $string .= ($newonly) ? "&amp;newonly=" . $newonly : "";
             $string .= "\">[current items]</a> ";
         }
         if ($later >= 0) {
             $string .= "<a href=\"framesview.php?feed=$feed&amp;what=$what&amp;when=$when&amp;how=paged&amp;which=$later&amp;howmany=$limit";
             $string .= ($framed) ? "&amp;framed=yes" : "";
             $string .= ($tags) ? "&amp;tags=" . $tags : "";
+            $string .= ($newonly) ? "&amp;newonly=" . $newonly : "";
             $string .= "\">[next $limit &raquo;]</a> ";
         }
     }
@@ -695,7 +786,7 @@ function fof_do_query($sql, $live=0)
         list($usec, $sec) = explode(" ", microtime()); 
         $t1 = (float)$sec + (float)$usec;
     }
-    //echo $sql . "<br/>";
+    #echo "SQL:: " . $sql . " ::SQL<br/>";
     $result = mysql_query($sql, $fof_connection);
 
     if (defined('FOF_QUERY_LOG') && FOF_QUERY_LOG) {
@@ -1149,16 +1240,20 @@ function fof_feed_row($id)
  *
  * @return string
  */
-function fof_search_word($word)
+function fof_search_word($word,$items=null)
 {
     //sanitize $word!!!!
     global $FOF_FEED_TABLE;
-    $result = fof_do_query("select url, title, link, id from " . $FOF_FEED_TABLE . " where title LIKE '$word'");
+    if($items)
+    {
+        $LIMIT=" LIMIT $items";
+    }
+    $result = fof_do_query("select url, title, link, id from " . $FOF_FEED_TABLE . " where title LIKE '$word'$LIMIT");
     if (mysql_num_rows($result) == 0) {
        return false;
     } else {
-       $row = mysql_fetch_array($result);
-       return $row;
+       $rows = mysql_fetch_array($result);
+       return $rows;
     }
 }
 

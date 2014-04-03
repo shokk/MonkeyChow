@@ -91,6 +91,7 @@ function changetagslink(tagz)
 ?>
 <input type="hidden" name="how" value="paged"><input type="hidden" name="what" value="search"><input style=".input" type="reset" value="<?php echo _("Clear") ?>"></input><input style=".input" type="text" height="8" size="8" maxlength="40" name ="search" value=""><input style=".input" type="submit" value="<?php echo _("Find") ?>"><i class="fa fa-search"></i>
 </form>
+&nbsp<a href="hot.php?framed=yes" target="items">Hot Articles</a>
 </ul>
 <ul>
 <?php
@@ -120,7 +121,7 @@ if ($_REQUEST['framed']) {
 
     <form id="TagsForm">
 New Feeds
-<input name="NewTags" type="checkbox" id="NewTags" onCheck="parent.items.location.href=addParameter(parent.items.location,newonly,yes);location=addParameter(location,newonly,yes);" onUnCheck="parent.items.location.href=addParameter(parent.items.location,newonly,no);location=addParameter(location,newonly,no);" onchange="if(NewTags.checked){eval(NewTags.getAttribute('onCheck'));}else if(!NewTags.checked){eval(NewTags.getAttribute('onUnCheck'));};" >
+<input name="NewTags" type="checkbox" id="NewTags" onCheck="parent.items.location.replace=addParameter(parent.items.location,newonly,yes);location=addParameter(location,newonly,yes);" onUnCheck="parent.items.location.replace=addParameter(parent.items.location,newonly,no);location=addParameter(location,newonly,no);" onchange="if(NewTags.checked){eval(NewTags.getAttribute('onCheck'));}else if(!NewTags.checked){eval(NewTags.getAttribute('onUnCheck'));};" >
 <?php
     //var newText = text.replace(/(src=).*?(&)/,'$1' + newSrc + '$2');
 ?>
